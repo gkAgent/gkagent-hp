@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — gkAgent</title>
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; text-align:center; }
+    .wrap { position:relative; z-index:2; padding:2rem; }
+    .num {
+      font-size:clamp(7rem,20vw,12rem); font-weight:900; line-height:1;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      margin-bottom:.5rem; letter-spacing:-.04em;
+    }
+    .msg  { font-size:1.1rem; font-weight:600; margin-bottom:.75rem; }
+    .sub  { font-size:.9rem; color:var(--muted2); margin-bottom:2.5rem; }
+    .glow-orb { position:fixed; border-radius:50%; pointer-events:none; filter:blur(80px); }
+    .glow-1 { width:400px;height:400px; background:radial-gradient(circle,rgba(212,175,55,.08) 0%,transparent 70%); top:40%;left:50%;transform:translate(-50%,-50%); }
+  </style>
+</head>
+<body>
+<canvas id="neural-bg"></canvas>
+<div class="glow-orb glow-1"></div>
+<div class="wrap">
+  <div class="num">404</div>
+  <div class="msg">ページが見つかりませんでした。</div>
+  <div class="sub">そのページは存在しないか、移動した可能性があります。</div>
+  <a href="index.html" class="btn btn-gold">ホームに戻る →</a>
+</div>
+<script src="js/neural.js"></script>
+</body>
+</html>

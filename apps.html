@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アプリ・ツール — gkAgent</title>
+  <meta name="description" content="大手が高額で売るソフトウェアを、手の届く価格で。AI連携アプリ・スタンドアロンツールを順次リリース。">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    #hero { min-height: 55vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:9rem 2rem 5rem; }
+    .glow-orb { position:absolute; border-radius:50%; pointer-events:none; filter:blur(80px); }
+    .glow-1 { width:450px;height:450px; background:radial-gradient(circle,rgba(212,175,55,.1) 0%,transparent 70%); top:40%;left:50%; transform:translate(-50%,-50%); }
+
+    h1 { font-size:clamp(2.2rem,5vw,4rem); font-weight:900; letter-spacing:-.03em; line-height:1.1; margin-bottom:1.5rem; }
+    .h1-gold { background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .hero-sub { font-size:1rem; color:var(--muted2); max-width:500px; margin:0 auto 2.5rem; }
+
+    /* tracks */
+    .tracks { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:4rem; }
+    .track-card { padding:2.5rem; border-radius:var(--radius-lg); position:relative; overflow:hidden; }
+    .track-ai   { background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(59,130,246,.02)); border:1px solid rgba(59,130,246,.2); }
+    .track-free { background:linear-gradient(135deg,rgba(34,197,94,.07),rgba(34,197,94,.02)); border:1px solid rgba(34,197,94,.2); }
+    .track-icon { font-size:2.5rem; margin-bottom:1.25rem; }
+    .track-card h3 { font-size:1.2rem; font-weight:700; margin-bottom:.6rem; }
+    .track-card p  { font-size:.875rem; color:var(--muted2); line-height:1.85; margin-bottom:1.5rem; }
+    .track-price { font-size:.8rem; font-weight:600; padding:.3rem .9rem; border-radius:999px; display:inline-block; }
+    .price-blue  { background:rgba(59,130,246,.12); color:var(--blue); border:1px solid rgba(59,130,246,.25); }
+    .price-green { background:rgba(34,197,94,.12);  color:#22c55e;    border:1px solid rgba(34,197,94,.25); }
+
+    /* distribution */
+    .dist-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.25rem; margin-bottom:5rem; }
+    .dist-card { padding:1.5rem; border-radius:var(--radius-md); background:var(--surface); border:1px solid var(--border); text-align:center; }
+    .dist-card .icon { font-size:1.8rem; margin-bottom:.75rem; }
+    .dist-card h4 { font-size:.9rem; font-weight:700; margin-bottom:.4rem; }
+    .dist-card p  { font-size:.78rem; color:var(--muted2); }
+
+    /* coming soon big */
+    .cs-area {
+      text-align:center;
+      padding:6rem 2rem;
+      border:1px dashed rgba(212,175,55,.2);
+      border-radius:var(--radius-lg);
+      background:rgba(212,175,55,.02);
+    }
+    .cs-area h3 { font-size:1.6rem; font-weight:700; margin-bottom:.75rem; }
+    .cs-area p  { font-size:.9rem; color:var(--muted2); max-width:440px; margin:0 auto 2rem; line-height:1.9; }
+    .cs-icon    { font-size:3.5rem; margin-bottom:1.5rem; opacity:.45; }
+
+    /* notify form */
+    .notify-form { display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; }
+    .notify-form a { font-size:.85rem; }
+
+    @media(max-width:768px){ .tracks{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo">gkAgent</div></div>
+<canvas id="neural-bg"></canvas>
+
+<nav>
+  <a class="nav-logo" href="index.html">gkAgent</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">コンテンツ</a></li>
+    <li><a href="apps.html" class="active">アプリ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="index.html#sns" class="nav-cta">SNS</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="glow-orb glow-1"></div>
+  <div class="hero-inner" style="position:relative;z-index:1;">
+    <div class="eyebrow"><span class="eyebrow-dot"></span>APPS & TOOLS</div>
+    <h1>大手の<span class="h1-gold">高額ライセンス</span>は、<br>もういらない。</h1>
+    <p class="hero-sub">
+      数万円のソフトウェアを個人が手の届く価格で。<br>
+      AI連携・スタンドアロン、2つのトラックで順次リリースします。
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="inner">
+    <div class="s-label reveal">2つのトラック</div>
+    <h2 class="reveal">使い方に合わせて、選べる。</h2>
+    <p class="s-desc reveal">APIが使える環境でも、使えない環境でも。両方に対応します。</p>
+
+    <div class="tracks">
+      <div class="track-card track-ai reveal">
+        <div class="track-icon">🤖</div>
+        <h3>AI連携トラック</h3>
+        <p>生成AIと組み合わせることで、従来ツールを超える体験を提供します。AnthropicのAPIキーを設定するだけで即稼働。Claude Codeで設計・実装した本格ツールです。</p>
+        <span class="track-price price-blue">980円〜 ／ Note販売</span>
+      </div>
+      <div class="track-card track-free reveal">
+        <div class="track-icon">⚡</div>
+        <h3>スタンドアロントラック</h3>
+        <p>トークンゼロ・API不要。インストールしてすぐ動く。大手が高額で売っているものを個人規模で再設計し、シンプルに使えます。ランニングコスト0円。</p>
+        <span class="track-price price-green">無料〜100円 ／ 窓の杜・Note</span>
+      </div>
+    </div>
+
+    <div class="s-label reveal">配布チャネル</div>
+    <h2 class="reveal" style="margin-bottom:2.5rem;">どこでも手に入る。</h2>
+    <div class="dist-grid">
+      <div class="dist-card reveal">
+        <div class="icon">🪟</div>
+        <h4>窓の杜</h4>
+        <p>国内最大級のフリーソフト配布サイト。スタンドアロンツール中心</p>
+      </div>
+      <div class="dist-card reveal">
+        <div class="icon">📝</div>
+        <h4>Note</h4>
+        <p>解説記事＋ダウンロードリンクのセットで販売。両トラック対応</p>
+      </div>
+      <div class="dist-card reveal">
+        <div class="icon">🐙</div>
+        <h4>GitHub</h4>
+        <p>オープンソースとして公開するものはここから。スターで応援を</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section style="background:var(--bg2);">
+  <div class="inner">
+    <div class="cs-area reveal">
+      <div class="cs-icon">🔨</div>
+      <div class="soon-badge">✦ COMING SOON</div>
+      <h3>アプリを鋭意制作中</h3>
+      <p>
+        「こういうの意外となかった、使える！」と思えるものを<br>
+        一つずつ、丁寧に作ります。<br>
+        SNSをフォローして最新情報をお受け取りください。
+      </p>
+      <div class="notify-form">
+        <a href="index.html#sns" class="btn btn-gold">SNSをフォロー →</a>
+        <a href="products.html" class="btn btn-ghost">既存コンテンツを見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a class="footer-logo" href="index.html">gkAgent</a>
+  <div>© 2026 gkAgent</div>
+</footer>
+
+<script src="js/neural.js"></script>
+<script>
+  // Loader
+  window.addEventListener('load', () => {
+    const l = document.getElementById('loader');
+    setTimeout(() => l.classList.add('hidden'), 400);
+  });
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

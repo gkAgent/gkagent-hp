@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gkAgent — AIで、仕事を変える。</title>
+  <meta name="description" content="17年の業務アプリ開発 × 生成AIエージェント技術。大手の高額ソフトを、手の届く価格で。">
+  <!-- OGP -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="gkAgent — AIで、仕事を変える。">
+  <meta property="og:description" content="17年の業務アプリ開発 × 生成AIエージェント技術。大手の高額ソフトを、手の届く価格で。">
+  <meta property="og:site_name"   content="gkAgent">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="gkAgent — AIで、仕事を変える。">
+  <meta name="twitter:description" content="17年の業務アプリ開発 × 生成AIエージェント技術。大手の高額ソフトを、手の届く価格で。">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 1.5rem 5rem;
+      position: relative;
+    }
+    .glow-orb { position:absolute; border-radius:50%; pointer-events:none; filter:blur(80px); }
+    .glow-1 { width:500px;height:500px; background:radial-gradient(circle,rgba(212,175,55,.12) 0%,transparent 70%); top:40%;left:50%;transform:translate(-50%,-50%); }
+    .glow-2 { width:300px;height:300px; background:radial-gradient(circle,rgba(59,130,246,.07) 0%,transparent 70%); top:25%;left:25%; }
+
+    h1 { font-size:clamp(2.5rem,7vw,5rem); font-weight:900; line-height:1.1; letter-spacing:-.03em; margin-bottom:1.75rem; }
+    .h1-plain { color:var(--text); }
+    .h1-gold  { background:linear-gradient(135deg,var(--gold) 20%,var(--gold2) 80%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .hero-sub { font-size:1rem; color:var(--muted2); max-width:500px; margin:0 auto 2.75rem; line-height:1.9; }
+    .hero-cta { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+    /* ── ABOUT ── */
+    #about { background:var(--bg2); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+    .about-text p { color:var(--muted2); margin-bottom:1.2rem; font-size:.93rem; }
+    .about-text strong { color:var(--text); }
+    .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .stat-card { padding:1.5rem; border-radius:14px; background:rgba(212,175,55,.04); border:1px solid rgba(212,175,55,.12); }
+    .stat-num  { font-size:1.65rem; font-weight:800; background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; line-height:1; margin-bottom:.35rem; }
+    .stat-lbl  { font-size:.74rem; color:var(--muted); letter-spacing:.04em; }
+
+    /* ── PRODUCTS ── */
+    .prod-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+    .prod-card { padding:2rem; }
+    .prod-card .p-icon { width:44px;height:44px; border-radius:10px; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:1.25rem; }
+    .prod-card h3 { font-size:1.05rem; font-weight:700; margin-bottom:.5rem; }
+    .prod-card p  { font-size:.875rem; color:var(--muted2); margin-bottom:1.25rem; line-height:1.8; }
+    .tag-row { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .card-dim { opacity:.58; }
+
+    /* ── APPS ── */
+    #apps { background:var(--bg2); }
+    .apps-tracks { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+    .track { padding:2rem; border-radius:var(--radius-lg); }
+    .track-ai   { background:rgba(59,130,246,.05);  border:1px solid rgba(59,130,246,.18); }
+    .track-free { background:rgba(34,197,94,.05);   border:1px solid rgba(34,197,94,.18); }
+    .track-icon { font-size:2rem; margin-bottom:1rem; }
+    .track h3   { font-size:1rem; font-weight:700; margin-bottom:.5rem; }
+    .track p    { font-size:.85rem; color:var(--muted2); line-height:1.8; margin-bottom:1.1rem; }
+    .tprice { font-size:.78rem; font-weight:600; padding:.25rem .8rem; border-radius:999px; display:inline-block; }
+    .tp-blue  { background:rgba(59,130,246,.12); color:var(--blue); border:1px solid rgba(59,130,246,.25); }
+    .tp-green { background:rgba(34,197,94,.12);  color:#22c55e;    border:1px solid rgba(34,197,94,.25); }
+    .apps-cs {
+      margin-top:2rem; text-align:center; padding:3.5rem 1.5rem;
+      border:1px dashed rgba(212,175,55,.18); border-radius:var(--radius-lg);
+      background:rgba(212,175,55,.02);
+    }
+    .apps-cs p { font-size:.87rem; color:var(--muted2); margin:.75rem 0 1.5rem; }
+
+    /* ── PHILOSOPHY ── */
+    .phil-box {
+      text-align:center; padding:4.5rem 2.5rem;
+      border:1px solid var(--border-hi); border-radius:22px;
+      background:linear-gradient(135deg,rgba(212,175,55,.04),rgba(59,130,246,.03));
+      position:relative; overflow:hidden;
+    }
+    .phil-box::before { content:'❝'; position:absolute; top:1.5rem; left:2rem; font-size:5rem; color:rgba(212,175,55,.07); font-family:Georgia,serif; line-height:1; }
+    .phil-q { font-size:clamp(1.1rem,3vw,1.75rem); font-weight:700; line-height:1.55; margin-bottom:1.25rem; }
+    .phil-q span { background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .phil-cite { font-size:.85rem; color:var(--muted); }
+
+    /* ── SNS ── */
+    #sns { background:var(--bg2); }
+    .sns-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+    .sns-card {
+      display:flex; flex-direction:column; align-items:center; gap:.55rem;
+      padding:1.6rem 1rem; border-radius:13px; text-decoration:none;
+      color:var(--muted2); background:var(--surface); border:1px solid var(--border);
+      font-size:.8rem; letter-spacing:.04em; transition:all .25s;
+    }
+    .sns-card:hover { border-color:var(--border-hi); color:var(--gold); transform:translateY(-3px); box-shadow:0 12px 35px rgba(212,175,55,.1); }
+    .sns-card .sicon { font-size:1.55rem; }
+
+    /* ── responsive ── */
+    @media(max-width:768px){
+      .about-grid { grid-template-columns:1fr; gap:2.5rem; }
+      .apps-tracks { grid-template-columns:1fr; }
+      .sns-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media(max-width:400px){
+      .sns-grid { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader"><div class="loader-logo">gkAgent</div></div>
+<canvas id="neural-bg"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">gkAgent</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="products.html">コンテンツ</a></li>
+    <li><a href="apps.html">アプリ</a></li>
+    <li><a href="#sns" class="nav-cta">SNS</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+  <div style="position:relative;z-index:1;">
+    <div class="eyebrow"><span class="eyebrow-dot"></span>個人開発 × 生成AI</div>
+    <h1><span class="h1-plain">AIで、仕事を</span><br><span class="h1-gold">変える。</span></h1>
+    <p class="hero-sub">17年の業務アプリ開発経験と生成AIエージェント技術。<br>大手が高額で売るソフトウェアを、手の届く価格で届けます。</p>
+    <div class="hero-cta">
+      <a href="products.html" class="btn btn-gold">コンテンツを見る →</a>
+      <a href="apps.html"     class="btn btn-ghost">アプリを見る</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="s-label reveal">About</div>
+        <h2 class="reveal">作り続ける人が、<br>届ける。</h2>
+        <p class="reveal">IT企業で<strong>自治体向け業務アプリを17年以上</strong>作り続けてきました。現場で「こんなツールがあれば」と思いながら、自分で作り続けてきた人間です。</p>
+        <p class="reveal"><strong>Claude Codeを使って、大手が高額で売っているソフトウェアの代替を、手の届く価格で届ける</strong>ことがミッションです。広く浅くではなく、<strong>広く、深く。</strong></p>
+        <a href="about.html" class="btn btn-ghost reveal" style="margin-top:.5rem;">詳しく読む →</a>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card reveal"><div class="stat-num">17年+</div><div class="stat-lbl">業務アプリ開発歴</div></div>
+        <div class="stat-card reveal"><div class="stat-num">AI駆動</div><div class="stat-lbl">Claude Code活用</div></div>
+        <div class="stat-card reveal"><div class="stat-num">自治体</div><div class="stat-lbl">専門ドメイン知識</div></div>
+        <div class="stat-card reveal"><div class="stat-num">広く深く</div><div class="stat-lbl">設計哲学</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="inner">
+    <div class="s-label reveal">Contents</div>
+    <h2 class="reveal">コンテンツ</h2>
+    <p class="s-desc reveal">Note・Zennで、AIと仕事の掛け算を届けています。</p>
+    <div class="prod-grid">
+      <div class="glass prod-card reveal">
+        <div class="p-icon">📚</div>
+        <h3>AI Agent開発ガイド</h3>
+        <p>Claude Codeで業務開発を加速する教材。VB.NET・Java・C#・TypeScriptに完全対応。60章・約100万字。</p>
+        <div class="tag-row"><span class="tag tag-gold">Note 2,980円</span><span class="tag">販売中</span></div>
+      </div>
+      <div class="glass prod-card card-dim reveal">
+        <div class="soon-badge">✦ COMING SOON</div>
+        <div class="p-icon">🤖</div>
+        <h3>生成AI × アプリ解説記事</h3>
+        <p>Claude Codeで作ったAI連携アプリの設計・実装ノウハウ。</p>
+        <div class="tag-row"><span class="tag">Note</span><span class="tag">980円〜</span></div>
+      </div>
+      <div class="glass prod-card card-dim reveal">
+        <div class="soon-badge">✦ COMING SOON</div>
+        <div class="p-icon">🛠️</div>
+        <h3>便利ツール解説 × 配布</h3>
+        <p>API不要・トークンゼロですぐ使えるツール。窓の杜・Note から配布。</p>
+        <div class="tag-row"><span class="tag">窓の杜 / Note</span><span class="tag">100円〜</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="products.html" class="btn btn-ghost reveal">すべてのコンテンツ →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- APPS -->
+<section id="apps">
+  <div class="inner">
+    <div class="s-label reveal">Apps</div>
+    <h2 class="reveal">アプリ・ツール配布</h2>
+    <p class="s-desc reveal">大手の高額ライセンスは、もういらない。</p>
+    <div class="apps-tracks">
+      <div class="track track-ai reveal">
+        <div class="track-icon">🤖</div>
+        <h3>AI連携トラック</h3>
+        <p>生成AIと組み合わせることで従来ツールを超える体験を。APIキーを設定するだけで即稼働。</p>
+        <span class="tprice tp-blue">980円〜 ／ Note</span>
+      </div>
+      <div class="track track-free reveal">
+        <div class="track-icon">⚡</div>
+        <h3>スタンドアロントラック</h3>
+        <p>トークンゼロ・API不要。インストールしてすぐ動く。ランニングコスト0円。</p>
+        <span class="tprice tp-green">無料〜100円 ／ 窓の杜・Note</span>
+      </div>
+    </div>
+    <div class="apps-cs reveal">
+      <div class="soon-badge">✦ COMING SOON</div>
+      <p>アプリを鋭意制作中。SNSをフォローして最新情報をお受け取りください。</p>
+      <a href="apps.html" class="btn btn-ghost">詳細を見る →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="inner">
+    <div class="phil-box reveal">
+      <div class="phil-q">広く浅くでは、何も生まれない。<br><span>広く、深く。</span><br>それが、すべての設計の起点です。</div>
+      <div class="phil-cite">大手が高額で売るソフトウェアを、個人が手の届く価格で届ける。17年分の現場知識 × 生成AI技術で、それを現実にします。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SNS -->
+<section id="sns">
+  <div class="inner">
+    <div class="s-label reveal">Follow</div>
+    <h2 class="reveal">SNS・販売チャネル</h2>
+    <p class="s-desc reveal">最新情報・記事・アプリはこちらから。</p>
+    <div class="sns-grid">
+      <a href="#" class="sns-card reveal"><span class="sicon">📝</span>Note</a>
+      <a href="#" class="sns-card reveal"><span class="sicon">📖</span>Zenn</a>
+      <a href="#" class="sns-card reveal"><span class="sicon">💻</span>Qiita</a>
+      <a href="#" class="sns-card reveal"><span class="sicon">🐦</span>X</a>
+      <a href="#" class="sns-card reveal"><span class="sicon">🧵</span>Threads</a>
+      <a href="#" class="sns-card reveal"><span class="sicon">🐙</span>GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a class="footer-logo" href="index.html">gkAgent</a>
+  <div>© 2026 gkAgent — 個人開発 × 生成AI</div>
+</footer>
+
+<script src="js/neural.js"></script>
+<script>
+  // Loader
+  window.addEventListener('load', () => {
+    setTimeout(() => document.getElementById('loader').classList.add('hidden'), 500);
+  });
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: .1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

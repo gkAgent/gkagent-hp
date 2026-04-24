@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — gkAgent</title>
+  <meta name="description" content="17年の業務アプリ開発 × 生成AIエージェント技術。作り続ける人間の話。">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    #hero { min-height:60vh; display:flex; align-items:center; justify-content:center; padding:9rem 2rem 5rem; }
+    .glow-orb { position:absolute; border-radius:50%; pointer-events:none; filter:blur(80px); }
+    .glow-1 { width:400px;height:400px; background:radial-gradient(circle,rgba(212,175,55,.1) 0%,transparent 70%); top:40%;left:50%;transform:translate(-50%,-50%); }
+
+    h1 { font-size:clamp(2.2rem,5vw,3.8rem); font-weight:900; letter-spacing:-.03em; line-height:1.15; margin-bottom:1.5rem; }
+    .h1-gold { background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .hero-sub { font-size:1rem; color:var(--muted2); max-width:500px; line-height:1.85; }
+
+    /* profile */
+    .profile-grid { display:grid; grid-template-columns:280px 1fr; gap:4rem; align-items:start; }
+    .profile-card {
+      padding:2rem;
+      border-radius:var(--radius-lg);
+      background:var(--surface);
+      border:1px solid var(--border);
+      text-align:center;
+      position:sticky;
+      top:7rem;
+    }
+    .avatar {
+      width:100px; height:100px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      display:flex; align-items:center; justify-content:center;
+      font-size:2.5rem;
+      margin:0 auto 1.25rem;
+      border:2px solid rgba(212,175,55,.3);
+    }
+    .profile-name  { font-size:1.1rem; font-weight:700; margin-bottom:.3rem; }
+    .profile-role  { font-size:.8rem; color:var(--muted2); letter-spacing:.06em; margin-bottom:1.5rem; }
+    .profile-tags  { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-bottom:1.5rem; }
+    .profile-divider { height:1px; background:var(--border); margin:1.25rem 0; }
+    .profile-sns   { display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; }
+    .sns-icon {
+      width:36px; height:36px;
+      border-radius:8px;
+      background:var(--bg);
+      border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem;
+      text-decoration:none;
+      transition:border-color .2s;
+    }
+    .sns-icon:hover { border-color:var(--border-hi); }
+
+    /* story */
+    .story-text p { color:var(--muted2); margin-bottom:1.5rem; font-size:.95rem; line-height:1.9; }
+    .story-text strong { color:var(--text); }
+
+    /* timeline */
+    .timeline { position:relative; padding-left:2rem; }
+    .timeline::before {
+      content:'';
+      position:absolute;
+      left:.5rem; top:0; bottom:0;
+      width:1px;
+      background:linear-gradient(to bottom, var(--gold), var(--blue), transparent);
+    }
+    .tl-item { position:relative; padding-bottom:2.5rem; }
+    .tl-dot {
+      position:absolute;
+      left:-1.55rem; top:.35rem;
+      width:10px; height:10px;
+      border-radius:50%;
+      background:var(--gold);
+      border:2px solid var(--bg);
+      box-shadow:0 0 0 3px rgba(212,175,55,.2);
+    }
+    .tl-dot.blue { background:var(--blue); box-shadow:0 0 0 3px rgba(59,130,246,.2); }
+    .tl-year  { font-size:.75rem; color:var(--gold); letter-spacing:.1em; margin-bottom:.3rem; }
+    .tl-title { font-size:.95rem; font-weight:700; margin-bottom:.4rem; }
+    .tl-desc  { font-size:.85rem; color:var(--muted2); line-height:1.75; }
+
+    /* skills */
+    .skill-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.25rem; }
+    .skill-card { padding:1.5rem; border-radius:var(--radius-md); background:var(--surface); border:1px solid var(--border); }
+    .skill-card h4 { font-size:.875rem; font-weight:700; margin-bottom:.75rem; display:flex; align-items:center; gap:.5rem; }
+    .skill-list { list-style:none; }
+    .skill-list li { font-size:.8rem; color:var(--muted2); padding:.2rem 0; display:flex; align-items:center; gap:.5rem; }
+    .skill-list li::before { content:'▸'; color:var(--gold); font-size:.7rem; }
+
+    /* philosophy */
+    .phil-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+    .phil-item { padding:2rem; border-radius:var(--radius-lg); background:var(--surface); border:1px solid var(--border); }
+    .phil-item blockquote { font-size:1.05rem; font-weight:700; margin-bottom:.75rem; line-height:1.5; }
+    .phil-item blockquote span { background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .phil-item p { font-size:.85rem; color:var(--muted2); line-height:1.8; }
+
+    @media(max-width:900px){
+      .profile-grid { grid-template-columns:1fr; }
+      .profile-card  { position:static; }
+      .phil-grid     { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo">gkAgent</div></div>
+<canvas id="neural-bg"></canvas>
+
+<nav>
+  <a class="nav-logo" href="index.html">gkAgent</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">コンテンツ</a></li>
+    <li><a href="apps.html">アプリ</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="index.html#sns" class="nav-cta">SNS</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="glow-orb glow-1"></div>
+  <div style="position:relative;z-index:1;">
+    <div class="eyebrow"><span class="eyebrow-dot"></span>ABOUT</div>
+    <h1>作り続ける人間の、<br><span class="h1-gold">話をします。</span></h1>
+    <p class="hero-sub">IT企業 × 17年 × 業務アプリ × 生成AI。なぜ gkAgent を始めたのか。</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="inner">
+    <div class="profile-grid">
+
+      <div class="profile-card reveal">
+        <div class="avatar">👤</div>
+        <div class="profile-name">gkAgent 代表</div>
+        <div class="profile-role">INDIVIDUAL DEVELOPER</div>
+        <div class="profile-tags">
+          <span class="tag">業務アプリ17年+</span>
+          <span class="tag tag-gold">Claude Code</span>
+          <span class="tag">自治体系</span>
+        </div>
+        <div class="profile-divider"></div>
+        <div class="profile-sns">
+          <a class="sns-icon" href="#" title="Note">📝</a>
+          <a class="sns-icon" href="#" title="Zenn">📖</a>
+          <a class="sns-icon" href="#" title="Qiita">💻</a>
+          <a class="sns-icon" href="#" title="X">🐦</a>
+          <a class="sns-icon" href="#" title="GitHub">🐙</a>
+        </div>
+      </div>
+
+      <div class="story-text">
+        <div class="s-label reveal">Story</div>
+        <h2 class="reveal">なぜ、始めたのか。</h2>
+
+        <div class="reveal">
+          <p>IT企業に入社して17年。<strong>ずっと自治体向けの業務アプリを作り続けてきました。</strong>大きなシステム、小さなツール、何百本という画面と帳票。現場で「あったらいいのに」と思いながら、自分で作ってきた。</p>
+          <p>そして気づいたことがあります。<strong>大手が高額なライセンス料で売っているソフトウェアの多くは、個人が設計すれば数分の一のコストで同等以上のものが作れる。</strong>それを、今まで証明してきた。</p>
+          <p>生成AIと出会ったとき、確信に変わりました。<strong>Claude Codeを使えば、一人でも「普通には作れないもの」が作れる。</strong>17年の現場知識 × AI技術 = 誰も作っていないものが生まれる。</p>
+          <p>gkAgentは、その実験場です。作ったものを届け、使ってもらい、また作る。<strong>広く、深く。それが、私の生き方です。</strong></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section style="background:var(--bg2);">
+  <div class="inner">
+    <div class="s-label reveal">Timeline</div>
+    <h2 class="reveal">これまでの道のり。</h2>
+
+    <div class="timeline" style="max-width:600px;margin-top:2.5rem;">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2006〜2010</div>
+        <div class="tl-title">IT企業入社 / 業務アプリ開発スタート</div>
+        <div class="tl-desc">自治体向けシステムの設計・開発に携わる。帳票・申請・集計・連携、あらゆる種類の業務アプリを作り続ける。</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2010〜2022</div>
+        <div class="tl-title">大規模システム移行 / 技術領域を広げる</div>
+        <div class="tl-desc">VB.NET・C#・Java・ASP.NET Core など複数言語・フレームワークを横断。30万ステップ規模のレガシー移行も完遂。</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot blue"></div>
+        <div class="tl-year">2024</div>
+        <div class="tl-title">生成AI研究を本格開始</div>
+        <div class="tl-desc">Claude・GPT-4 を使った業務改善の実験を開始。自動株売買システムをAIで一から設計・実装（auto-kabushiki）。</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot blue"></div>
+        <div class="tl-year">2025〜</div>
+        <div class="tl-title">Claude Code 本格習得 / gkAgent 構想</div>
+        <div class="tl-desc">Claude Codeを武器に開発速度が激変。「大手ソフトウェアを個人で超える」というビジョンが固まる。</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot" style="background:var(--gold2);box-shadow:0 0 0 3px rgba(240,208,96,.25);"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-title">gkAgent 始動</div>
+        <div class="tl-desc">Note・Zenn・Qiitaで発信開始。AI Agent開発ガイドを公開、フォロワー100人突破。ツール・アプリの開発・配布を開始。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="inner">
+    <div class="s-label reveal">Tech Stack</div>
+    <h2 class="reveal">得意な技術領域。</h2>
+    <p class="s-desc reveal">17年の現場で使い続けてきたものと、今最前線で使っているもの。</p>
+    <div class="skill-grid">
+      <div class="skill-card reveal">
+        <h4>🏢 エンタープライズ</h4>
+        <ul class="skill-list">
+          <li>VB.NET / C# / Java</li>
+          <li>ASP.NET Core / Spring Boot</li>
+          <li>Oracle / SQL Server / PostgreSQL</li>
+          <li>IIS / Windows Server</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <h4>🌐 モダンWeb</h4>
+        <ul class="skill-list">
+          <li>TypeScript / React</li>
+          <li>HTML5 / CSS3 / JavaScript</li>
+          <li>Node.js</li>
+          <li>GitHub Actions / CI/CD</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <h4>🤖 生成AI / Agent</h4>
+        <ul class="skill-list">
+          <li>Claude Code / Anthropic API</li>
+          <li>MCP（Model Context Protocol）</li>
+          <li>エージェント設計・プロンプト最適化</li>
+          <li>Claude Skills / Hooks / Memory</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <h4>🏛️ ドメイン知識</h4>
+        <ul class="skill-list">
+          <li>自治体業務システム</li>
+          <li>申請・帳票・集計・連携</li>
+          <li>レガシーシステム移行</li>
+          <li>現場で育てたUI/UX感覚</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section style="background:var(--bg2);">
+  <div class="inner">
+    <div class="s-label reveal">Philosophy</div>
+    <h2 class="reveal">私が大切にしていること。</h2>
+    <div class="phil-grid" style="margin-top:2rem;">
+      <div class="phil-item reveal">
+        <blockquote>「<span>広く、深く。</span>」</blockquote>
+        <p>広く浅くでは何も生まれない。かといって深く狭くては届かない。広い視野で見て、深く潜る。それが私の設計の起点です。</p>
+      </div>
+      <div class="phil-item reveal">
+        <blockquote>「<span>作り続ける。</span>」</blockquote>
+        <p>一つ完成したら次へ。ヒットを狙わず、使えるものを積み上げる。10年続けてわかった、これが唯一の正解。</p>
+      </div>
+      <div class="phil-item reveal">
+        <blockquote>「<span>誠実に届ける。</span>」</blockquote>
+        <p>「モデルのバージョンアップについていけない」と正直に書く。完璧より誠実。使う人に嘘をつかない。</p>
+      </div>
+      <div class="phil-item reveal">
+        <blockquote>「<span>全員が先生。</span>」</blockquote>
+        <p>使ってくれる人が、私の先生でもある。フィードバックから学び、また作る。この循環が全ての動力源です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a class="footer-logo" href="index.html">gkAgent</a>
+  <div>© 2026 gkAgent</div>
+</footer>
+
+<script src="js/neural.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    const l = document.getElementById('loader');
+    setTimeout(() => l.classList.add('hidden'), 400);
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: .1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
