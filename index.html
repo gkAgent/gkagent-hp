@@ -10,632 +10,186 @@
   <meta property="og:description" content="SIer約20年の業務系開発 × 生成AIエージェント技術。大手の高額ソフトを、手の届く価格で。">
   <meta property="og:site_name"   content="gkAgent">
   <meta name="twitter:card"       content="summary_large_image">
-  <meta name="twitter:title"      content="gkAgent — AIで、仕事を変える。">
-  <meta name="twitter:description" content="SIer約20年の業務系開発 × 生成AIエージェント技術。大手の高額ソフトを、手の届く価格で。">
   <link rel="stylesheet" href="css/base.css">
   <style>
-    /* ═══ HERO ═══ */
-    #hero {
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
       min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 8rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       position: relative;
+      overflow: hidden;
     }
-    .glow-orb { position:absolute; border-radius:50%; pointer-events:none; filter:blur(80px); }
-    .glow-1 { width:600px;height:600px; background:radial-gradient(circle,rgba(212,175,55,.10) 0%,transparent 70%); top:40%;left:50%;transform:translate(-50%,-50%); }
-    .glow-2 { width:350px;height:350px; background:radial-gradient(circle,rgba(59,130,246,.06) 0%,transparent 70%); top:20%;left:20%; }
-    .glow-3 { width:250px;height:250px; background:radial-gradient(circle,rgba(212,175,55,.06) 0%,transparent 70%); top:70%;right:15%; }
 
-    h1 { font-size:clamp(2.8rem,7vw,5.5rem); font-weight:900; line-height:1.05; letter-spacing:-.04em; margin-bottom:1.75rem; }
-    .h1-plain { color:var(--text); }
-    .h1-gold  { background:linear-gradient(135deg,var(--gold) 20%,var(--gold2) 80%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .hero-sub { font-size:1.05rem; color:var(--muted2); max-width:540px; margin:0 auto 1.5rem; line-height:1.9; word-break:keep-all; overflow-wrap:break-word; }
-    .hero-meta { display:flex; gap:2rem; justify-content:center; margin-bottom:2.5rem; flex-wrap:wrap; }
-    .hero-meta-item { display:flex; align-items:center; gap:.5rem; font-size:.78rem; color:var(--muted); letter-spacing:.06em; }
-    .hero-meta-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); }
-    .hero-cta { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    canvas#neural {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: .45;
+    }
 
-    /* ═══ TICKER ═══ */
-    .ticker-wrap {
-      overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-      background:rgba(212,175,55,.02); padding:.65rem 0; position:relative; z-index:2;
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(90px);
+      z-index: 0;
     }
-    .ticker-track {
-      display:flex; gap:3rem; white-space:nowrap;
-      animation: ticker 30s linear infinite;
+    .glow-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(212,175,55,.09) 0%, transparent 70%);
+      top: 40%; left: 50%; transform: translate(-50%, -50%);
     }
-    .ticker-track:hover { animation-play-state:paused; }
-    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-    .ticker-item {
-      font-size:.72rem; letter-spacing:.14em; color:var(--muted);
-      display:flex; align-items:center; gap:.75rem;
+    .glow-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(59,130,246,.05) 0%, transparent 70%);
+      top: 15%; left: 10%;
     }
-    .ticker-item::after { content:'◆'; font-size:.4rem; color:rgba(212,175,55,.4); }
 
-    /* ═══ STATS BAR ═══ */
-    #stats-bar { padding:4rem 2rem; position:relative; z-index:2; }
-    .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
-    .stat-item { background:var(--bg); padding:2rem 1.5rem; text-align:center; }
-    .stat-item:hover { background:rgba(212,175,55,.03); }
-    .stat-num { font-size:2rem; font-weight:800; letter-spacing:-.03em; background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; line-height:1; margin-bottom:.4rem; }
-    .stat-lbl { font-size:.72rem; color:var(--muted); letter-spacing:.08em; }
-    .stat-sub { font-size:.65rem; color:var(--muted); opacity:.6; margin-top:.2rem; }
-
-    /* ═══ ABOUT ═══ */
-    #about { background:var(--bg2); }
-    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
-    .about-text p { color:var(--muted2); margin-bottom:1.2rem; font-size:.93rem; }
-    .about-text strong { color:var(--text); }
-    .terminal-box {
-      background:#060a10; border:1px solid rgba(212,175,55,.2); border-radius:var(--radius-md);
-      padding:1.5rem; font-family:'SF Mono','Fira Code','Consolas',monospace; font-size:.8rem;
+    main {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      max-width: 560px;
     }
-    .term-bar { display:flex; gap:.5rem; margin-bottom:1rem; }
-    .term-dot { width:10px; height:10px; border-radius:50%; }
-    .term-dot-r { background:#ff5f56; } .term-dot-y { background:#ffbd2e; } .term-dot-g { background:#27c93f; }
-    .term-line { color:#64748b; line-height:2; }
-    .term-key   { color:var(--gold2); }
-    .term-val   { color:#94e2c8; }
-    .term-ok    { color:#27c93f; }
-    .term-cursor { display:inline-block; width:8px; height:14px; background:var(--gold); animation:blink .9s infinite; vertical-align:middle; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* ═══ PROJECTS ═══ */
-    #projects { }
-    .proj-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
-    .proj-card { padding:1.75rem; position:relative; overflow:hidden; }
-    .proj-card::before { content:''; position:absolute; inset:0; border-radius:inherit; opacity:0; background:radial-gradient(circle at 50% 0,rgba(212,175,55,.07),transparent 60%); transition:opacity .35s; }
-    .proj-card:hover::before { opacity:1; }
-    .proj-status { display:flex; align-items:center; gap:.5rem; font-size:.68rem; letter-spacing:.1em; margin-bottom:1rem; }
-    .status-dot { width:7px; height:7px; border-radius:50%; animation:pulse 2s infinite; }
-    .st-live   { background:#22c55e; }
-    .st-build  { background:var(--gold); }
-    .st-paper  { background:var(--blue); }
-    .st-plan   { background:var(--muted); animation:none; }
-    .proj-tier { padding:.15rem .6rem; border-radius:999px; font-size:.65rem; letter-spacing:.08em; background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.18); color:var(--gold); margin-left:auto; }
-    .proj-card h3 { font-size:1.05rem; font-weight:700; margin-bottom:.5rem; }
-    .proj-card p  { font-size:.84rem; color:var(--muted2); line-height:1.8; margin-bottom:1rem; }
-    .proj-meta { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .brand {
+      font-size: .75rem;
+      letter-spacing: .22em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: .85;
+    }
 
-    /* ═══ PRODUCTS ═══ */
-    #products { background:var(--bg2); }
-    .prod-featured {
-      display:grid; grid-template-columns:1.4fr 1fr; gap:2rem; margin-bottom:2rem;
-      padding:2.5rem; border-radius:var(--radius-lg);
-      background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(212,175,55,.02));
-      border:1px solid rgba(212,175,55,.25);
+    h1 {
+      font-size: clamp(2.6rem, 8vw, 4.4rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      margin-bottom: 1.6rem;
     }
-    .prod-featured-badge {
-      display:inline-flex; align-items:center; gap:.5rem; font-size:.68rem; letter-spacing:.12em;
-      color:var(--gold); background:rgba(212,175,55,.1); border:1px solid rgba(212,175,55,.25);
-      padding:.3rem .9rem; border-radius:999px; margin-bottom:1rem;
+    .h1-plain { color: var(--text); }
+    .h1-gold {
+      background: linear-gradient(135deg, var(--gold) 20%, var(--gold2) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .prod-featured h3 { font-size:1.5rem; font-weight:800; margin-bottom:.65rem; line-height:1.25; }
-    .prod-featured p  { font-size:.9rem; color:var(--muted2); line-height:1.85; margin-bottom:1.25rem; }
-    .prod-price-row { display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap; }
-    .prod-price { font-size:1.6rem; font-weight:800; background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .prod-price-note { font-size:.78rem; color:var(--muted); }
-    .prod-checklist { list-style:none; margin-top:1.25rem; }
-    .prod-checklist li { font-size:.84rem; color:var(--muted2); padding:.3rem 0; display:flex; align-items:center; gap:.65rem; }
-    .prod-checklist li::before { content:'✓'; color:var(--gold); font-weight:700; font-size:.9rem; }
-    .prod-side { display:flex; flex-direction:column; gap:1rem; }
-    .prod-card-sm { padding:1.5rem; }
-    .prod-card-sm h4 { font-size:.95rem; font-weight:700; margin-bottom:.4rem; }
-    .prod-card-sm p  { font-size:.8rem; color:var(--muted2); margin-bottom:.75rem; line-height:1.7; }
-    .prod-card-sm .tag-row { display:flex; flex-wrap:wrap; gap:.4rem; }
-    .card-dim { opacity:.62; }
 
-    /* ═══ LATEST ═══ */
-    #latest { }
-    .latest-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.25rem; }
-    .latest-card { padding:1.5rem; display:flex; flex-direction:column; gap:.75rem; }
-    .latest-platform { font-size:.65rem; letter-spacing:.12em; color:var(--muted); }
-    .latest-card h4 { font-size:.95rem; font-weight:700; line-height:1.45; }
-    .latest-card p  { font-size:.82rem; color:var(--muted2); line-height:1.7; flex:1; }
-    .latest-footer  { display:flex; align-items:center; justify-content:space-between; margin-top:.25rem; }
-    .latest-date    { font-size:.7rem; color:var(--muted); }
-    .latest-arrow   { font-size:.8rem; color:var(--gold); opacity:.7; transition:.2s; }
-    .latest-card:hover .latest-arrow { opacity:1; transform:translateX(3px); }
+    .sub {
+      font-size: 1rem;
+      color: var(--muted2);
+      line-height: 1.85;
+      margin-bottom: 2.8rem;
+      word-break: keep-all;
+    }
 
-    /* ═══ PHILOSOPHY ═══ */
-    .phil-box {
-      text-align:center; padding:5rem 3rem;
-      border:1px solid var(--border-hi); border-radius:24px;
-      background:linear-gradient(135deg,rgba(212,175,55,.04),rgba(59,130,246,.02));
-      position:relative; overflow:hidden;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: .45rem 1rem;
+      margin-bottom: 3rem;
     }
-    .phil-box::before { content:'❝'; position:absolute; top:1.5rem; left:2rem; font-size:6rem; color:rgba(212,175,55,.06); font-family:Georgia,serif; line-height:1; }
-    .phil-box::after  { content:''; position:absolute; bottom:-1px; left:20%; right:20%; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
-    .phil-q { font-size:clamp(1.2rem,3vw,1.9rem); font-weight:700; line-height:1.55; margin-bottom:1.5rem; }
-    .phil-q span { background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .phil-cite { font-size:.87rem; color:var(--muted); max-width:540px; margin:0 auto; line-height:1.9; }
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(.75); }
+    }
 
-    /* ═══ SNS ═══ */
-    #sns { background:var(--bg2); }
-    .sns-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
-    .sns-card {
-      display:flex; flex-direction:column; align-items:center; gap:.6rem;
-      padding:1.75rem 1rem; border-radius:14px; text-decoration:none;
-      color:var(--muted2); background:var(--surface); border:1px solid var(--border);
-      font-size:.78rem; letter-spacing:.04em; transition:all .25s;
+    .links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    .sns-card:hover { border-color:var(--border-hi); color:var(--gold); transform:translateY(-4px); box-shadow:0 16px 45px rgba(212,175,55,.1); }
-    .sns-card .sicon { font-size:1.6rem; }
-    .sns-card .sname { font-weight:600; }
-    .sns-card .sdesc { font-size:.68rem; color:var(--muted); letter-spacing:.04em; }
 
-    /* ═══ RESPONSIVE ═══ */
-    @media(max-width:900px) {
-      .stats-grid { grid-template-columns:repeat(2,1fr); }
-      .about-grid { grid-template-columns:1fr; gap:3rem; }
-      .prod-featured { grid-template-columns:1fr; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .7rem 1.4rem;
+      border-radius: var(--radius-md);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-decoration: none;
+      transition: opacity .2s, transform .2s;
     }
-    @media(max-width:768px){
-      .about-grid { grid-template-columns:1fr; gap:2.5rem; }
-      .sns-grid   { grid-template-columns:repeat(2,1fr); }
+    .btn:hover { opacity: .78; transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #06080f;
     }
-    @media(max-width:400px){
-      .stats-grid { grid-template-columns:1fr 1fr; }
-      .sns-grid   { grid-template-columns:1fr 1fr; }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--muted2);
+      border: 1px solid var(--border);
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 4rem;
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .06em;
     }
   </style>
 </head>
 <body>
-
-<div id="loader"><div class="loader-logo">gkAgent</div></div>
-<canvas id="neural-bg"></canvas>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="index.html">gkAgent</a>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#products">コンテンツ</a></li>
-    <li><a href="apps.html">アプリ</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="#sns" class="nav-cta">SNS</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
+  <canvas id="neural"></canvas>
   <div class="glow-orb glow-1"></div>
   <div class="glow-orb glow-2"></div>
-  <div class="glow-orb glow-3"></div>
-  <div style="position:relative;z-index:1;max-width:760px;margin:0 auto;">
-    <div class="eyebrow"><span class="eyebrow-dot"></span>個人開発 × 生成AIエージェント</div>
+
+  <main>
+    <p class="brand">gkAgent</p>
+
     <h1>
-      <span class="h1-plain">大手の仕事を、</span><br>
-      <span class="h1-gold">個人の手の届く価格で。</span>
+      <span class="h1-plain">AIで、</span><br>
+      <span class="h1-gold">仕事を変える。</span>
     </h1>
-    <p class="hero-sub">
-      SIerで約20年、業務系システムを作り続けてきたエンジニアが、
-      Claude Codeで動くAIエージェントと本番ツールをつくり、届けます。
+
+    <p class="sub">
+      SIer 約20年の業務系開発 × 生成 AI エージェント技術。<br>
+      大手の高額ソフトを、手の届く価格で。
     </p>
-    <div class="hero-meta">
-      <span class="hero-meta-item"><span class="hero-meta-dot"></span>SIer 約20年の業務系開発</span>
-      <span class="hero-meta-item"><span class="hero-meta-dot"></span>現役エンジニア × 管理職</span>
-      <span class="hero-meta-item"><span class="hero-meta-dot"></span>Claude Code フル活用</span>
-      <span class="hero-meta-item"><span class="hero-meta-dot"></span>AI Agent 本番稼働</span>
-    </div>
-    <div class="hero-cta">
-      <a href="products.html" class="btn btn-gold">コンテンツを見る →</a>
-      <a href="#projects"     class="btn btn-ghost">進行中プロジェクト</a>
-    </div>
-  </div>
-</section>
 
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track">
-    <span class="ticker-item">Claude Code</span>
-    <span class="ticker-item">AI Agent 開発</span>
-    <span class="ticker-item">VB.NET</span>
-    <span class="ticker-item">Java Spring Boot</span>
-    <span class="ticker-item">C# / ASP.NET</span>
-    <span class="ticker-item">TypeScript / React</span>
-    <span class="ticker-item">業務系システム開発</span>
-    <span class="ticker-item">MCP Protocol</span>
-    <span class="ticker-item">LLM 判断エンジン</span>
-    <span class="ticker-item">Windows IIS</span>
-    <span class="ticker-item">GitHub Actions</span>
-    <span class="ticker-item">Python</span>
-    <span class="ticker-item">SQLite / SQL Server</span>
-    <span class="ticker-item">Claude Code</span>
-    <span class="ticker-item">AI Agent 開発</span>
-    <span class="ticker-item">VB.NET</span>
-    <span class="ticker-item">Java Spring Boot</span>
-    <span class="ticker-item">C# / ASP.NET</span>
-    <span class="ticker-item">TypeScript / React</span>
-    <span class="ticker-item">業務系システム開発</span>
-    <span class="ticker-item">MCP Protocol</span>
-    <span class="ticker-item">LLM 判断エンジン</span>
-    <span class="ticker-item">Windows IIS</span>
-    <span class="ticker-item">GitHub Actions</span>
-    <span class="ticker-item">Python</span>
-    <span class="ticker-item">SQLite / SQL Server</span>
-  </div>
-</div>
-
-<!-- STATS BAR -->
-<section id="stats-bar">
-  <div class="inner">
-    <div class="stats-grid">
-      <div class="stat-item reveal">
-        <div class="stat-num">約20年</div>
-        <div class="stat-lbl">業務系開発キャリア</div>
-        <div class="stat-sub">SIer × 現役エンジニア</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">60章</div>
-        <div class="stat-lbl">Claude Code 教本</div>
-        <div class="stat-sub">約100万字・執筆中</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">5+</div>
-        <div class="stat-lbl">並行稼働プロジェクト</div>
-        <div class="stat-sub">AI Agent が24時間動く</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">16名</div>
-        <div class="stat-lbl">AI Agent チーム</div>
-        <div class="stat-sub">gkAgent バーチャル組織</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="inner">
-    <div class="about-grid">
-      <div class="about-text">
-        <div class="s-label reveal">About</div>
-        <h2 class="reveal">作り続ける人間が、<br>届ける。</h2>
-        <p class="reveal">SIerで<strong>約20年、業務系システム開発</strong>に携わってきました。
-        現場で「こんなツールがあれば」と思いながら、自分で作り続けてきた技術者です。</p>
-        <p class="reveal"><strong>Claude Codeを中心に据えた生成AIエージェントで、大手が高額で売るソフトウェアの代替を、手の届く価格で届ける。</strong>
-        それが gkAgent のミッションです。広く浅くではなく、<strong>広く、深く。</strong></p>
-        <p class="reveal">管理職を務めながら「永遠の技術者」として個人開発を続けています。
-        17名のAI Agentチームを率いて、収益化・自動化・教材化を同時に走らせています。</p>
-        <a href="about.html" class="btn btn-ghost reveal" style="margin-top:.5rem;">詳しく読む →</a>
-      </div>
-      <div class="reveal">
-        <div class="terminal-box">
-          <div class="term-bar">
-            <span class="term-dot term-dot-r"></span>
-            <span class="term-dot term-dot-y"></span>
-            <span class="term-dot term-dot-g"></span>
-          </div>
-          <div class="term-line">$ <span class="term-key">gkagent</span> status</div>
-          <div class="term-line">&nbsp;</div>
-          <div class="term-line"><span class="term-key">●</span> <span class="term-val">aidev-guide</span>　<span class="term-ok">[Tier1 · 稼働中]</span></div>
-          <div class="term-line">&nbsp;&nbsp; 最新: starter-kit v1.8 · 教本 60章執筆中</div>
-          <div class="term-line">&nbsp;</div>
-          <div class="term-line"><span class="term-key">●</span> <span class="term-val">jichitai-intel</span>　<span style="color:var(--gold)">[Tier2 · 再稼働]</span></div>
-          <div class="term-line">&nbsp;&nbsp; 47都道府県HP自動監視 · Phase 3b 開始</div>
-          <div class="term-line">&nbsp;</div>
-          <div class="term-line"><span class="term-key">●</span> <span class="term-val">auto-kabushiki</span>　<span style="color:var(--blue)">[Tier3 · Paper]</span></div>
-          <div class="term-line">&nbsp;&nbsp; Haiku判断型 · ペーパートレード検証中</div>
-          <div class="term-line">&nbsp;</div>
-          <div class="term-line"><span class="term-key">●</span> <span class="term-val">gkagent-hp</span>　<span class="term-ok">[公開中]</span></div>
-          <div class="term-line">&nbsp;&nbsp; このページです</div>
-          <div class="term-line">&nbsp;</div>
-          <div class="term-line">$ <span class="term-cursor"></span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="inner">
-    <div class="s-label reveal">Projects</div>
-    <h2 class="reveal">進行中プロジェクト</h2>
-    <p class="s-desc reveal">AIエージェントが実際に動いているプロジェクト一覧です。</p>
-    <div class="proj-grid">
-
-      <div class="glass proj-card reveal">
-        <div class="proj-status">
-          <span class="status-dot st-live"></span>
-          <span style="color:#22c55e;font-size:.68rem;letter-spacing:.1em;">LIVE</span>
-          <span class="proj-tier">🔴 Tier 1</span>
-        </div>
-        <h3>AI Agent 開発ガイド</h3>
-        <p>Claude Code による業務アプリ開発の完全教材。VB.NET・Java・C#・TypeScript 対応。60章・約100万字。スターターキット(980円)・プレミアム(2,980円)を Note 販売中。</p>
-        <div class="proj-meta">
-          <span class="tag tag-gold">Note販売中</span>
-          <span class="tag">60章執筆中</span>
-          <span class="tag">v1.8</span>
-        </div>
-      </div>
-
-      <div class="glass proj-card reveal">
-        <div class="proj-status">
-          <span class="status-dot st-build"></span>
-          <span style="color:var(--gold);font-size:.68rem;letter-spacing:.1em;">BUILDING</span>
-          <span class="proj-tier">🟡 Tier 2</span>
-        </div>
-        <h3>jichitai-intel</h3>
-        <p>47都道府県の公式HPを自動巡回し、入札情報・議会情報を AI が分類・スコアリング。中小企業向け営業 SaaS 化を視野に開発中。</p>
-        <div class="proj-meta">
-          <span class="tag">47都道府県対応</span>
-          <span class="tag tag-blue">Phase 3b</span>
-          <span class="tag">SaaS候補</span>
-        </div>
-      </div>
-
-      <div class="glass proj-card reveal">
-        <div class="proj-status">
-          <span class="status-dot st-paper"></span>
-          <span style="color:var(--blue);font-size:.68rem;letter-spacing:.1em;">PAPER MODE</span>
-          <span class="proj-tier">🟢 Tier 3</span>
-        </div>
-        <h3>auto-kabushiki</h3>
-        <p>Claude Haiku が朝の相場を判断し、LLM 判断層として日中執行を行う自動売買エージェント。現在はペーパートレードで戦略を検証中。</p>
-        <div class="proj-meta">
-          <span class="tag">Haiku判断型</span>
-          <span class="tag">v4 backtest +57.3%</span>
-          <span class="tag tag-blue">Paper</span>
-        </div>
-      </div>
-
-      <div class="glass proj-card reveal">
-        <div class="proj-status">
-          <span class="status-dot st-live"></span>
-          <span style="color:#22c55e;font-size:.68rem;letter-spacing:.1em;">LIVE</span>
-          <span class="proj-tier">⚪ Tier 4</span>
-        </div>
-        <h3>aidev-guide 社内展開版</h3>
-        <p>本業の社内向けに特化した AI 開発ガイド。社内 IIS に配備し、現場での Claude Code 活用を先行展開。公開版よりも早く最新コンテンツを提供。</p>
-        <div class="proj-meta">
-          <span class="tag">社内IIS配備</span>
-          <span class="tag">先行公開</span>
-          <span class="tag">GitHub Actions自動化</span>
-        </div>
-      </div>
-
-      <div class="glass proj-card reveal" style="border-color:rgba(212,175,55,.2);">
-        <div class="proj-status">
-          <span class="status-dot st-build"></span>
-          <span style="color:var(--gold);font-size:.68rem;letter-spacing:.1em;">BUILDING</span>
-          <span class="proj-tier">✨ NEW</span>
-        </div>
-        <h3>gkAgent 公式HP（このサイト）</h3>
-        <p>gkAgent のすべてのプロジェクト・コンテンツ・SNSへの玄関口。Claude Design を活用して継続的に改善中。</p>
-        <div class="proj-meta">
-          <span class="tag tag-gold">Claude Design活用</span>
-          <span class="tag">拡張中</span>
-        </div>
-      </div>
-
-      <div class="glass proj-card reveal card-dim">
-        <div class="proj-status">
-          <span class="status-dot st-plan"></span>
-          <span style="color:var(--muted);font-size:.68rem;letter-spacing:.1em;">PLANNED</span>
-          <span class="proj-tier">🔮 TBD</span>
-        </div>
-        <h3>content_engine</h3>
-        <p>Note / Threads / X / Qiita / Zenn 向けコンテンツ自動生成・スケジューリングエンジン。ai-income-agent の後継として設計中。</p>
-        <div class="proj-meta">
-          <span class="tag">仕様策定中</span>
-          <span class="tag">LLM生成</span>
-          <span class="tag">自動投稿</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PRODUCTS -->
-<section id="products">
-  <div class="inner">
-    <div class="s-label reveal">Contents</div>
-    <h2 class="reveal">コンテンツ・教材</h2>
-
-    <div class="prod-featured reveal">
-      <div>
-        <div class="prod-featured-badge">★ 看板コンテンツ</div>
-        <h3>AI Agent 開発ガイド<br><span style="font-size:.7em;font-weight:400;color:var(--muted2)">— Claude Code 完全教材</span></h3>
-        <p>業務アプリ開発に特化した Claude Code 活用ガイド。VB.NET・Java・C#・TypeScript 全対応。
-        スターターキットは即日使えるルール群・テンプレート・ツール一式込み。
-        60章・約100万字の大全はプレミアム版として販売中。</p>
-        <div class="prod-price-row">
-          <span class="prod-price">980円</span>
-          <span class="prod-price-note">スターターキット（即使える）</span>
-        </div>
-        <div class="prod-price-row" style="margin-top:.5rem;">
-          <span class="prod-price" style="font-size:1.2rem;">2,980円</span>
-          <span class="prod-price-note">プレミアム（教本フル + DM永久サポート）</span>
-        </div>
-        <ul class="prod-checklist">
-          <li>Agent ルール集 31ファイル + ツール選定ガイド</li>
-          <li>VB.NET / Java / C# / TypeScript テンプレート</li>
-          <li>Claude Code 60章教本（執筆中・随時追加）</li>
-          <li>Windows版 / Cowork / Claude Design 対応（追加中）</li>
-          <li>購入後アップデート無制限 + DM永久サポート</li>
-        </ul>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:1rem;justify-content:center;">
-        <a href="https://note.com/gkagent" class="btn btn-gold" style="justify-content:center;">Note で購入 →</a>
-        <a href="products.html" class="btn btn-ghost" style="justify-content:center;">詳細・目次を見る</a>
-        <div style="text-align:center;font-size:.75rem;color:var(--muted);line-height:1.8;margin-top:.5rem;">
-          購入済みの方はそのまま<br>最新版をダウンロードできます<br>
-          <span style="color:var(--gold);">最新: v1.8（2026-04-23）</span>
-        </div>
-      </div>
+    <div class="badge">
+      <span class="badge-dot"></span>
+      コンテンツを整理中です — もうしばらくお待ちください
     </div>
 
-    <div class="prod-side reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;">
-      <div class="glass prod-card-sm card-dim">
-        <div class="soon-badge">✦ COMING SOON</div>
-        <h4>生成AI × アプリ解説記事</h4>
-        <p>Claude Code で作った AI 連携アプリの設計・実装ノウハウ。実際に動くコードつき。</p>
-        <div class="tag-row"><span class="tag">Note</span><span class="tag">980円〜</span></div>
-      </div>
-      <div class="glass prod-card-sm card-dim">
-        <div class="soon-badge">✦ COMING SOON</div>
-        <h4>ClaudeCode 大全</h4>
-        <p>MCP 完全ガイド・Hooks 設計・Skills 設計・Windows/Cowork/Claude Design 完全対応。</p>
-        <div class="tag-row"><span class="tag">Note</span><span class="tag">Zenn</span></div>
-      </div>
-      <div class="glass prod-card-sm card-dim">
-        <div class="soon-badge">✦ COMING SOON</div>
-        <h4>便利ツール配布</h4>
-        <p>API不要・トークンゼロですぐ使えるツール。窓の杜・Note から配布予定。</p>
-        <div class="tag-row"><span class="tag">窓の杜 / Note</span><span class="tag">100円〜</span></div>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:2.5rem;">
-      <a href="products.html" class="btn btn-ghost reveal">すべてのコンテンツ・価格プラン →</a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- LATEST -->
-<section id="latest">
-  <div class="inner">
-    <div class="s-label reveal">Latest</div>
-    <h2 class="reveal">最新コンテンツ</h2>
-    <p class="s-desc reveal">Zenn・Qiita・Note で定期発信しています。</p>
-    <div class="latest-grid">
-
-      <a href="#" class="glass latest-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="latest-platform">ZENN · 2026-04-25</div>
-        <h4>Claude Code の Copilot CLI 統合で開発フローが変わる話</h4>
-        <p>GitHub Copilot CLI と Claude Code を組み合わせた開発フローの実例。</p>
-        <div class="latest-footer">
-          <span class="latest-date">技術記事</span>
-          <span class="latest-arrow">→</span>
-        </div>
+    <div class="links">
+      <a class="btn btn-primary" href="https://note.com/gkagent" target="_blank" rel="noopener">
+        note でコンテンツを見る
       </a>
-
-      <a href="#" class="glass latest-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="latest-platform">ZENN · 2026-04-23</div>
-        <h4>Claude Code で仕様書生成を自動化した話</h4>
-        <p>ユニバーサル仕様生成ツールを作って、業務仕様書の作成を80%削減。</p>
-        <div class="latest-footer">
-          <span class="latest-date">技術記事</span>
-          <span class="latest-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="#" class="glass latest-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="latest-platform">NOTE · 2026-04-22</div>
-        <h4>Claude Code でゼロから1円稼ぐまでの全記録</h4>
-        <p>スターターキット初売上達成までの全過程。価格設定・LP・SNS戦略まで。</p>
-        <div class="latest-footer">
-          <span class="latest-date">販売記録</span>
-          <span class="latest-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="#" class="glass latest-card reveal" style="text-decoration:none;color:inherit;">
-        <div class="latest-platform">ZENN · 2026-04-18</div>
-        <h4>VB.NET 既存アプリを Claude Code でコードレビューした全手順</h4>
-        <p>レガシー VB.NET コードに Claude Code を適用した実践ガイド。</p>
-        <div class="latest-footer">
-          <span class="latest-date">技術記事</span>
-          <span class="latest-arrow">→</span>
-        </div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PHILOSOPHY -->
-<section id="philosophy">
-  <div class="inner">
-    <div class="phil-box reveal">
-      <div class="phil-q">
-        広く浅くでは、何も生まれない。<br>
-        <span>広く、深く。</span><br>
-        それが、すべての設計の起点です。
-      </div>
-      <div class="phil-cite">
-        大手が高額で売るソフトウェアを、個人が手の届く価格で届ける。<br>
-        約20年分の現場知識 × 生成 AI 技術 × 17名の AI Agent チームで、それを現実にします。
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SNS -->
-<section id="sns">
-  <div class="inner">
-    <div class="s-label reveal">Follow</div>
-    <h2 class="reveal">SNS・販売チャネル</h2>
-    <p class="s-desc reveal">最新情報・記事・アプリはこちらから。フォローして受け取ってください。</p>
-    <div class="sns-grid">
-      <a href="https://note.com/gkagent"   class="sns-card reveal">
-        <span class="sicon">📝</span>
-        <span class="sname">Note</span>
-        <span class="sdesc">教材・販売</span>
-      </a>
-      <a href="https://zenn.dev/gkagent"   class="sns-card reveal">
-        <span class="sicon">📖</span>
-        <span class="sname">Zenn</span>
-        <span class="sdesc">技術記事</span>
-      </a>
-      <a href="https://qiita.com/gkagent"  class="sns-card reveal">
-        <span class="sicon">💻</span>
-        <span class="sname">Qiita</span>
-        <span class="sdesc">技術記事</span>
-      </a>
-      <a href="https://x.com/gkagent"      class="sns-card reveal">
-        <span class="sicon">🐦</span>
-        <span class="sname">X (Twitter)</span>
-        <span class="sdesc">日々のつぶやき</span>
-      </a>
-      <a href="https://www.threads.net/@gkagent" class="sns-card reveal">
-        <span class="sicon">🧵</span>
-        <span class="sname">Threads</span>
-        <span class="sdesc">開発日記</span>
-      </a>
-      <a href="https://github.com/gkagent" class="sns-card reveal">
-        <span class="sicon">🐙</span>
-        <span class="sname">GitHub</span>
-        <span class="sdesc">OSS / ツール</span>
+      <a class="btn btn-secondary" href="https://zenn.dev/gkjapan" target="_blank" rel="noopener">
+        Zenn で技術記事を読む
       </a>
     </div>
-  </div>
-</section>
+  </main>
 
-<footer>
-  <a class="footer-logo" href="index.html">gkAgent</a>
-  <div style="display:flex;gap:2rem;align-items:center;">
-    <a href="about.html"    style="color:var(--muted);text-decoration:none;font-size:.75rem;">About</a>
-    <a href="products.html" style="color:var(--muted);text-decoration:none;font-size:.75rem;">コンテンツ</a>
-    <a href="apps.html"     style="color:var(--muted);text-decoration:none;font-size:.75rem;">アプリ</a>
-  </div>
-  <div>© 2026 gkAgent — 個人開発 × 生成AI</div>
-</footer>
+  <footer>© 2026 gkAgent</footer>
 
-<script src="js/neural.js"></script>
-<script>
-  window.addEventListener('load', () => {
-    setTimeout(() => document.getElementById('loader').classList.add('hidden'), 500);
-  });
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: .08 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+  <script src="js/neural.js"></script>
 </body>
 </html>
