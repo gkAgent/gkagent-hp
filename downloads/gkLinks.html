@@ -6,7 +6,7 @@
 	<title>
 		gkLinks — マイリンク管理
 	</title>
-	<meta name="app-version" content="1.6.1">
+	<meta name="app-version" content="1.7.0">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+JP:400,700&display=swap"
 		rel="stylesheet">
@@ -1622,6 +1622,370 @@
 			text-align: right;
 		}
 
+		/* ===== v1.7.0: ノートブック ===== */
+		.notebook-layout {
+			display: grid;
+			grid-template-columns: 260px 1fr;
+			gap: 12px;
+			min-height: 560px;
+		}
+		@media (max-width: 800px) {
+			.notebook-layout { grid-template-columns: 1fr; }
+		}
+		.notebook-sidebar {
+			background: var(--accordion-bg);
+			border: 1.5px solid var(--panel-border);
+			border-radius: 12px;
+			padding: 10px;
+			max-height: 640px;
+			overflow-y: auto;
+		}
+		.notebook-sidebar-actions {
+			display: flex;
+			gap: 6px;
+			margin-bottom: 10px;
+		}
+		.notebook-sidebar-actions button {
+			flex: 1;
+			padding: 6px 8px;
+			font-size: 12px;
+			background: var(--modal-btn-bg);
+			color: #fff;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			transition: background 0.15s;
+		}
+		.notebook-sidebar-actions button:hover { background: var(--modal-btn-hover-bg); }
+		.notebook-list { list-style: none; padding: 0; margin: 0; }
+		.notebook-list-item {
+			padding: 8px 10px;
+			border-radius: 8px;
+			cursor: pointer;
+			margin-bottom: 4px;
+			border: 1px solid transparent;
+			transition: background 0.12s, border-color 0.12s;
+		}
+		.notebook-list-item:hover {
+			background: var(--panel-hover-bg);
+			border-color: var(--panel-hover-border);
+		}
+		.notebook-list-item.active {
+			background: var(--panel-hover-bg);
+			border-color: var(--gold2, #d4a017);
+		}
+		.notebook-list-item .nb-title {
+			font-weight: 600;
+			font-size: 13px;
+			color: var(--panel-title-fg);
+			word-break: break-all;
+			display: block;
+			margin-bottom: 2px;
+		}
+		.notebook-list-item .nb-meta {
+			font-size: 11px;
+			color: var(--dropdown-fg);
+			opacity: 0.7;
+		}
+		.notebook-list-item .nb-tags {
+			margin-top: 3px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 3px;
+		}
+		.notebook-list-item .nb-tags .nb-tag {
+			background: var(--tag-bg);
+			color: var(--tag-fg);
+			border: 1px solid var(--tag-border);
+			border-radius: 3px;
+			padding: 0 4px;
+			font-size: 10px;
+		}
+		.notebook-main {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+		.notebook-header-bar {
+			display: flex;
+			gap: 8px;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+		.notebook-header-bar input.nb-title-input {
+			flex: 1;
+			min-width: 200px;
+			padding: 8px 10px;
+			font-size: 15px;
+			font-weight: 600;
+			background: var(--modal-input-bg);
+			border: 1.5px solid var(--modal-input-border);
+			border-radius: 6px;
+			color: inherit;
+			outline: none;
+		}
+		.notebook-header-bar input.nb-tags-input {
+			flex: 0.7;
+			min-width: 160px;
+			padding: 8px 10px;
+			font-size: 13px;
+			background: var(--modal-input-bg);
+			border: 1.5px solid var(--modal-input-border);
+			border-radius: 6px;
+			color: inherit;
+			outline: none;
+		}
+		.notebook-meta-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 11px;
+			color: var(--dropdown-fg);
+			opacity: 0.85;
+		}
+
+		/* ===== v1.7.0: テンプレート選択モーダル ===== */
+		.tpl-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+			gap: 10px;
+			margin-top: 12px;
+		}
+		.tpl-card {
+			background: var(--accordion-bg);
+			border: 1.5px solid var(--panel-border);
+			border-radius: 10px;
+			padding: 14px 12px;
+			cursor: pointer;
+			transition: all 0.15s;
+			text-align: center;
+		}
+		.tpl-card:hover {
+			background: var(--panel-hover-bg);
+			border-color: var(--gold2, #d4a017);
+			transform: translateY(-2px);
+		}
+		.tpl-card .tpl-icon {
+			font-size: 26px;
+			margin-bottom: 6px;
+		}
+		.tpl-card .tpl-name {
+			font-weight: 600;
+			color: var(--panel-title-fg);
+			font-size: 13px;
+			margin-bottom: 4px;
+		}
+		.tpl-card .tpl-desc {
+			font-size: 11px;
+			color: var(--dropdown-fg);
+			opacity: 0.75;
+			line-height: 1.4;
+		}
+
+		/* ===== v1.7.0: PRレビュータイマー ===== */
+		.pr-review-list {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+		.pr-review-item {
+			display: grid;
+			grid-template-columns: 1fr auto auto auto auto;
+			gap: 10px;
+			align-items: center;
+			padding: 10px 12px;
+			background: var(--panel-bg);
+			border: 1.5px solid var(--panel-border);
+			border-radius: 8px;
+			font-size: 13px;
+		}
+		.pr-review-item.overdue {
+			border-color: #e53e3e;
+			background: rgba(229, 62, 62, 0.08);
+		}
+		.pr-review-item .pr-title {
+			font-weight: 600;
+			color: var(--panel-title-fg);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			cursor: pointer;
+		}
+		.pr-review-item .pr-title:hover { text-decoration: underline; }
+		.pr-review-item .pr-elapsed {
+			font-size: 12px;
+			color: var(--dropdown-fg);
+			white-space: nowrap;
+		}
+		.pr-review-item .pr-elapsed.overdue { color: #e53e3e; font-weight: 700; }
+		.pr-review-item .pr-priority {
+			font-size: 11px;
+			padding: 2px 8px;
+			border-radius: 10px;
+			font-weight: 700;
+			text-align: center;
+			white-space: nowrap;
+		}
+		.pr-priority.prio-high { background: #e53e3e; color: #fff; }
+		.pr-priority.prio-mid { background: #d4a017; color: #fff; }
+		.pr-priority.prio-low { background: #4a5568; color: #fff; }
+		.pr-review-item select.pr-status {
+			padding: 4px 6px;
+			font-size: 12px;
+			background: var(--modal-input-bg);
+			color: inherit;
+			border: 1px solid var(--modal-input-border);
+			border-radius: 4px;
+		}
+		.pr-review-item button.pr-del {
+			padding: 4px 8px;
+			font-size: 12px;
+			background: transparent;
+			color: #e53e3e;
+			border: 1px solid #e53e3e;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		.pr-review-item button.pr-del:hover { background: #e53e3e; color: #fff; }
+
+		/* ===== v1.7.0: 工数記録 ===== */
+		.timer-control {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			flex-wrap: wrap;
+			padding: 12px;
+			background: var(--panel-bg);
+			border: 1.5px solid var(--panel-border);
+			border-radius: 8px;
+			margin-bottom: 12px;
+		}
+		.timer-control input.timer-task {
+			flex: 1;
+			min-width: 200px;
+			padding: 8px 10px;
+			background: var(--modal-input-bg);
+			border: 1.5px solid var(--modal-input-border);
+			border-radius: 6px;
+			color: inherit;
+			font-size: 13px;
+			outline: none;
+		}
+		.timer-display {
+			font-family: 'SFMono-Regular','Consolas','Menlo',monospace;
+			font-size: 22px;
+			font-weight: 700;
+			color: var(--gold2, #d4a017);
+			min-width: 100px;
+			text-align: center;
+			letter-spacing: 1px;
+		}
+		.timer-display.running { animation: timer-pulse 1.6s ease-in-out infinite; }
+		@keyframes timer-pulse {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0.65; }
+		}
+		.timer-summary {
+			display: flex;
+			gap: 16px;
+			font-size: 13px;
+			color: var(--dropdown-fg);
+			margin: 8px 0;
+			flex-wrap: wrap;
+		}
+		.timer-summary strong { color: var(--panel-title-fg); }
+		.timer-log-table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 13px;
+		}
+		.timer-log-table th, .timer-log-table td {
+			padding: 6px 8px;
+			border-bottom: 1px solid var(--panel-border);
+			text-align: left;
+		}
+		.timer-log-table th {
+			color: var(--panel-title-fg);
+			font-weight: 700;
+			background: var(--accordion-header-bg);
+		}
+		.timer-log-table td.timer-dur {
+			font-family: 'SFMono-Regular','Consolas','Menlo',monospace;
+			font-weight: 600;
+		}
+		.timer-log-table button.timer-del {
+			padding: 2px 8px;
+			font-size: 11px;
+			background: transparent;
+			color: #e53e3e;
+			border: 1px solid #e53e3e;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		.timer-log-table button.timer-del:hover { background: #e53e3e; color: #fff; }
+
+		/* ===== v1.7.0: 期限近いタスク ===== */
+		.due-list {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+		}
+		.due-item {
+			display: grid;
+			grid-template-columns: 1fr auto auto auto;
+			gap: 10px;
+			align-items: center;
+			padding: 8px 12px;
+			background: var(--panel-bg);
+			border: 1.5px solid var(--panel-border);
+			border-radius: 8px;
+			font-size: 13px;
+		}
+		.due-item.due-overdue { border-color: #e53e3e; background: rgba(229, 62, 62, 0.08); }
+		.due-item.due-today   { border-color: #d4a017; background: rgba(212, 160, 23, 0.08); }
+		.due-item.due-soon    { border-color: #38a169; background: rgba(56, 161, 105, 0.08); }
+		.due-item .due-name {
+			font-weight: 600;
+			color: var(--panel-title-fg);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.due-item .due-date {
+			font-size: 12px;
+			color: var(--dropdown-fg);
+			white-space: nowrap;
+		}
+		.due-item .due-rest {
+			font-size: 12px;
+			font-weight: 700;
+			white-space: nowrap;
+		}
+		.due-item.due-overdue .due-rest { color: #e53e3e; }
+		.due-item.due-today   .due-rest { color: #d4a017; }
+		.due-item.due-soon    .due-rest { color: #38a169; }
+		.due-item button.due-open {
+			padding: 4px 10px;
+			font-size: 12px;
+			background: var(--modal-btn-bg);
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		.due-item button.due-open:hover { background: var(--modal-btn-hover-bg); }
+
+		/* パネルカードの期限バッジ */
+		.panel-due-badge {
+			position: absolute;
+			top: 4px;
+			right: 36px;
+			font-size: 14px;
+			z-index: 3;
+			pointer-events: none;
+			filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+		}
+
 		/* ===== 機能6: URL共有モーダル ===== */
 		#urlShareModalBg {
 			display: none;
@@ -3076,7 +3440,7 @@
 			<button class="tab-item" data-tab="view"><span class="tab-icon">📊</span>表示設定</button>
 			<button class="tab-item" data-tab="settings"><span class="tab-icon">⚙️</span>データ管理</button>
 			<button class="tab-item" data-tab="dashboard"><span class="tab-icon">📊</span>ダッシュボード</button>
-			<button class="tab-item" data-tab="memo"><span class="tab-icon">📝</span>メモ帳</button>
+			<button class="tab-item" data-tab="memo"><span class="tab-icon">📝</span>ノートブック</button>
 			<button class="tab-item" data-tab="aitools"><span class="tab-icon">🤖</span>AIツール</button>
 			<button class="tab-item" data-tab="snippets"><span class="tab-icon">🧩</span>スニペット</button>
 			<button class="tab-item" data-tab="help"><span class="tab-icon">❓</span>ヘルプ</button>
@@ -3291,37 +3655,156 @@
 					<div id="dashCatBar" class="dash-bar-chart"></div>
 				</div>
 			</div>
+
+			<!-- v1.7.0: 期限近いタスク -->
+			<div class="setting-group" style="border:2px solid #38a169;background:linear-gradient(135deg,rgba(56,161,105,0.06) 0%,rgba(56,161,105,0.01) 100%);">
+				<h3 style="display:flex;align-items:center;gap:8px;color:#38a169;">
+					<span>📅</span>期限近いタスク
+					<span style="font-size:11px;font-weight:normal;background:#38a169;color:#fff;padding:2px 8px;border-radius:10px;">v1.7</span>
+					<button id="dueRefreshBtn" class="action-btn" style="margin-left:auto;padding:4px 10px;font-size:12px;" type="button">🔄</button>
+				</h3>
+				<p style="color:var(--dropdown-fg);font-size:13px;margin:6px 0 12px;">期限が今日〜7日以内のパネルを抽出。パネル編集モーダルで「期限」を設定できます。</p>
+				<div id="dueList" class="due-list"></div>
+			</div>
+
+			<!-- v1.7.0: PRレビュータイマー -->
+			<div class="setting-group" style="border:2px solid #5a67d8;background:linear-gradient(135deg,rgba(90,103,216,0.06) 0%,rgba(90,103,216,0.01) 100%);">
+				<h3 style="display:flex;align-items:center;gap:8px;color:#7889e8;">
+					<span>⏱</span>PRレビュー待ち
+					<span style="font-size:11px;font-weight:normal;background:#5a67d8;color:#fff;padding:2px 8px;border-radius:10px;">v1.7</span>
+					<button id="prAddBtn" class="action-btn" style="margin-left:auto;padding:6px 12px;font-size:12px;background:#5a67d8;color:#fff;" type="button">➕ PRを追加</button>
+				</h3>
+				<p style="color:var(--dropdown-fg);font-size:13px;margin:6px 0 12px;">レビュー依頼中のPRを一元管理。3日以上経過したPRは赤くハイライトされます。</p>
+				<div id="prReviewList" class="pr-review-list"></div>
+			</div>
+
+			<!-- v1.7.0: 工数記録 -->
+			<div class="setting-group" style="border:2px solid #d4a017;background:linear-gradient(135deg,rgba(212,160,23,0.06) 0%,rgba(212,160,23,0.01) 100%);">
+				<h3 style="display:flex;align-items:center;gap:8px;color:var(--gold2);">
+					<span>⏱</span>工数記録
+					<span style="font-size:11px;font-weight:normal;background:#d4a017;color:#fff;padding:2px 8px;border-radius:10px;">v1.7</span>
+					<button id="timerCsvBtn" class="action-btn" style="margin-left:auto;padding:6px 12px;font-size:12px;" type="button">📤 CSVエクスポート</button>
+				</h3>
+				<p style="color:var(--dropdown-fg);font-size:13px;margin:6px 0 12px;">タスクごとに開始・停止して時間を記録。日次/週次の集計とCSVエクスポートに対応。</p>
+				<div class="timer-control">
+					<input type="text" class="timer-task" id="timerTaskInput" placeholder="タスク名を入力（例: コードレビュー）" maxlength="120">
+					<div class="timer-display" id="timerDisplay">00:00:00</div>
+					<button id="timerStartBtn" class="action-btn" style="padding:8px 16px;font-size:13px;background:#38a169;color:#fff;" type="button">▶ 開始</button>
+					<button id="timerStopBtn" class="action-btn" style="padding:8px 16px;font-size:13px;background:#e53e3e;color:#fff;display:none;" type="button">■ 停止</button>
+				</div>
+				<div class="timer-summary" id="timerSummary">
+					<span>合計（今日）: <strong id="timerToday">0時間0分</strong></span>
+					<span>今週: <strong id="timerWeek">0時間0分</strong></span>
+					<span>履歴: <strong id="timerCount">0</strong>件</span>
+				</div>
+				<table class="timer-log-table" id="timerLogTable">
+					<thead>
+						<tr>
+							<th>日時</th>
+							<th>タスク名</th>
+							<th>時間</th>
+							<th style="width:60px;"></th>
+						</tr>
+					</thead>
+					<tbody id="timerLogBody"></tbody>
+				</table>
+			</div>
 		</div>
 
-	</div>		<!-- メモ帳タブ -->
+	</div>		<!-- ノートブックタブ (v1.7.0: 旧メモ帳を拡張) -->
 		<div class="tab-panel" data-panel="memo">
 			<div class="setting-group">
-				<h3><span>📝</span>WEBメモ帳 <span style="font-size:12px;font-weight:normal;opacity:0.7;">(リッチテキスト対応)</span></h3>
-				<p style="margin-bottom:12px;color:var(--dropdown-fg);font-size:14px;">画像、表、色、フォントサイズなど自由に編集できるリッチテキストメモ帳です。</p>
-				<div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-					<span style="color:var(--dropdown-fg);font-size:13px;">文字数: <span id="memoCharCount">0</span></span>
-					<button id="memoClearBtn" class="action-btn" style="margin-left:auto;padding:8px 16px;font-size:13px;">
-						🗑️ クリア
-					</button>
-					<button id="memoExportHtmlBtn" class="action-btn" style="padding:8px 16px;font-size:13px;">
-						💾 HTML
-					</button>
-					<button id="memoExportPdfBtn" class="action-btn" style="padding:8px 16px;font-size:13px;">
-						📄 PDF
-					</button>
-					<button id="memoExportTxtBtn" class="action-btn" style="padding:8px 16px;font-size:13px;">
-						📝 TXT
-					</button>
+				<h3 style="display:flex;align-items:center;gap:8px;">
+					<span>📝</span>ノートブック
+					<span style="font-size:11px;font-weight:normal;background:#d4a017;color:#fff;padding:2px 8px;border-radius:10px;">v1.7</span>
+				</h3>
+				<p style="margin-bottom:12px;color:var(--dropdown-fg);font-size:14px;">複数のノートを管理できるリッチテキストノートブック。テンプレート（議事録・設計書・ADR・デイリーログ・PR説明文）から始められます。</p>
+
+				<div class="notebook-layout">
+					<!-- 左サイドバー：ノート一覧 -->
+					<aside class="notebook-sidebar">
+						<div class="notebook-sidebar-actions">
+							<button id="nbNewBtn" type="button" title="新規ノート">➕ 新規</button>
+							<button id="nbDupBtn" type="button" title="現在のノートを複製">📑 複製</button>
+							<button id="nbDelBtn" type="button" title="現在のノートを削除" style="background:#e53e3e;">🗑️ 削除</button>
+						</div>
+						<ul class="notebook-list" id="nbList"></ul>
+					</aside>
+
+					<!-- 右側：エディタ -->
+					<div class="notebook-main">
+						<div class="notebook-header-bar">
+							<input type="text" class="nb-title-input" id="nbTitleInput" placeholder="ノートタイトル" maxlength="120">
+							<input type="text" class="nb-tags-input" id="nbTagsInput" placeholder="タグ（カンマ区切り）" maxlength="120">
+						</div>
+						<div class="notebook-meta-row">
+							<span style="color:var(--dropdown-fg);">文字数: <span id="memoCharCount">0</span></span>
+							<span id="nbUpdatedAt"></span>
+						</div>
+						<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+							<button id="memoClearBtn" class="action-btn" style="padding:6px 12px;font-size:12px;">🗑️ 内容クリア</button>
+							<button id="memoExportHtmlBtn" class="action-btn" style="padding:6px 12px;font-size:12px;">💾 HTML</button>
+							<button id="memoExportPdfBtn" class="action-btn" style="padding:6px 12px;font-size:12px;">📄 PDF</button>
+							<button id="memoExportTxtBtn" class="action-btn" style="padding:6px 12px;font-size:12px;">📝 TXT</button>
+						</div>
+						<div id="memoEditor" style="
+							border: 2px solid var(--modal-input-border);
+							border-radius: 8px;
+							background: var(--modal-input-bg);
+							min-height: 500px;
+						"></div>
+						<div style="font-size:12px;color:var(--dropdown-fg);opacity:0.7;">
+							💡 画像はCtrl+Vで貼り付け可。自動保存です。
+						</div>
+					</div>
 				</div>
-				<div id="memoEditor" style="
-					border: 2px solid var(--modal-input-border);
-					border-radius: 8px;
-					background: var(--modal-input-bg);
-					min-height: 500px;
-				"></div>
-				<div style="margin-top:8px;font-size:12px;color:var(--dropdown-fg);opacity:0.7;">
-					💡 ヒント: 画像の貼り付けはクリップボードから直接Ctrl+Vで可能です。表の挿入、文字色・背景色・サイズの変更など自由に編集できます。
+			</div>
+		</div>
+
+		<!-- v1.7.0: テンプレート選択モーダル -->
+		<div class="modal-bg" id="nbTplModalBg" style="display:none;">
+			<div class="modal" style="min-width:520px;max-width:720px;">
+				<div style="display:flex;justify-content:space-between;align-items:center;">
+					<h2 style="margin:0;font-size:1.18em;">📝 新規ノートのテンプレートを選択</h2>
+					<button type="button" id="nbTplCloseBtn" class="close-btn">×</button>
 				</div>
+				<p style="font-size:13px;color:var(--dropdown-fg);margin:10px 0 0;">用途に合わせて初期内容を流し込みます。</p>
+				<div class="tpl-grid" id="nbTplGrid">
+					<div class="tpl-card" data-tpl="blank"><div class="tpl-icon">📄</div><div class="tpl-name">空白</div><div class="tpl-desc">真っ白なノート</div></div>
+					<div class="tpl-card" data-tpl="meeting"><div class="tpl-icon">📋</div><div class="tpl-name">議事録</div><div class="tpl-desc">日時・参加者・アジェンダ・決定事項・TODO</div></div>
+					<div class="tpl-card" data-tpl="design"><div class="tpl-icon">📐</div><div class="tpl-name">設計書</div><div class="tpl-desc">概要・前提・設計・影響範囲</div></div>
+					<div class="tpl-card" data-tpl="adr"><div class="tpl-icon">🏛️</div><div class="tpl-name">ADR</div><div class="tpl-desc">Status・Context・Decision・Consequences</div></div>
+					<div class="tpl-card" data-tpl="daily"><div class="tpl-icon">📅</div><div class="tpl-name">デイリーログ</div><div class="tpl-desc">日付・やったこと・つまずき・明日</div></div>
+					<div class="tpl-card" data-tpl="pr"><div class="tpl-icon">🔀</div><div class="tpl-name">PR説明文</div><div class="tpl-desc">Summary・Why・What・Test plan</div></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- v1.7.0: PRレビュー追加モーダル -->
+		<div class="modal-bg" id="prAddModalBg" style="display:none;">
+			<div class="modal" style="min-width:420px;max-width:560px;">
+				<div style="display:flex;justify-content:space-between;align-items:center;">
+					<h2 style="margin:0;font-size:1.18em;">🔄 PR レビューを追加</h2>
+					<button type="button" id="prAddCloseBtn" class="close-btn">×</button>
+				</div>
+				<form id="prAddForm" style="margin-top:14px;">
+					<label for="prTitleInput">PRタイトル</label>
+					<input type="text" id="prTitleInput" required maxlength="200" placeholder="例: feat: ログイン機能を追加">
+					<label for="prUrlInput">PR URL</label>
+					<input type="url" id="prUrlInput" required placeholder="https://github.com/...">
+					<label for="prRequestedAtInput">レビュー依頼日時</label>
+					<input type="datetime-local" id="prRequestedAtInput">
+					<label for="prPriorityInput">優先度</label>
+					<select id="prPriorityInput">
+						<option value="high">🔴 高</option>
+						<option value="mid" selected>🟡 中</option>
+						<option value="low">⚪ 低</option>
+					</select>
+					<div style="display:flex;gap:8px;margin-top:14px;">
+						<button type="submit" id="prSaveBtn">追加</button>
+						<button type="button" class="close-btn" id="prAddCancelBtn">キャンセル</button>
+					</div>
+				</form>
 			</div>
 		</div>
 
@@ -3480,6 +3963,8 @@
 				</div>
 				<label for="panelDescription">説明文（任意・Markdown対応: **太字** *斜体* ~~取消~~ `code` [link](url)）</label>
 				<textarea id="panelDescription" rows="3" style="width:94%;box-sizing:border-box;margin-bottom:14px;font-size:1em;border:1.3px solid var(--modal-input-border);border-radius:6px;padding:8px;background:var(--modal-input-bg);resize:vertical;font-family:inherit;color:inherit;" placeholder="このリンクの説明を入力（Markdown 可）"></textarea>
+				<label for="panelDueDate">期限（任意・タスクリマインダー用）</label>
+				<input type="date" id="panelDueDate" style="margin-bottom:14px;">
 				<button type="submit"
 					id="panelSaveBtn">保存</button> <button type="button" class="close-btn"
 					id="panelCancelBtn">キャンセル</button>
@@ -3714,6 +4199,7 @@
 	</div>
 	<div id="hiddenVersionHistory" style="display:none;">
   <p style="padding:16px;line-height:1.8;">
+    <strong>ver 1.7.0</strong> — 2026/04/25 — ノートブック・PRタイマー・工数記録・リマインダー<br>
     <strong>ver 1.6.1</strong> — 2026/04/25 — ダークモード視認性全面改善・UX修正<br>
     <strong>ver 1.6.0</strong> — 2026/04/25 — コードスニペット集・チケット番号自動検出<br>
     <strong>ver 1.5.1</strong> — 2026/04/25 — ダークモード固定（ライトモード廃止）<br>
@@ -4656,6 +5142,17 @@
 					a.classList.add('has-description');
 				}
 
+				// --- v1.7.0: 期限バッジ
+				let dueHtml = '';
+				if (p.dueDate && mode === "normal") {
+					const _dueClass = (typeof window.gkDueClassify === 'function')
+						? window.gkDueClassify(p.dueDate) : null;
+					if (_dueClass === 'overdue') dueHtml = `<span class="panel-due-badge" title="期限超過: ${p.dueDate}">🔴</span>`;
+					else if (_dueClass === 'today') dueHtml = `<span class="panel-due-badge" title="本日が期限: ${p.dueDate}">🟡</span>`;
+					else if (_dueClass === 'soon') dueHtml = `<span class="panel-due-badge" title="期限間近: ${p.dueDate}">🟢</span>`;
+					// それ以外は表示しない
+				}
+
 				// --- パネルHTML
 				a.innerHTML = `
 			<span class="fav-btn-wrapper">${favHtml}</span>
@@ -4665,6 +5162,7 @@
 					<button class="edbtn" data-idx="${originalPanelIdx}" data-action="del"  title="削除" type="button">🗑</button>
 				` : ``}
 			</span>
+			${dueHtml}
 			${imgTag}
 			<span class="panel-title">${rankBadge}${p.text.replace(/</g, "&lt;")} ${countHtml} ${dateHtml}</span>
 			${descHtml}
@@ -4819,6 +5317,8 @@
 			document.getElementById('panelUrl').value = item ? item.url : "";
 			document.getElementById('panelImg').value = item ? item.img : "";
 			document.getElementById('panelDescription').value = item ? (item.description || "") : "";
+			// v1.7.0: dueDate
+			document.getElementById('panelDueDate').value = item ? (item.dueDate || "") : "";
 			
 			// タグの読み込み
 			currentPanelTags = (item && item.tags && Array.isArray(item.tags)) ? [...item.tags] : [];
@@ -4865,21 +5365,25 @@
 			}
 			const tags = [...currentPanelTags];
 			const description = document.getElementById('panelDescription').value.trim();
+			// v1.7.0: dueDate (YYYY-MM-DD or "")
+			const dueDate = (document.getElementById('panelDueDate').value || "").trim();
 
 			let list = catList[catIdx].panels;
 			const nowTs = Date.now();
 			if (idx === "") {
-				// v1.5.0: addedAt / editedAt 記録
-				list.push({ text, img, url, tags, description, addedAt: nowTs, editedAt: nowTs });
+				// v1.5.0: addedAt / editedAt 記録 / v1.7.0: dueDate
+				list.push({ text, img, url, tags, description, dueDate, addedAt: nowTs, editedAt: nowTs });
 			} else {
 				// 既存パネルのお気に入りフラグを保持
 				const existingFav = list[idx] ? list[idx].favorite : undefined;
 				const existingAddedAt = list[idx] ? list[idx].addedAt : undefined;
-				list[idx] = { text, img, url, tags, description, editedAt: nowTs };
+				list[idx] = { text, img, url, tags, description, dueDate, editedAt: nowTs };
 				if (typeof existingFav !== 'undefined') list[idx].favorite = existingFav;
 				if (typeof existingAddedAt !== 'undefined') list[idx].addedAt = existingAddedAt;
 				else list[idx].addedAt = nowTs;
 			}
+			// v1.7.0: 期限変更後はダッシュボードを再描画
+			if (typeof window.renderDueList === 'function') { try { window.renderDueList(); } catch(e){} }
 			saveCats(catList);
 			collectAllTags();
 			renderCats();
@@ -5217,16 +5721,313 @@
 			if (e.target === this) this.style.display = 'none';
 		};
 
-	// ============= WEBメモ帳機能（Quillリッチテキストエディタ） =============
-	const MEMO_STORAGE_KEY = 'HBA_WEB_MEMO_RICH';
-	const memoCharCount = document.getElementById('memoCharCount');
-	const memoClearBtn = document.getElementById('memoClearBtn');
-	const memoExportHtmlBtn = document.getElementById('memoExportHtmlBtn');
+	// ============= ノートブック機能（v1.7.0: 旧メモ帳を拡張・複数ノート対応） =============
+	const MEMO_STORAGE_KEY = 'HBA_WEB_MEMO_RICH';      // 旧キー（移行用）
+	const NOTES_KEY        = 'gkLinks_NOTES';
+	const NOTE_CURRENT_KEY = 'gkLinks_NOTE_CURRENT';
+	const memoCharCount    = document.getElementById('memoCharCount');
+	const memoClearBtn     = document.getElementById('memoClearBtn');
+	const memoExportHtmlBtn= document.getElementById('memoExportHtmlBtn');
 	const memoExportPdfBtn = document.getElementById('memoExportPdfBtn');
 	const memoExportTxtBtn = document.getElementById('memoExportTxtBtn');
+	const nbListEl         = document.getElementById('nbList');
+	const nbTitleInput     = document.getElementById('nbTitleInput');
+	const nbTagsInput      = document.getElementById('nbTagsInput');
+	const nbUpdatedAt      = document.getElementById('nbUpdatedAt');
+	const nbNewBtn         = document.getElementById('nbNewBtn');
+	const nbDupBtn         = document.getElementById('nbDupBtn');
+	const nbDelBtn         = document.getElementById('nbDelBtn');
+	const nbTplModalBg     = document.getElementById('nbTplModalBg');
+	const nbTplCloseBtn    = document.getElementById('nbTplCloseBtn');
+	const nbTplGrid        = document.getElementById('nbTplGrid');
+
+	// ノート構造: { id, title, tags:[], updatedAt, createdAt, content: <Quill Delta> }
+	function nbLoadAll() {
+		try {
+			const raw = localStorage.getItem(NOTES_KEY);
+			if (!raw) return [];
+			const arr = JSON.parse(raw);
+			return Array.isArray(arr) ? arr : [];
+		} catch (e) { console.error('ノート読込失敗', e); return []; }
+	}
+	function nbSaveAll(arr) {
+		try { localStorage.setItem(NOTES_KEY, JSON.stringify(arr)); }
+		catch (e) { console.error('ノート保存失敗', e); }
+	}
+	function nbGenId() { return 'nb_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+	function nbCurrentId() { return localStorage.getItem(NOTE_CURRENT_KEY) || ''; }
+	function nbSetCurrentId(id) { localStorage.setItem(NOTE_CURRENT_KEY, id || ''); }
+
+	// 旧 MEMO_STORAGE_KEY からの移行（初回のみ）
+	function nbMigrateLegacy() {
+		const notes = nbLoadAll();
+		if (notes.length > 0) return notes;
+		const legacy = localStorage.getItem(MEMO_STORAGE_KEY);
+		const now = Date.now();
+		if (legacy) {
+			try {
+				const delta = JSON.parse(legacy);
+				const note = {
+					id: nbGenId(),
+					title: '移行メモ（v1.6以前）',
+					tags: [],
+					content: delta,
+					createdAt: now,
+					updatedAt: now
+				};
+				nbSaveAll([note]);
+				nbSetCurrentId(note.id);
+				console.log('[ノートブック] 旧メモを移行しました');
+				return [note];
+			} catch (e) { console.warn('旧メモ移行失敗', e); }
+		}
+		// 何もない: 空の最初のノートを作る
+		const note = {
+			id: nbGenId(),
+			title: '新規ノート',
+			tags: [],
+			content: { ops: [{ insert: '\n' }] },
+			createdAt: now,
+			updatedAt: now
+		};
+		nbSaveAll([note]);
+		nbSetCurrentId(note.id);
+		return [note];
+	}
+
+	// テンプレート定義
+	const NB_TEMPLATES = {
+		blank: { title: '新規ノート', delta: { ops: [{ insert: '\n' }] } },
+		meeting: {
+			title: '議事録 ' + (new Date().toISOString().slice(0,10)),
+			delta: {
+				ops: [
+					{ insert: '議事録', attributes: { header: 1 } }, { insert: '\n' },
+					{ insert: '日時', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: new Date().toLocaleString('ja-JP') + '\n' },
+					{ insert: '参加者', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '・\n・\n' },
+					{ insert: 'アジェンダ', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '1. ', attributes: { list: 'ordered' } }, { insert: '\n' },
+					{ insert: '2. ', attributes: { list: 'ordered' } }, { insert: '\n' },
+					{ insert: '決定事項', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '・', attributes: { list: 'bullet' } }, { insert: '\n' },
+					{ insert: 'TODO', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '☐ ', attributes: { list: 'bullet' } }, { insert: '\n' }
+				]
+			}
+		},
+		design: {
+			title: '設計書 ' + (new Date().toISOString().slice(0,10)),
+			delta: {
+				ops: [
+					{ insert: '設計書', attributes: { header: 1 } }, { insert: '\n' },
+					{ insert: '概要', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '\n' },
+					{ insert: '前提', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '・', attributes: { list: 'bullet' } }, { insert: '\n' },
+					{ insert: '設計', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '\n' },
+					{ insert: '影響範囲', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '・', attributes: { list: 'bullet' } }, { insert: '\n' }
+				]
+			}
+		},
+		adr: {
+			title: 'ADR-XXX: <タイトル>',
+			delta: {
+				ops: [
+					{ insert: 'ADR: <タイトル>', attributes: { header: 1 } }, { insert: '\n' },
+					{ insert: 'Status', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: 'Proposed / Accepted / Deprecated\n' },
+					{ insert: 'Context', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '\n' },
+					{ insert: 'Decision', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '\n' },
+					{ insert: 'Consequences', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '\n' }
+				]
+			}
+		},
+		daily: {
+			title: 'デイリーログ ' + (new Date().toISOString().slice(0,10)),
+			delta: {
+				ops: [
+					{ insert: 'デイリーログ ' + new Date().toISOString().slice(0,10), attributes: { header: 1 } }, { insert: '\n' },
+					{ insert: '今日やったこと', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '・', attributes: { list: 'bullet' } }, { insert: '\n' },
+					{ insert: 'つまずいたこと', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '・', attributes: { list: 'bullet' } }, { insert: '\n' },
+					{ insert: '明日やること', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '☐ ', attributes: { list: 'bullet' } }, { insert: '\n' }
+				]
+			}
+		},
+		pr: {
+			title: 'PR説明文',
+			delta: {
+				ops: [
+					{ insert: 'Summary', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '\n' },
+					{ insert: 'Why', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '\n' },
+					{ insert: 'What', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '・', attributes: { list: 'bullet' } }, { insert: '\n' },
+					{ insert: 'Test plan', attributes: { header: 2 } }, { insert: '\n' },
+					{ insert: '☐ ', attributes: { list: 'bullet' } }, { insert: '\n' }
+				]
+			}
+		}
+	};
+
+	let quill = null;
+	let nbCurrent = null;          // 現在開いているノートオブジェクト
+	let nbSuppressSave = false;    // ノート切替時の text-change を無視
+
+	function nbFormatDate(ts) {
+		if (!ts) return '';
+		const d = new Date(ts);
+		return d.toLocaleString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+	}
+
+	function nbRenderList() {
+		if (!nbListEl) return;
+		const notes = nbLoadAll();
+		const curId = nbCurrentId();
+		if (notes.length === 0) {
+			nbListEl.innerHTML = '<li style="padding:12px;font-size:12px;color:var(--dropdown-fg);opacity:0.7;">ノートがありません</li>';
+			return;
+		}
+		// 更新日時降順
+		notes.sort((a,b) => (b.updatedAt||0) - (a.updatedAt||0));
+		nbListEl.innerHTML = notes.map(n => {
+			const tagsHtml = (n.tags||[]).filter(Boolean).slice(0,4).map(t => `<span class="nb-tag">${String(t).replace(/</g,'&lt;')}</span>`).join('');
+			const title = (n.title||'(無題)').replace(/</g,'&lt;');
+			return `<li class="notebook-list-item ${n.id===curId?'active':''}" data-nbid="${n.id}">
+				<span class="nb-title">${title}</span>
+				<span class="nb-meta">${nbFormatDate(n.updatedAt)}</span>
+				${tagsHtml ? `<div class="nb-tags">${tagsHtml}</div>` : ''}
+			</li>`;
+		}).join('');
+		nbListEl.querySelectorAll('.notebook-list-item').forEach(el => {
+			el.onclick = () => nbOpen(el.dataset.nbid);
+		});
+	}
+
+	function nbOpen(id) {
+		const notes = nbLoadAll();
+		const note = notes.find(n => n.id === id);
+		if (!note) return;
+		nbSetCurrentId(id);
+		nbCurrent = note;
+		// Quill にロード
+		nbSuppressSave = true;
+		try {
+			if (quill) {
+				const delta = note.content || { ops: [{ insert: '\n' }] };
+				quill.setContents(delta);
+			}
+		} finally {
+			setTimeout(() => { nbSuppressSave = false; }, 50);
+		}
+		if (nbTitleInput) nbTitleInput.value = note.title || '';
+		if (nbTagsInput)  nbTagsInput.value = (note.tags || []).join(', ');
+		if (nbUpdatedAt)  nbUpdatedAt.textContent = '更新: ' + nbFormatDate(note.updatedAt);
+		updateMemoCharCount();
+		nbRenderList();
+	}
+
+	function nbPersistCurrent() {
+		if (!nbCurrent || !quill) return;
+		const notes = nbLoadAll();
+		const idx = notes.findIndex(n => n.id === nbCurrent.id);
+		if (idx < 0) return;
+		notes[idx].content = quill.getContents();
+		notes[idx].title = (nbTitleInput && nbTitleInput.value.trim()) || '(無題)';
+		notes[idx].tags = (nbTagsInput && nbTagsInput.value || '')
+			.split(',').map(s => s.trim()).filter(Boolean);
+		notes[idx].updatedAt = Date.now();
+		nbCurrent = notes[idx];
+		nbSaveAll(notes);
+		if (nbUpdatedAt) nbUpdatedAt.textContent = '更新: ' + nbFormatDate(nbCurrent.updatedAt);
+	}
+
+	function nbCreateFromTemplate(tplKey) {
+		const tpl = NB_TEMPLATES[tplKey] || NB_TEMPLATES.blank;
+		const now = Date.now();
+		const note = {
+			id: nbGenId(),
+			title: tpl.title,
+			tags: [],
+			content: JSON.parse(JSON.stringify(tpl.delta)),
+			createdAt: now,
+			updatedAt: now
+		};
+		const notes = nbLoadAll();
+		notes.push(note);
+		nbSaveAll(notes);
+		nbOpen(note.id);
+	}
+
+	function nbDuplicate() {
+		if (!nbCurrent) return;
+		const notes = nbLoadAll();
+		const src = notes.find(n => n.id === nbCurrent.id);
+		if (!src) return;
+		const now = Date.now();
+		const copy = {
+			id: nbGenId(),
+			title: src.title + ' (コピー)',
+			tags: [...(src.tags || [])],
+			content: JSON.parse(JSON.stringify(src.content || { ops:[{insert:'\n'}] })),
+			createdAt: now,
+			updatedAt: now
+		};
+		notes.push(copy);
+		nbSaveAll(notes);
+		nbOpen(copy.id);
+	}
+
+	function nbDelete() {
+		if (!nbCurrent) return;
+		if (!confirm(`ノート「${nbCurrent.title || '(無題)'}」を削除しますか？`)) return;
+		let notes = nbLoadAll();
+		notes = notes.filter(n => n.id !== nbCurrent.id);
+		nbSaveAll(notes);
+		if (notes.length === 0) {
+			nbCreateFromTemplate('blank');
+		} else {
+			notes.sort((a,b) => (b.updatedAt||0) - (a.updatedAt||0));
+			nbOpen(notes[0].id);
+		}
+	}
+
+	// テンプレートモーダル
+	function openTplModal() {
+		if (nbTplModalBg) nbTplModalBg.style.display = 'flex';
+	}
+	function closeTplModal() {
+		if (nbTplModalBg) nbTplModalBg.style.display = 'none';
+	}
+	if (nbTplGrid) {
+		nbTplGrid.addEventListener('click', (e) => {
+			const card = e.target.closest('.tpl-card');
+			if (!card) return;
+			const tplKey = card.dataset.tpl;
+			closeTplModal();
+			nbCreateFromTemplate(tplKey);
+		});
+	}
+	if (nbTplCloseBtn) nbTplCloseBtn.onclick = closeTplModal;
+	if (nbTplModalBg) nbTplModalBg.onclick = (e) => { if (e.target === nbTplModalBg) closeTplModal(); };
+
+	if (nbNewBtn) nbNewBtn.onclick = openTplModal;
+	if (nbDupBtn) nbDupBtn.onclick = nbDuplicate;
+	if (nbDelBtn) nbDelBtn.onclick = nbDelete;
+	if (nbTitleInput) nbTitleInput.addEventListener('input', () => { nbPersistCurrent(); nbRenderList(); });
+	if (nbTagsInput)  nbTagsInput.addEventListener('input',  () => { nbPersistCurrent(); nbRenderList(); });
 
 	// Quillエディタの初期化
-	let quill = null;
 	setTimeout(() => {
 		if (typeof Quill !== 'undefined') {
 			quill = new Quill('#memoEditor', {
@@ -5248,26 +6049,28 @@
 				placeholder: 'ここに自由にメモを書けます...\n\n画像の貼り付けはCtrl+Vで可能です。'
 			});
 
-			// 保存されたメモの読み込み
-			const savedMemo = localStorage.getItem(MEMO_STORAGE_KEY);
-			if (savedMemo) {
-				try {
-					const delta = JSON.parse(savedMemo);
-					quill.setContents(delta);
-				} catch (e) {
-					console.error('メモの読み込みに失敗:', e);
-				}
+			// 初期化：ノート読み込み（または旧メモ移行）
+			let notes = nbLoadAll();
+			if (notes.length === 0) {
+				notes = nbMigrateLegacy();
 			}
-			updateMemoCharCount();
+			let curId = nbCurrentId();
+			if (!curId || !notes.find(n => n.id === curId)) {
+				notes.sort((a,b) => (b.updatedAt||0) - (a.updatedAt||0));
+				curId = notes[0].id;
+				nbSetCurrentId(curId);
+			}
+			nbOpen(curId);
 
-			// 自動保存（テキスト変更時）
+			// 自動保存（Quill変更時）
 			quill.on('text-change', function() {
-				const delta = quill.getContents();
-				localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(delta));
+				if (nbSuppressSave) return;
+				nbPersistCurrent();
 				updateMemoCharCount();
+				nbRenderList();
 			});
 
-			console.log('Quillエディタ初期化完了');
+			console.log('機能1完成: ノートブック（複数ノート + テンプレート6種）');
 		} else {
 			console.error('Quillライブラリが読み込まれていません');
 		}
@@ -5275,19 +6078,20 @@
 
 	// 文字数更新
 	function updateMemoCharCount() {
-		if (quill) {
+		if (quill && memoCharCount) {
 			const text = quill.getText();
 			memoCharCount.textContent = text.length - 1; // 末尾の改行を除く
 		}
 	}
 
-	// クリアボタン
+	// 内容クリアボタン（現在のノートのみ）
 	memoClearBtn.onclick = function() {
-		if (confirm('メモの内容を全て削除しますか?')) {
+		if (confirm('現在のノートの内容を全て削除しますか?（ノート自体は残ります）')) {
 			if (quill) {
 				quill.setText('');
-				localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(quill.getContents()));
+				nbPersistCurrent();
 				updateMemoCharCount();
+				nbRenderList();
 			}
 		}
 	};
@@ -5300,15 +6104,16 @@
 		}
 		const htmlContent = quill.root.innerHTML;
 		if (!htmlContent || htmlContent === '<p><br></p>') {
-			alert('メモが空です。');
+			alert('ノートが空です。');
 			return;
 		}
+		const noteTitle = (nbCurrent && nbCurrent.title) || 'メモ';
 		const fullHtml = `<!DOCTYPE html>
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>gkLinks メモ</title>
+	<title>${noteTitle.replace(/</g,'&lt;')}</title>
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 	<style>
 		body { font-family: 'Noto Sans JP', sans-serif; padding: 20px; margin: 0 auto; }
@@ -5318,6 +6123,7 @@
 	</style>
 </head>
 <body>
+	<h1>${noteTitle.replace(/</g,'&lt;')}</h1>
 	<div class="ql-editor">
 		${htmlContent}
 	</div>
@@ -5328,10 +6134,11 @@
 		const a = document.createElement('a');
 		a.href = url;
 		const dateStr = new Date().toISOString().slice(0,10).replace(/-/g,'');
-		a.download = 'gkLinks_メモ_' + dateStr + '.html';
+		const safeName = noteTitle.replace(/[\\/:*?"<>|]/g,'_').slice(0,40);
+		a.download = `gkLinks_${safeName}_${dateStr}.html`;
 		a.click();
 		URL.revokeObjectURL(url);
-		alert('メモをHTML形式で保存しました。');
+		alert('ノートをHTML形式で保存しました。');
 	};
 
 	// PDF出力ボタン
@@ -5342,32 +6149,34 @@
 		}
 		const htmlContent = quill.root.innerHTML;
 		if (!htmlContent || htmlContent === '<p><br></p>') {
-			alert('メモが空です。');
+			alert('ノートが空です。');
 			return;
 		}
-		
+
 		if (typeof html2pdf === 'undefined') {
 			alert('PDF出力ライブラリが読み込まれていません。ページを再読み込みしてください。');
 			return;
 		}
-		
+
+		const noteTitle = (nbCurrent && nbCurrent.title) || 'メモ';
 		// PDF出力用のHTML要素を作成
 		const element = document.createElement('div');
-		element.innerHTML = htmlContent;
+		element.innerHTML = `<h1 style="font-size:18px;margin:0 0 14px;">${noteTitle.replace(/</g,'&lt;')}</h1>` + htmlContent;
 		element.style.padding = '20px';
 		element.style.fontFamily = 'Noto Sans JP, sans-serif';
-		
+
 		const dateStr = new Date().toISOString().slice(0,10).replace(/-/g,'');
+		const safeName = noteTitle.replace(/[\\/:*?"<>|]/g,'_').slice(0,40);
 		const opt = {
 			margin: 10,
-			filename: `gkLinks_メモ_${dateStr}.pdf`,
+			filename: `gkLinks_${safeName}_${dateStr}.pdf`,
 			image: { type: 'jpeg', quality: 0.98 },
 			html2canvas: { scale: 2 },
 			jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
 		};
-		
+
 		html2pdf().set(opt).from(element).save().then(() => {
-			alert('メモをPDF形式で保存しました。');
+			alert('ノートをPDF形式で保存しました。');
 		}).catch((err) => {
 			console.error('PDF出力エラー:', err);
 			alert('PDF出力に失敗しました。');
@@ -5382,18 +6191,20 @@
 		}
 		const textContent = quill.getText();
 		if (!textContent || textContent.trim() === '') {
-			alert('メモが空です。');
+			alert('ノートが空です。');
 			return;
 		}
-		const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+		const noteTitle = (nbCurrent && nbCurrent.title) || 'メモ';
+		const blob = new Blob([noteTitle + '\n\n' + textContent], { type: 'text/plain;charset=utf-8' });
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = url;
 		const dateStr = new Date().toISOString().slice(0,10).replace(/-/g,'');
-		a.download = 'gkLinks_メモ_' + dateStr + '.txt';
+		const safeName = noteTitle.replace(/[\\/:*?"<>|]/g,'_').slice(0,40);
+		a.download = `gkLinks_${safeName}_${dateStr}.txt`;
 		a.click();
 		URL.revokeObjectURL(url);
-		alert('メモをTXT形式で保存しました。');
+		alert('ノートをTXT形式で保存しました。');
 	};
 	
 	renderCats();
@@ -8848,6 +9659,425 @@ panelTagsInput.oninput = function() {
 			reload: () => { refreshLangFilter(); renderLeft(); renderRight(); }
 		};
 		console.log('機能13完成: コードスニペット集 (' + BUILTIN_SNIPPETS.length + ' built-in)');
+	})();
+
+	/* ============================================================
+	 * v1.7.0 機能2: PRレビュータイマー
+	 * - localStorage gkLinks_PR_REVIEWS で配列管理
+	 * - ダッシュボードタブで一覧・追加・状態変更・削除
+	 * ============================================================ */
+	(function () {
+		const KEY = 'gkLinks_PR_REVIEWS';
+		const list = () => {
+			try { const raw = localStorage.getItem(KEY); const arr = raw ? JSON.parse(raw) : []; return Array.isArray(arr) ? arr : []; }
+			catch (e) { console.error('PRレビュー読込失敗', e); return []; }
+		};
+		const save = (arr) => { try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch (e) { console.error(e); } };
+		const genId = () => 'pr_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+
+		function fmtElapsed(sinceMs) {
+			const diff = Date.now() - sinceMs;
+			if (diff < 0) return 'まもなく';
+			const m = Math.floor(diff / 60000);
+			if (m < 60) return m + '分';
+			const h = Math.floor(m / 60);
+			if (h < 24) return h + '時間';
+			const d = Math.floor(h / 24);
+			const restH = h % 24;
+			if (d >= 3) return `⚠️ ${d}日${restH}時間経過`;
+			return `${d}日${restH}時間`;
+		}
+		function isOverdue(sinceMs) { return (Date.now() - sinceMs) >= 3 * 24 * 3600 * 1000; }
+
+		function renderList() {
+			const root = document.getElementById('prReviewList');
+			if (!root) return;
+			const items = list();
+			if (items.length === 0) {
+				root.innerHTML = '<div style="padding:14px;text-align:center;color:var(--dropdown-fg);opacity:0.6;font-size:13px;">PRはまだありません。「➕ PRを追加」から登録してください。</div>';
+				return;
+			}
+			// 優先度→経過時間 でソート（高→低、古い→新しい）
+			const prioOrder = { high: 0, mid: 1, low: 2 };
+			items.sort((a,b) => {
+				const pa = prioOrder[a.priority||'mid'] ?? 1;
+				const pb = prioOrder[b.priority||'mid'] ?? 1;
+				if (pa !== pb) return pa - pb;
+				return (a.requestedAt||0) - (b.requestedAt||0);
+			});
+			root.innerHTML = items.map(it => {
+				const overdue = isOverdue(it.requestedAt);
+				const elapsedCls = overdue ? 'pr-elapsed overdue' : 'pr-elapsed';
+				const itemCls = overdue ? 'pr-review-item overdue' : 'pr-review-item';
+				const prio = it.priority || 'mid';
+				const prioLabel = prio === 'high' ? '🔴 高' : prio === 'low' ? '⚪ 低' : '🟡 中';
+				const safeTitle = (it.title || '(無題)').replace(/</g,'&lt;');
+				return `<div class="${itemCls}" data-id="${it.id}">
+					<span class="pr-title" data-act="open" title="${(it.url||'').replace(/"/g,'&quot;')}">${safeTitle}</span>
+					<span class="${elapsedCls}">${fmtElapsed(it.requestedAt)}</span>
+					<span class="pr-priority prio-${prio}">${prioLabel}</span>
+					<select class="pr-status" data-act="status">
+						<option value="reviewing"${(it.status==='reviewing'||!it.status)?' selected':''}>レビュー中</option>
+						<option value="approved"${it.status==='approved'?' selected':''}>承認済</option>
+						<option value="rejected"${it.status==='rejected'?' selected':''}>差し戻し</option>
+					</select>
+					<button class="pr-del" data-act="del" type="button">削除</button>
+				</div>`;
+			}).join('');
+			// イベント
+			root.querySelectorAll('.pr-review-item').forEach(el => {
+				const id = el.dataset.id;
+				el.querySelector('[data-act="open"]').onclick = () => {
+					const arr = list(); const it = arr.find(x => x.id === id);
+					if (it && it.url) window.open(it.url, '_blank', 'noopener');
+				};
+				el.querySelector('[data-act="status"]').onchange = (e) => {
+					const arr = list(); const idx = arr.findIndex(x => x.id === id);
+					if (idx >= 0) { arr[idx].status = e.target.value; save(arr); }
+				};
+				el.querySelector('[data-act="del"]').onclick = () => {
+					if (!confirm('このPRを削除しますか？')) return;
+					const arr = list().filter(x => x.id !== id);
+					save(arr); renderList();
+				};
+			});
+		}
+		window.renderPRReviewList = renderList;
+
+		// モーダル制御
+		function openModal() {
+			const bg = document.getElementById('prAddModalBg');
+			if (!bg) return;
+			document.getElementById('prTitleInput').value = '';
+			document.getElementById('prUrlInput').value = '';
+			document.getElementById('prPriorityInput').value = 'mid';
+			// 現在時刻を datetime-local 形式 (YYYY-MM-DDTHH:mm)
+			const now = new Date();
+			const localISO = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
+			document.getElementById('prRequestedAtInput').value = localISO;
+			bg.style.display = 'flex';
+			setTimeout(() => document.getElementById('prTitleInput').focus(), 30);
+		}
+		function closeModal() { const bg = document.getElementById('prAddModalBg'); if (bg) bg.style.display = 'none'; }
+
+		document.addEventListener('click', (e) => {
+			if (e.target && e.target.id === 'prAddBtn') { openModal(); }
+		});
+		const closeBtn = document.getElementById('prAddCloseBtn');
+		const cancelBtn = document.getElementById('prAddCancelBtn');
+		if (closeBtn) closeBtn.onclick = closeModal;
+		if (cancelBtn) cancelBtn.onclick = closeModal;
+		const bg = document.getElementById('prAddModalBg');
+		if (bg) bg.onclick = (e) => { if (e.target === bg) closeModal(); };
+		const form = document.getElementById('prAddForm');
+		if (form) form.onsubmit = (e) => {
+			e.preventDefault();
+			const title = document.getElementById('prTitleInput').value.trim();
+			const url = document.getElementById('prUrlInput').value.trim();
+			const reqStr = document.getElementById('prRequestedAtInput').value;
+			const priority = document.getElementById('prPriorityInput').value || 'mid';
+			if (!title || !url) { alert('タイトルとURLは必須です'); return; }
+			const requestedAt = reqStr ? new Date(reqStr).getTime() : Date.now();
+			const item = { id: genId(), title, url, requestedAt, priority, status: 'reviewing' };
+			const arr = list(); arr.push(item); save(arr);
+			closeModal(); renderList();
+		};
+
+		// タブ切替時 + 60秒毎に経過時間を再計算
+		document.addEventListener('click', function (e) {
+			const t = e.target.closest && e.target.closest('.tab-item[data-tab="dashboard"]');
+			if (t) setTimeout(renderList, 80);
+		});
+		setInterval(() => {
+			const root = document.getElementById('prReviewList');
+			if (root && root.offsetParent !== null) renderList(); // 表示中のみ
+		}, 60 * 1000);
+
+		// 初回
+		setTimeout(renderList, 200);
+		console.log('機能2完成: PRレビュータイマー');
+	})();
+
+	/* ============================================================
+	 * v1.7.0 機能3: 工数記録
+	 * - localStorage gkLinks_TIME_LOGS = [{ id, taskName, startAt, endAt, durationSec }]
+	 * - localStorage gkLinks_TIME_RUNNING = { taskName, startAt } | null （途中停止対応）
+	 * ============================================================ */
+	(function () {
+		const KEY = 'gkLinks_TIME_LOGS';
+		const RUNNING_KEY = 'gkLinks_TIME_RUNNING';
+		const list = () => {
+			try { const raw = localStorage.getItem(KEY); const arr = raw ? JSON.parse(raw) : []; return Array.isArray(arr) ? arr : []; }
+			catch (e) { console.error('工数読込失敗', e); return []; }
+		};
+		const save = (arr) => { try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch (e) { console.error(e); } };
+		const getRunning = () => {
+			try { const raw = localStorage.getItem(RUNNING_KEY); return raw ? JSON.parse(raw) : null; }
+			catch (e) { return null; }
+		};
+		const setRunning = (v) => {
+			try { if (v) localStorage.setItem(RUNNING_KEY, JSON.stringify(v)); else localStorage.removeItem(RUNNING_KEY); }
+			catch (e) { console.error(e); }
+		};
+		const genId = () => 'tl_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+
+		function fmtHMS(sec) {
+			sec = Math.max(0, Math.floor(sec));
+			const h = Math.floor(sec / 3600);
+			const m = Math.floor((sec % 3600) / 60);
+			const s = sec % 60;
+			return [h,m,s].map(n => String(n).padStart(2,'0')).join(':');
+		}
+		function fmtHM(sec) {
+			sec = Math.max(0, Math.floor(sec));
+			const h = Math.floor(sec / 3600);
+			const m = Math.floor((sec % 3600) / 60);
+			return `${h}時間${m}分`;
+		}
+		function fmtDateTime(ts) {
+			const d = new Date(ts);
+			return d.toLocaleString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+		}
+		function isToday(ts) {
+			const d = new Date(ts), now = new Date();
+			return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() && d.getDate() === now.getDate();
+		}
+		function isThisWeek(ts) {
+			// 月曜始まり
+			const d = new Date(ts), now = new Date();
+			const dayMs = 24 * 3600 * 1000;
+			const dow = (now.getDay() + 6) % 7; // Mon=0
+			const monday = new Date(now); monday.setHours(0,0,0,0); monday.setDate(monday.getDate() - dow);
+			const sundayEnd = new Date(monday.getTime() + 7 * dayMs);
+			return ts >= monday.getTime() && ts < sundayEnd.getTime();
+		}
+
+		let tickHandle = null;
+		function startTicker() {
+			if (tickHandle) return;
+			tickHandle = setInterval(() => {
+				const r = getRunning();
+				const disp = document.getElementById('timerDisplay');
+				if (r && disp) {
+					const sec = Math.floor((Date.now() - r.startAt) / 1000);
+					disp.textContent = fmtHMS(sec);
+				} else if (disp) {
+					disp.textContent = '00:00:00';
+				}
+			}, 1000);
+		}
+		function stopTicker() { if (tickHandle) { clearInterval(tickHandle); tickHandle = null; } }
+
+		function renderSummary() {
+			const arr = list();
+			let todaySec = 0, weekSec = 0;
+			arr.forEach(l => {
+				if (isToday(l.startAt)) todaySec += l.durationSec;
+				if (isThisWeek(l.startAt)) weekSec += l.durationSec;
+			});
+			const today = document.getElementById('timerToday');
+			const week = document.getElementById('timerWeek');
+			const cnt = document.getElementById('timerCount');
+			if (today) today.textContent = fmtHM(todaySec);
+			if (week)  week.textContent = fmtHM(weekSec);
+			if (cnt)   cnt.textContent = arr.length;
+		}
+		function renderTable() {
+			const tbody = document.getElementById('timerLogBody');
+			if (!tbody) return;
+			const arr = list().slice().sort((a,b) => (b.startAt||0) - (a.startAt||0));
+			if (arr.length === 0) {
+				tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--dropdown-fg);opacity:0.6;padding:14px;">記録はまだありません</td></tr>';
+				return;
+			}
+			tbody.innerHTML = arr.map(l => `
+				<tr data-id="${l.id}">
+					<td>${fmtDateTime(l.startAt)}</td>
+					<td>${(l.taskName || '(無題)').replace(/</g,'&lt;')}</td>
+					<td class="timer-dur">${fmtHMS(l.durationSec)}</td>
+					<td><button class="timer-del" type="button" data-id="${l.id}">削除</button></td>
+				</tr>
+			`).join('');
+			tbody.querySelectorAll('button.timer-del').forEach(btn => {
+				btn.onclick = () => {
+					if (!confirm('この記録を削除しますか？')) return;
+					const id = btn.dataset.id;
+					save(list().filter(x => x.id !== id));
+					renderAll();
+				};
+			});
+		}
+		function renderRunning() {
+			const r = getRunning();
+			const startBtn = document.getElementById('timerStartBtn');
+			const stopBtn  = document.getElementById('timerStopBtn');
+			const taskInp  = document.getElementById('timerTaskInput');
+			const disp     = document.getElementById('timerDisplay');
+			if (!startBtn) return;
+			if (r) {
+				startBtn.style.display = 'none';
+				stopBtn.style.display = '';
+				if (taskInp) { taskInp.value = r.taskName || ''; taskInp.disabled = true; }
+				if (disp) disp.classList.add('running');
+				startTicker();
+			} else {
+				startBtn.style.display = '';
+				stopBtn.style.display = 'none';
+				if (taskInp) taskInp.disabled = false;
+				if (disp) { disp.classList.remove('running'); disp.textContent = '00:00:00'; }
+				stopTicker();
+			}
+		}
+		function renderAll() { renderRunning(); renderSummary(); renderTable(); }
+		window.renderTimeTracker = renderAll;
+
+		document.addEventListener('click', (e) => {
+			if (e.target && e.target.id === 'timerStartBtn') {
+				const taskInp = document.getElementById('timerTaskInput');
+				const taskName = (taskInp && taskInp.value || '').trim() || '(無題)';
+				setRunning({ taskName, startAt: Date.now() });
+				renderAll();
+			} else if (e.target && e.target.id === 'timerStopBtn') {
+				const r = getRunning(); if (!r) { renderAll(); return; }
+				const endAt = Date.now();
+				const durationSec = Math.max(1, Math.floor((endAt - r.startAt) / 1000));
+				const arr = list();
+				arr.push({ id: genId(), taskName: r.taskName, startAt: r.startAt, endAt, durationSec });
+				save(arr); setRunning(null);
+				const taskInp = document.getElementById('timerTaskInput'); if (taskInp) taskInp.value = '';
+				renderAll();
+			} else if (e.target && e.target.id === 'timerCsvBtn') {
+				const arr = list().slice().sort((a,b) => (a.startAt||0) - (b.startAt||0));
+				if (arr.length === 0) { alert('エクスポートする記録がありません'); return; }
+				const rows = [['日時','タスク名','開始','終了','時間（時間:分:秒）']];
+				arr.forEach(l => {
+					rows.push([
+						fmtDateTime(l.startAt),
+						(l.taskName || '').replace(/"/g,'""'),
+						new Date(l.startAt).toLocaleString('ja-JP'),
+						l.endAt ? new Date(l.endAt).toLocaleString('ja-JP') : '',
+						fmtHMS(l.durationSec)
+					]);
+				});
+				const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+				// BOM付きUTF-8
+				const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				const dateStr = new Date().toISOString().slice(0,10).replace(/-/g,'');
+				a.download = `gkLinks_工数記録_${dateStr}.csv`;
+				a.click(); URL.revokeObjectURL(url);
+			}
+		});
+
+		// タブ切替時に再描画 + Tickerは常時再開（バックグラウンドでも動く）
+		document.addEventListener('click', function (e) {
+			const t = e.target.closest && e.target.closest('.tab-item[data-tab="dashboard"]');
+			if (t) setTimeout(renderAll, 80);
+		});
+
+		// 初回
+		setTimeout(renderAll, 250);
+		console.log('機能3完成: 工数記録（タイマー + CSV エクスポート）');
+	})();
+
+	/* ============================================================
+	 * v1.7.0 機能4: タスクリマインダー（パネル期限）
+	 * - パネル.dueDate (YYYY-MM-DD) を抽出
+	 * - 今日〜7日以内 + 過去（未対応）を表示
+	 * - パネルカードへのバッジ補助関数 gkDueClassify を提供
+	 * ============================================================ */
+	(function () {
+		function todayStr() {
+			const d = new Date();
+			const y = d.getFullYear();
+			const m = String(d.getMonth()+1).padStart(2,'0');
+			const dd = String(d.getDate()).padStart(2,'0');
+			return `${y}-${m}-${dd}`;
+		}
+		function diffDays(dueStr) {
+			// 日付のみで比較（時刻は無視）
+			const t = new Date(); t.setHours(0,0,0,0);
+			const d = new Date(dueStr + 'T00:00:00');
+			if (isNaN(d.getTime())) return null;
+			return Math.round((d.getTime() - t.getTime()) / (24 * 3600 * 1000));
+		}
+		// パネル描画用（外部から呼ぶ）
+		window.gkDueClassify = function (dueStr) {
+			const d = diffDays(dueStr);
+			if (d === null) return null;
+			if (d < 0) return 'overdue';
+			if (d === 0) return 'today';
+			if (d <= 7) return 'soon';
+			return 'far';
+		};
+
+		function collectDuePanels() {
+			const cats = (window.catList || []);
+			const out = [];
+			cats.forEach((cat, catIdx) => {
+				(cat.panels || []).forEach((p, panelIdx) => {
+					if (!p.dueDate) return;
+					const days = diffDays(p.dueDate);
+					if (days === null) return;
+					if (days <= 7) { // 過去 + 今日 + 7日以内
+						out.push({ panel: p, catIdx, panelIdx, days, dueDate: p.dueDate, catName: cat.text || cat.name || '' });
+					}
+				});
+			});
+			out.sort((a,b) => a.days - b.days);
+			return out;
+		}
+
+		function renderDueList() {
+			const root = document.getElementById('dueList');
+			if (!root) return;
+			const items = collectDuePanels();
+			if (items.length === 0) {
+				root.innerHTML = '<div style="padding:14px;text-align:center;color:var(--dropdown-fg);opacity:0.6;font-size:13px;">期限が設定された近日中のタスクはありません。パネル編集モーダルで「期限」を設定してください。</div>';
+				return;
+			}
+			root.innerHTML = items.map(it => {
+				let cls = 'due-soon', restLabel = '';
+				if (it.days < 0) { cls = 'due-overdue'; restLabel = `🔴 ${Math.abs(it.days)}日経過`; }
+				else if (it.days === 0) { cls = 'due-today'; restLabel = '🟡 本日'; }
+				else { cls = 'due-soon'; restLabel = `🟢 残り${it.days}日`; }
+				const url = (it.panel.url || '').replace(/"/g,'&quot;');
+				const safeName = (it.panel.text || '(無題)').replace(/</g,'&lt;');
+				const safeCat = (it.catName || '').replace(/</g,'&lt;');
+				return `<div class="due-item ${cls}">
+					<span class="due-name" title="${safeCat}">${safeName} <span style="opacity:0.7;font-weight:400;font-size:11px;">[${safeCat}]</span></span>
+					<span class="due-date">${it.dueDate}</span>
+					<span class="due-rest">${restLabel}</span>
+					<button class="due-open" type="button" data-url="${url}">開く</button>
+				</div>`;
+			}).join('');
+			root.querySelectorAll('button.due-open').forEach(btn => {
+				btn.onclick = () => {
+					const u = btn.dataset.url;
+					if (u) window.open(u, '_blank', 'noopener');
+				};
+			});
+		}
+		window.renderDueList = renderDueList;
+
+		// ダッシュボードタブを開いた時 + リフレッシュ
+		document.addEventListener('click', function (e) {
+			const t = e.target.closest && e.target.closest('.tab-item[data-tab="dashboard"]');
+			if (t) setTimeout(renderDueList, 80);
+			if (e.target && e.target.id === 'dueRefreshBtn') renderDueList();
+		});
+
+		// 1時間ごとに再計算（日付跨ぎ対応）
+		setInterval(() => {
+			const root = document.getElementById('dueList');
+			if (root && root.offsetParent !== null) renderDueList();
+		}, 60 * 60 * 1000);
+
+		// 初回（catList ロード後）
+		setTimeout(renderDueList, 400);
+		console.log('機能4完成: タスクリマインダー（パネル期限）');
 	})();
 
 	</script>
