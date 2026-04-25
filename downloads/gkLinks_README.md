@@ -1,8 +1,37 @@
-# gkLinks v1.7.3 — IT 開発者・PM のための万能ブックマーク
+# gkLinks v2.0.0 — IT 開発者・PM のための万能ブックマーク
 
 **サーバー無し・DB 無し・HTML ファイル1つで動く高機能リンク管理アプリ**
 
 「え？こんなことも HTML 1ファイルでできるの？」と驚かせるのが目的のアプリです。
+
+[![Latest Release](https://img.shields.io/github/v/release/gkAgent/gkLinks?label=Download&color=d4af37)](https://github.com/gkAgent/gkLinks/releases/latest)
+[![License](https://img.shields.io/badge/license-Free-green)](LICENSE)
+[![HTML](https://img.shields.io/badge/Made%20with-HTML%2FJS-orange)]()
+[![Web](https://img.shields.io/badge/web-gkagent.jp-d4af37)](https://gkagent.jp)
+
+---
+
+## スクリーンショット
+
+| メイン画面 | ダッシュボード |
+|---|---|
+| ![main](screenshots/01_main.png) | ![dashboard](screenshots/02_dashboard.png) |
+
+| AIツール | コードスニペット |
+|---|---|
+| ![ai](screenshots/03_ai_tools.png) | ![snippets](screenshots/04_snippets.png) |
+
+| ノートブック | Cmd Palette (Ctrl+K) |
+|---|---|
+| ![notebook](screenshots/05_notebook.png) | ![cmd](screenshots/06_cmd_palette.png) |
+
+---
+
+## ⬇ ダウンロード
+
+最新版：**[gkLinks v2.0.0](https://github.com/gkAgent/gkLinks/releases/latest/download/gkLinks_v2.0.0.zip)**
+
+ZIP を解凍して `gkLinks.html` をダブルクリックするだけで使えます。
 
 ---
 
@@ -12,7 +41,7 @@
 
 ---
 
-## 主要機能（13カテゴリ・24機能）
+## 主要機能
 
 ### 🔗 リンク管理
 - カテゴリ階層管理（カラー設定・並び替え）
@@ -42,7 +71,7 @@
 - **PR レビュータイマー**（経過時間表示・3日以上で警告）
 - **工数記録**（タスク別タイマー・CSV出力）
 - **期限近いタスク**（ダッシュボードに自動表示）
-- **プロジェクトコンテキスト切替**（タグでプロジェクト切替）
+- **プロジェクトコンテキスト切替**（タグでプロジェクト切替・リネーム/削除UI）
 
 ### 🤖 AI ツール（業務改善のキラー機能）
 - **AI プロンプトライブラリ 18 種**：
@@ -115,19 +144,12 @@
 
 ## バージョン履歴
 
-- **v1.7.3** (2026/04/25) — 再描画バグ修正・プロジェクト管理UI追加・タブ表示整理・ヘルプ全面刷新
-- **v1.7.2** (2026/04/25) — フィードバックリンク等の視認性修正
-- **v1.7.1** (2026/04/25) — タブ stopPropagation 起因の重大バグ修正
-- **v1.7.0** (2026/04/25) — ノートブック・PRタイマー・工数記録・期限リマインダー
-- **v1.6.1** (2026/04/25) — ダークモード視認性全面改善
-- **v1.6.0** — コードスニペット集・チケット番号自動検出
-- **v1.5.1** — ダークモード固定（ライトモード廃止）
-- **v1.5.0** — スタンドアップ生成・プロジェクトコンテキスト
-- **v1.4.0** — AI プロンプトライブラリ追加（18 種）
-- **v1.3.0** — gkAgent ブランドカラー全面適用
-- **v1.2.0** — ダッシュボード・URL共有・Markdown
-- **v1.1.0** — Favicon自動・QR・音声検索・Cmd Palette
-- **v1.0.0** — gkAgent 初版リリース
+- **v2.0.0** (2026/04/25) — 正式版公開（v2 リリース）。タブバー sticky 固定・全機能リグレッションテスト 38/38 PASS
+- **v1.7.0** (2026/04/22) — UI/UX 最終調整・ヘルプ全面刷新
+- **v1.5.0** (2026/04/18) — 業務改善機能群追加（AI/スニペット/PRタイマー/工数）
+- **v1.3.0** (2026/04/12) — ダッシュボード・スタンドアップ生成
+- **v1.1.0** (2026/04/06) — 拡張機能（音声・QR・Cmd Palette・Markdown）
+- **v1.0.0** (2026/03/30) — α版リリース（基本機能）
 
 ---
 
