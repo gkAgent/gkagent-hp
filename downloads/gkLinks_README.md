@@ -84,8 +84,8 @@
 
 ## 動作環境
 
-- **OS**: Windows 10 / 11
-- **ブラウザ**: Chrome / Edge（推奨）
+- **OS**: Windows 11
+- **ブラウザ**: Chrome / Edge（最新版推奨）
 - **インストール**: 不要 — ZIP を解凍して HTML をダブルクリック
 
 ※ 音声検索は Chrome / Edge のみ対応（Web Speech API 利用）
