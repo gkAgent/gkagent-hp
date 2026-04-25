@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -6,7 +6,7 @@
 	<title>
 		gkLinks — マイリンク管理
 	</title>
-	<meta name="app-version" content="1.0.0">
+	<meta name="app-version" content="1.6.1">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+JP:400,700&display=swap"
 		rel="stylesheet">
@@ -16,59 +16,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 	<style>
 		:root {
-			--bg-gradient: radial-gradient(circle, #ebf1fd 0%, #f4f6fb 100%);
-			--header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			--header-bg-corporate: #e60012;
-			--header-fg: #fff;
-			--header-desc-fg: rgba(255, 255, 255, 0.90);
-			--main-bg: #f4f6fb;
-			--menu-btn-bg: rgba(255, 255, 255, 0.95);
-			--menu-btn-fg: #5a67d8;
-			--menu-btn-hover-bg: #ffffff;
-			--menu-btn-hover-fg: #4c51bf;
-			--menu-btn-shadow: 0 4px 15px rgba(90, 103, 216, 0.15);
-			--menu-btn-hover-shadow: 0 8px 25px rgba(90, 103, 216, 0.25);
-			--dropdown-bg: #fff;
-			--dropdown-fg: #2d3748;
-			--dropdown-hover-bg: #edf2f7;
-			--dropdown-hover-fg: #5a67d8;
-			--version-btn-bg: rgba(255, 255, 255, 0.20);
-			--version-btn-fg: #fff;
-			--version-btn-hover-bg: rgba(255, 255, 255, 0.30);
-			--accordion-bg: #fff;
-			--accordion-header-bg: #fff;
-			--accordion-header-fg: #225d66;
-			--accordion-header-border: #dcf2f9;
-			--accordion-header-active-bg: #f0fafc;
-			--accordion-arrow: #369;
-			--panel-bg: #edf5ed;
-			--panel-border: #eceffe;
-			--panel-title-fg: #224185;
-			--panel-hover-bg: #e1f5fa;
-			--panel-hover-border: #7ebaff;
-			--edbtn-bg: #eaeffa;
-			--edbtn-fg: #224185;
-			--edbtn-hover-bg: #b9d4fd;
-			--modal-bg: #fff;
-			--modal-border: #d0e2fa;
-			--modal-label-fg: #4369ea;
-			--modal-input-bg: #f6fafd;
-			--modal-input-border: #d7e1f5;
-			--modal-btn-bg: #4369ea;
-			--modal-btn-hover-bg: #2259be;
-			--modal-close-btn-bg: #9faec7;
-			--modal-close-btn-hover-bg: #7e8fa9;
-			--tag-bg: #e3f2fd;
-			--tag-fg: #1565c0;
-			--tag-border: #90caf9;
-			--tag-hover-bg: #bbdefb;
-			--tag-selected-bg: #1976d2;
-			--tag-selected-fg: #fff;
-		}
-
-		body.dark {
 			--bg-gradient: radial-gradient(circle, #181F2B 0%, #222e41 100%);
 			--header-bg: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+			--header-bg-corporate: #e60012;
 			--header-fg: #e9eafc;
 			--header-desc-fg: rgba(233, 234, 252, 0.90);
 			--main-bg: #181E2A;
@@ -164,6 +114,77 @@
 		letter-spacing: 0.02em;
 		color: var(--header-desc-fg);
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+
+	/* プロジェクトコンテキスト切替（v1.5.0） */
+	.project-context-wrap {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-shrink: 0;
+	}
+
+	.project-context-select {
+		padding: 8px 30px 8px 14px;
+		border: 2px solid rgba(212, 160, 23, 0.55);
+		border-radius: 10px;
+		background: rgba(30, 30, 40, 0.85);
+		color: #f5d77a;
+		font-size: 0.9em;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		backdrop-filter: blur(10px);
+		font-family: inherit;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%23f5d77a' d='M2 4l4 4 4-4z'/></svg>");
+		background-repeat: no-repeat;
+		background-position: right 10px center;
+	}
+
+	.project-context-select:hover {
+		border-color: rgba(212, 160, 23, 0.85);
+		background-color: rgba(30, 30, 40, 0.95);
+		box-shadow: 0 4px 14px rgba(212, 160, 23, 0.25);
+		transform: translateY(-1px);
+	}
+
+	.project-context-select:focus {
+		outline: none;
+		border-color: #f5d77a;
+		box-shadow: 0 0 0 3px rgba(245, 215, 122, 0.3);
+	}
+
+	.project-context-select option {
+		background: #1a1a25;
+		color: #f5d77a;
+	}
+
+	.project-context-badge {
+		padding: 4px 10px;
+		border-radius: 12px;
+		background: linear-gradient(135deg, #d4a017 0%, #b8870e 100%);
+		color: #fff;
+		font-size: 0.78em;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		box-shadow: 0 2px 8px rgba(212, 160, 23, 0.4);
+		white-space: nowrap;
+		max-width: 180px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	body.dark .project-context-select {
+		background: rgba(20, 20, 30, 0.9);
+	}
+
+	@media (max-width: 900px) {
+		.project-context-select { font-size: 0.82em; padding: 6px 26px 6px 10px; }
+		.project-context-badge { display: none !important; }
 	}
 
 	/* 検索フィルターエリア */
@@ -503,27 +524,6 @@
 		.filter-input::placeholder {
 			color: var(--menu-btn-fg);
 			opacity: 0.6;
-		}
-
-		#modeToggleBtn {
-			background: var(--menu-btn-bg) !important;
-			border: none !important;
-			border-radius: 12px !important;
-			cursor: pointer !important;
-			display: flex !important;
-			align-items: center !important;
-			justify-content: center !important;
-			width: 40px !important;
-			height: 40px !important;
-			padding: 8px !important;
-			box-shadow: var(--menu-btn-shadow) !important;
-			transition: all 0.3s ease !important;
-			backdrop-filter: blur(10px);
-		}
-
-		#modeToggleBtn:hover {
-			box-shadow: var(--menu-btn-hover-shadow) !important;
-			transform: translateY(-2px);
 		}
 
 		#feedbackBtn {
@@ -1100,7 +1100,10 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			z-index: 10;
+			z-index: 9999;
+			padding: 80px 16px 16px 16px;
+			box-sizing: border-box;
+			overflow-y: auto;
 		}
 
 		.modal {
@@ -1111,6 +1114,9 @@
 			box-shadow: 0 6px 38px #28418529;
 			padding: 32px 24px 24px 24px;
 			text-align: left;
+			max-height: calc(100vh - 100px);
+			overflow-y: auto;
+			box-sizing: border-box;
 		}
 
 		.modal label {
@@ -1435,6 +1441,261 @@
 			border-color: var(--modal-input-border);
 		}
 
+		/* ===== ダッシュボード (機能5) ===== */
+		.dash-cards {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+			gap: 12px;
+			margin-bottom: 18px;
+		}
+		.dash-card {
+			background: var(--panel-bg);
+			border: 1.5px solid var(--panel-border);
+			border-radius: 12px;
+			padding: 14px 16px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+		}
+		.dash-card-label {
+			font-size: 12px;
+			color: var(--dropdown-fg);
+			opacity: 0.85;
+			margin-bottom: 6px;
+		}
+		.dash-card-value {
+			font-size: 30px;
+			font-weight: 700;
+			color: var(--panel-title-fg);
+			line-height: 1.1;
+		}
+		.dash-card-sub {
+			font-size: 11px;
+			color: var(--dropdown-fg);
+			opacity: 0.7;
+			margin-top: 4px;
+		}
+		.dash-row-2col {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 14px;
+		}
+		@media (max-width: 800px) {
+			.dash-row-2col { grid-template-columns: 1fr; }
+		}
+		.dash-section {
+			background: var(--accordion-bg);
+			border: 1.5px solid var(--panel-border);
+			border-radius: 12px;
+			padding: 14px 16px;
+		}
+		.dash-section-title {
+			font-size: 14px;
+			font-weight: 700;
+			color: var(--panel-title-fg);
+			margin-bottom: 10px;
+		}
+		.dash-toplist {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.dash-toplist li {
+			display: grid;
+			grid-template-columns: 24px 1fr auto;
+			align-items: center;
+			gap: 8px;
+			padding: 6px 0;
+			font-size: 13px;
+			color: var(--dropdown-fg);
+			border-bottom: 1px dashed var(--panel-border);
+		}
+		.dash-toplist li:last-child { border-bottom: none; }
+		.dash-toplist .dash-rank {
+			font-weight: 700;
+			color: var(--panel-title-fg);
+			text-align: center;
+		}
+		.dash-toplist .dash-title {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			position: relative;
+		}
+		.dash-toplist .dash-bar {
+			height: 4px;
+			background: linear-gradient(90deg, #5a67d8, #764ba2);
+			border-radius: 2px;
+			margin-top: 3px;
+		}
+		.dash-toplist .dash-count {
+			font-weight: 700;
+			color: var(--panel-title-fg);
+			font-size: 12px;
+		}
+		.dash-empty {
+			color: var(--dropdown-fg);
+			opacity: 0.6;
+			font-size: 12px;
+			text-align: center;
+			padding: 16px 0;
+			display: block;
+		}
+		.dash-tagcloud {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px 10px;
+			align-items: center;
+			line-height: 1.6;
+			min-height: 80px;
+		}
+		.dash-tagcloud span.dash-tag {
+			display: inline-block;
+			padding: 2px 4px;
+			cursor: default;
+			transition: transform 0.15s;
+		}
+		.dash-tagcloud span.dash-tag:hover {
+			transform: scale(1.1);
+		}
+		.dash-heatmap {
+			display: grid;
+			grid-auto-flow: column;
+			grid-template-rows: repeat(7, 14px);
+			gap: 3px;
+			padding: 4px 0;
+			overflow-x: auto;
+		}
+		.dash-cell {
+			width: 14px;
+			height: 14px;
+			border-radius: 3px;
+			background: var(--panel-bg);
+			border: 1px solid var(--panel-border);
+			display: inline-block;
+		}
+		.dash-cell-l0 { background: #ebedf0; border-color: #dee0e3; }
+		.dash-cell-l1 { background: #c6e48b; border-color: #b8d97f; }
+		.dash-cell-l2 { background: #7bc96f; border-color: #6db862; }
+		.dash-cell-l3 { background: #239a3b; border-color: #1f8434; }
+		.dash-cell-l4 { background: #196127; border-color: #134d1e; }
+		body.dark .dash-cell-l0 { background: #1a2030; border-color: #2a3245; }
+		body.dark .dash-cell-l1 { background: #0e4429; border-color: #0d3a24; }
+		body.dark .dash-cell-l2 { background: #006d32; border-color: #00622d; }
+		body.dark .dash-cell-l3 { background: #26a641; border-color: #1f9038; }
+		body.dark .dash-cell-l4 { background: #39d353; border-color: #2fbf48; }
+		.dash-heatmap-legend {
+			display: flex;
+			gap: 4px;
+			align-items: center;
+			justify-content: flex-end;
+			font-size: 11px;
+			color: var(--dropdown-fg);
+			margin-top: 8px;
+		}
+		.dash-bar-chart {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+		}
+		.dash-bar-row {
+			display: grid;
+			grid-template-columns: 140px 1fr 50px;
+			align-items: center;
+			gap: 10px;
+			font-size: 13px;
+			color: var(--dropdown-fg);
+		}
+		.dash-bar-row .dash-bar-label {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.dash-bar-row .dash-bar-fill {
+			height: 14px;
+			background: linear-gradient(90deg, #4369ea, #5a67d8);
+			border-radius: 4px;
+			min-width: 2px;
+			transition: width 0.3s;
+		}
+		.dash-bar-row .dash-bar-count {
+			font-weight: 700;
+			color: var(--panel-title-fg);
+			text-align: right;
+		}
+
+		/* ===== 機能6: URL共有モーダル ===== */
+		#urlShareModalBg {
+			display: none;
+			position: fixed;
+			top: 0; left: 0;
+			width: 100%; height: 100%;
+			background: rgba(0,0,0,0.5);
+			z-index: 9999;
+			align-items: center;
+			justify-content: center;
+		}
+		#urlShareModalBg.active { display: flex; }
+		#urlShareModal {
+			background: var(--modal-bg);
+			border-radius: 14px;
+			padding: 24px;
+			max-width: 600px;
+			width: 90%;
+			box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+		}
+		#urlShareModal h3 {
+			margin: 0 0 12px;
+			color: var(--modal-label-fg);
+			font-size: 18px;
+		}
+		#urlShareModal textarea {
+			width: 100%;
+			min-height: 100px;
+			max-height: 200px;
+			box-sizing: border-box;
+			padding: 10px;
+			font-size: 12px;
+			font-family: monospace;
+			border: 1.5px solid var(--modal-input-border);
+			border-radius: 6px;
+			background: var(--modal-input-bg);
+			color: var(--dropdown-fg);
+			resize: vertical;
+			word-break: break-all;
+		}
+		#urlShareModal .url-share-info {
+			font-size: 12px;
+			color: var(--dropdown-fg);
+			opacity: 0.85;
+			margin: 8px 0 12px;
+			line-height: 1.5;
+		}
+		#urlShareModal .url-share-actions {
+			display: flex;
+			gap: 8px;
+			margin-top: 14px;
+			justify-content: flex-end;
+		}
+		#urlShareModal .url-share-warn {
+			color: #d97706;
+			font-weight: 600;
+			font-size: 12px;
+			margin-top: 6px;
+		}
+
+		/* ===== 機能7: Markdown 描画 ===== */
+		.panel-description code {
+			background: rgba(120, 120, 160, 0.18);
+			padding: 0 4px;
+			border-radius: 3px;
+			font-family: 'Consolas','Menlo',monospace;
+			font-size: 0.95em;
+		}
+		.panel-description .md-link {
+			color: #4369ea;
+			text-decoration: underline;
+		}
+		body.dark .panel-description .md-link { color: #8bb2ff; }
+
 		/* パネル説明文 */
 		.panel-description {
 			font-size: 0.72rem;
@@ -1533,22 +1794,1264 @@
 			white-space: nowrap;
 		}
 
+		/* 検索ヒントオーバーレイ（ヘッダーの高さを変えずに表示） */
+		.search-hint-overlay {
+			pointer-events: none;
+		}
+		.header-search-area > div:has(> .search-hint-overlay):hover .search-hint-overlay,
+		.header-search-area > div:has(> .search-hint-overlay):focus-within .search-hint-overlay {
+			opacity: 1;
+		}
+
+		/* ============= 機能2: QRコードモーダル ============= */
+		#qrModalBg {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.6);
+			backdrop-filter: blur(4px);
+			z-index: 10000;
+			align-items: center;
+			justify-content: center;
+			animation: fadeIn 0.2s ease;
+		}
+		#qrModalBg.active { display: flex; }
+		#qrModal {
+			background: var(--modal-bg);
+			color: var(--dropdown-fg);
+			border: 1.5px solid var(--modal-border);
+			border-radius: 16px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+			padding: 24px;
+			max-width: 380px;
+			width: 90%;
+			text-align: center;
+			animation: qrPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+		}
+		@keyframes qrPop {
+			from { transform: scale(0.85); opacity: 0; }
+			to { transform: scale(1); opacity: 1; }
+		}
+		#qrModal h3 {
+			margin: 0 0 16px 0;
+			color: var(--modal-label-fg);
+			font-size: 1.1em;
+		}
+		#qrModal .qr-image-wrap {
+			background: #fff;
+			padding: 12px;
+			border-radius: 10px;
+			display: inline-block;
+			box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+		}
+		#qrModal img.qr-img {
+			display: block;
+			width: 260px;
+			height: 260px;
+		}
+		#qrModal .qr-url {
+			margin: 14px 0;
+			font-size: 0.85em;
+			color: var(--dropdown-fg);
+			word-break: break-all;
+			padding: 8px 12px;
+			background: var(--modal-input-bg);
+			border-radius: 8px;
+			border: 1px solid var(--modal-input-border);
+			max-height: 80px;
+			overflow-y: auto;
+		}
+		#qrModal .qr-close {
+			margin-top: 8px;
+			padding: 9px 28px;
+			background: var(--modal-btn-bg);
+			color: #fff;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			font-size: 0.95em;
+			font-weight: 600;
+			transition: background 0.2s;
+		}
+		#qrModal .qr-close:hover { background: var(--modal-btn-hover-bg); }
+
+		/* ============= 機能3: 音声検索ボタン ============= */
+		#voiceSearchBtn:hover {
+			background: rgba(255, 255, 255, 0.32) !important;
+			transform: translateY(-1px);
+		}
+		#voiceSearchBtn.listening {
+			background: #e53e3e !important;
+			border-color: #ff8888 !important;
+			animation: micPulse 0.9s ease-in-out infinite;
+		}
+		@keyframes micPulse {
+			0%, 100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.7); }
+			50% { box-shadow: 0 0 0 10px rgba(229, 62, 62, 0); }
+		}
+		#voiceToast {
+			position: fixed;
+			bottom: 30px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: rgba(0, 0, 0, 0.85);
+			color: #fff;
+			padding: 12px 22px;
+			border-radius: 26px;
+			font-size: 0.9em;
+			z-index: 10001;
+			box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+			display: none;
+			animation: fadeIn 0.2s ease;
+		}
+		#voiceToast.active { display: block; }
+
+		/* 機能3: 音声認識 大きな中央フィードバック */
+		#voiceBigToast {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: rgba(0, 0, 0, 0.85);
+			color: #fff;
+			padding: 32px 48px;
+			border-radius: 22px;
+			font-size: 1.6em;
+			font-weight: 600;
+			z-index: 100000;
+			box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+			display: none;
+			min-width: 320px;
+			max-width: 80vw;
+			text-align: center;
+			line-height: 1.5;
+			letter-spacing: 0.02em;
+			border: 2px solid rgba(255,255,255,0.18);
+			backdrop-filter: blur(8px);
+		}
+		#voiceBigToast.active { display: block; animation: voiceBigPop 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); }
+		#voiceBigToast .vbt-icon {
+			font-size: 1.4em;
+			display: block;
+			margin-bottom: 8px;
+		}
+		#voiceBigToast .vbt-title {
+			font-size: 1em;
+			font-weight: 700;
+			color: #fff;
+			margin-bottom: 4px;
+		}
+		#voiceBigToast .vbt-text {
+			font-size: 0.78em;
+			color: rgba(255,255,255,0.85);
+			margin-top: 10px;
+			min-height: 1.4em;
+			word-break: break-word;
+		}
+		#voiceBigToast .vbt-interim {
+			font-style: italic;
+			color: rgba(255, 230, 120, 0.95);
+		}
+		#voiceBigToast.listening .vbt-icon {
+			animation: voiceBigPulse 1.0s ease-in-out infinite;
+			color: #ff7676;
+			text-shadow: 0 0 18px rgba(255, 80, 80, 0.85);
+		}
+		#voiceBigToast.error {
+			background: rgba(120, 20, 20, 0.92);
+			border-color: rgba(255, 130, 130, 0.4);
+		}
+		#voiceBigToast.success {
+			background: rgba(20, 80, 50, 0.92);
+			border-color: rgba(130, 255, 180, 0.4);
+		}
+		@keyframes voiceBigPulse {
+			0%, 100% { transform: scale(1); opacity: 1; }
+			50% { transform: scale(1.18); opacity: 0.7; }
+		}
+		@keyframes voiceBigPop {
+			from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+			to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+		}
+
+		/* ============= 機能4: コマンドパレット ============= */
+		#cmdPaletteBg {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.5);
+			backdrop-filter: blur(6px);
+			z-index: 10002;
+			align-items: flex-start;
+			justify-content: center;
+			padding-top: 12vh;
+			animation: fadeIn 0.18s ease;
+		}
+		#cmdPaletteBg.active { display: flex; }
+		#cmdPalette {
+			background: var(--modal-bg);
+			color: var(--dropdown-fg);
+			border: 1.5px solid var(--modal-border);
+			border-radius: 14px;
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(0, 0, 0, 0.2);
+			width: 92%;
+			max-width: 620px;
+			max-height: 70vh;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			animation: cmdPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+		}
+		@keyframes cmdPop {
+			from { transform: translateY(-12px) scale(0.97); opacity: 0; }
+			to { transform: translateY(0) scale(1); opacity: 1; }
+		}
+		#cmdPaletteInput {
+			width: 100%;
+			border: none;
+			outline: none;
+			padding: 16px 20px;
+			background: transparent;
+			color: var(--dropdown-fg);
+			font-size: 1.05em;
+			border-bottom: 1.5px solid var(--modal-border);
+			box-sizing: border-box;
+			font-family: inherit;
+		}
+		#cmdPaletteInput::placeholder { color: var(--dropdown-fg); opacity: 0.5; }
+		#cmdPaletteList {
+			list-style: none;
+			margin: 0;
+			padding: 6px 0;
+			overflow-y: auto;
+			max-height: 56vh;
+		}
+		.cmd-item {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 10px 18px;
+			cursor: pointer;
+			font-size: 0.94em;
+			color: var(--dropdown-fg);
+			transition: background 0.12s;
+			border-left: 3px solid transparent;
+		}
+		.cmd-item:hover, .cmd-item.active {
+			background: var(--dropdown-hover-bg);
+			color: var(--dropdown-hover-fg);
+			border-left-color: var(--modal-btn-bg);
+		}
+		.cmd-item .cmd-icon { font-size: 1.15em; flex-shrink: 0; width: 24px; text-align: center; }
+		.cmd-item .cmd-label { flex: 1; }
+		.cmd-item .cmd-hint {
+			font-size: 0.78em;
+			color: var(--dropdown-fg);
+			opacity: 0.55;
+			padding: 1px 8px;
+			border: 1px solid var(--modal-border);
+			border-radius: 4px;
+		}
+		.cmd-item .cmd-highlight { background: rgba(255, 200, 0, 0.35); border-radius: 3px; padding: 0 2px; }
+		.cmd-empty { padding: 24px; text-align: center; color: var(--dropdown-fg); opacity: 0.6; font-size: 0.95em; }
+		.cmd-section {
+			padding: 6px 18px 4px;
+			font-size: 0.72em;
+			color: var(--dropdown-fg);
+			opacity: 0.55;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			font-weight: 600;
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; }
+			to { opacity: 1; }
+		}
+
+		/* =========================================================
+		   gkAgent ブランドカラー (ver 1.3.0 / 2026-04-25)
+		   高級感あるダーク × ゴールド。
+		   既存 :root / body.dark を上書きするオーバーライド層。
+		   ========================================================= */
+		:root {
+			--bg: #06080f;
+			--bg2: #0b0e1a;
+			--surface: rgba(255,255,255,.04);
+			--border: rgba(255,255,255,.08);
+			--border-hi: rgba(212,175,55,.35);
+			--gold: #d4af37;
+			--gold2: #f0d060;
+			--blue: #3b82f6;
+			--text: #f0f4f8;
+			--muted: #64748b;
+			--muted2: #94a3b8;
+			--radius-sm: 8px;
+			--radius-md: 14px;
+			--radius-lg: 20px;
+			--shadow-gold: 0 4px 24px rgba(212,175,55,0.15);
+
+			/* 既存変数をブランドトークンに張り替え（ライト時もダーク基調に） */
+			--bg-gradient:
+				radial-gradient(ellipse at top, rgba(212,175,55,.04), transparent 60%),
+				var(--bg);
+			--header-bg: rgba(11,14,26,.85);
+			--header-fg: var(--text);
+			--header-desc-fg: var(--muted2);
+			--main-bg: var(--bg);
+
+			--menu-btn-bg: var(--surface);
+			--menu-btn-fg: var(--gold2);
+			--menu-btn-hover-bg: rgba(212,175,55,.10);
+			--menu-btn-hover-fg: var(--gold);
+			--menu-btn-shadow: 0 2px 10px rgba(0,0,0,.4);
+			--menu-btn-hover-shadow: var(--shadow-gold);
+
+			--dropdown-bg: var(--bg2);
+			--dropdown-fg: var(--text);
+			--dropdown-hover-bg: rgba(212,175,55,.08);
+			--dropdown-hover-fg: var(--gold);
+
+			--version-btn-bg: var(--surface);
+			--version-btn-fg: var(--text);
+			--version-btn-hover-bg: rgba(212,175,55,.10);
+
+			--accordion-bg: var(--bg2);
+			--accordion-header-bg: var(--bg2);
+			--accordion-header-fg: var(--gold2);
+			--accordion-header-border: var(--border);
+			--accordion-header-active-bg: rgba(212,175,55,.06);
+			--accordion-arrow: var(--gold);
+
+			--panel-bg: var(--surface);
+			--panel-border: var(--border);
+			--panel-title-fg: var(--text);
+			--panel-hover-bg: rgba(212,175,55,.06);
+			--panel-hover-border: var(--border-hi);
+
+			--edbtn-bg: var(--surface);
+			--edbtn-fg: var(--gold2);
+			--edbtn-hover-bg: rgba(212,175,55,.18);
+
+			--modal-bg: var(--bg2);
+			--modal-border: var(--border);
+			--modal-label-fg: var(--gold2);
+			--modal-input-bg: var(--bg);
+			--modal-input-border: var(--border);
+			--modal-btn-bg: var(--gold);
+			--modal-btn-hover-bg: var(--gold2);
+			--modal-close-btn-bg: rgba(255,255,255,.06);
+			--modal-close-btn-hover-bg: rgba(255,255,255,.12);
+
+			--tag-bg: rgba(59,130,246,.10);
+			--tag-fg: #93c5fd;
+			--tag-border: rgba(59,130,246,.35);
+			--tag-hover-bg: rgba(59,130,246,.20);
+			--tag-selected-bg: var(--gold);
+			--tag-selected-fg: #0b0e1a;
+		}
+
+		/* dark モードは更にコントラストを締める */
+		body.dark {
+			--bg-gradient:
+				radial-gradient(ellipse at top, rgba(212,175,55,.05), transparent 60%),
+				var(--bg);
+			--header-bg: rgba(6,8,15,.92);
+			--header-fg: var(--text);
+			--header-desc-fg: var(--muted2);
+			--main-bg: var(--bg);
+			--accordion-bg: var(--bg2);
+			--accordion-header-bg: var(--bg2);
+			--accordion-header-fg: var(--gold2);
+			--panel-bg: var(--surface);
+			--panel-border: var(--border);
+			--panel-title-fg: var(--text);
+			--panel-hover-bg: rgba(212,175,55,.08);
+			--panel-hover-border: var(--border-hi);
+			--modal-bg: var(--bg2);
+			--modal-input-bg: var(--bg);
+		}
+
+		/* ---------- グローバル ---------- */
+		body {
+			background: var(--bg-gradient) !important;
+			color: var(--text);
+			font-family: 'Noto Sans JP', 'Roboto', 'Yu Gothic', 'Meiryo', sans-serif;
+			letter-spacing: -.01em;
+			min-height: 100vh;
+		}
+
+		/* スクロールバー（Chromium / WebKit） */
+		*::-webkit-scrollbar {
+			width: 10px;
+			height: 10px;
+		}
+		*::-webkit-scrollbar-track {
+			background: var(--bg2);
+		}
+		*::-webkit-scrollbar-thumb {
+			background: rgba(212,175,55,.18);
+			border-radius: 8px;
+			border: 2px solid var(--bg2);
+		}
+		*::-webkit-scrollbar-thumb:hover {
+			background: rgba(212,175,55,.35);
+		}
+
+		/* ---------- ヘッダー ---------- */
+		header {
+			background: var(--header-bg) !important;
+			color: var(--header-fg) !important;
+			border-bottom: 1px solid var(--border-hi);
+			box-shadow: 0 6px 24px rgba(0,0,0,.45);
+			padding: 8px 20px !important;
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+		}
+		header h1 {
+			font-weight: 900;
+			font-size: 1.45rem;
+			letter-spacing: 0.04em;
+			background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 50%, var(--gold) 100%);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent !important;
+			text-shadow: none !important;
+			padding-right: 14px;
+			border-right: 1px solid var(--border-hi);
+			display: inline-flex;
+			align-items: baseline;
+			gap: 10px;
+		}
+		header h1::after {
+			content: 'by gkAgent';
+			font-size: .55rem;
+			font-weight: 600;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			background: none;
+			-webkit-text-fill-color: var(--muted2);
+			color: var(--muted2);
+			padding-left: 2px;
+		}
+		header h1:hover {
+			transform: none;
+			filter: brightness(1.15);
+			text-shadow: none;
+		}
+
+		/* ヘッダー内 検索ボックス */
+		.search-input-wrapper input {
+			background: var(--bg2) !important;
+			border: 1px solid var(--border) !important;
+			color: var(--text) !important;
+			box-shadow: none !important;
+			border-radius: var(--radius-sm) !important;
+			padding: 8px 12px 8px 34px !important;
+		}
+		.search-input-wrapper input::placeholder {
+			color: var(--muted) !important;
+		}
+		.search-input-wrapper input:focus {
+			border-color: var(--gold) !important;
+			background: var(--bg2) !important;
+			box-shadow: 0 0 0 3px rgba(212,175,55,.10) !important;
+		}
+		.search-input-wrapper::before {
+			filter: none;
+			opacity: .7;
+		}
+		#voiceSearchBtn {
+			background: var(--surface) !important;
+			border: 1px solid var(--border) !important;
+			color: var(--gold2) !important;
+			border-radius: var(--radius-sm) !important;
+		}
+		#voiceSearchBtn:hover {
+			border-color: var(--border-hi) !important;
+			background: rgba(212,175,55,.10) !important;
+		}
+
+		/* ---------- タブメニュー ---------- */
+		.tab-menu-container {
+			background: var(--bg2) !important;
+			border-bottom: 1px solid var(--border) !important;
+		}
+		.tab-bar {
+			background: transparent !important;
+		}
+		.tab-item {
+			background: transparent !important;
+			color: var(--muted2) !important;
+			border: none !important;
+			transition: all .25s ease !important;
+		}
+		.tab-item:hover {
+			background: rgba(212,175,55,.06) !important;
+			color: var(--gold2) !important;
+		}
+		.tab-item:hover::before { background: transparent !important; }
+		.tab-item.active {
+			background: transparent !important;
+			color: var(--gold) !important;
+		}
+		.tab-item.active::after {
+			background: linear-gradient(90deg, transparent, var(--gold), transparent) !important;
+			height: 2px !important;
+		}
+		.tab-item-action {
+			background: var(--surface) !important;
+			color: var(--text) !important;
+			border: 1px solid var(--border) !important;
+			border-radius: var(--radius-sm) !important;
+			transition: all .25s ease !important;
+		}
+		.tab-item-action:hover {
+			background: rgba(212,175,55,.10) !important;
+			border-color: var(--border-hi) !important;
+			color: var(--gold) !important;
+		}
+		.tab-content-area {
+			background: var(--bg) !important;
+		}
+
+		/* ========== AIツールタブ ========== */
+		.ai-tools-layout {
+			display: grid;
+			grid-template-columns: 30% 70%;
+			gap: 14px;
+			min-height: 540px;
+			max-height: calc(100vh - 240px);
+		}
+		@media (max-width: 900px) {
+			.ai-tools-layout { grid-template-columns: 1fr; max-height: none; }
+		}
+		.ai-tools-left {
+			background: rgba(255,255,255,0.04);
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-md);
+			padding: 8px;
+			overflow-y: auto;
+		}
+		.ai-tools-right {
+			background: var(--bg2);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-md);
+			padding: 18px 22px;
+			overflow-y: auto;
+		}
+		.ai-tpl-cat {
+			margin-bottom: 8px;
+			border-radius: var(--radius-sm);
+			overflow: hidden;
+		}
+		.ai-tpl-cat-header {
+			padding: 8px 10px;
+			cursor: pointer;
+			user-select: none;
+			font-weight: 700;
+			color: var(--gold2);
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			background: rgba(212,175,55,0.04);
+			border-radius: var(--radius-sm);
+			transition: background .2s;
+		}
+		.ai-tpl-cat-header:hover {
+			background: rgba(212,175,55,0.10);
+		}
+		.ai-tpl-cat-arrow {
+			transition: transform .2s;
+			font-size: 11px;
+			color: var(--muted2);
+		}
+		.ai-tpl-cat.open .ai-tpl-cat-arrow {
+			transform: rotate(90deg);
+		}
+		.ai-tpl-cat-body {
+			display: none;
+			padding: 4px 0 4px 10px;
+		}
+		.ai-tpl-cat.open .ai-tpl-cat-body {
+			display: block;
+		}
+		.ai-tpl-item {
+			padding: 7px 10px 7px 14px;
+			cursor: pointer;
+			border-radius: var(--radius-sm);
+			color: var(--text);
+			font-size: 13px;
+			border-left: 3px solid transparent;
+			transition: all .15s;
+			margin-bottom: 2px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 6px;
+		}
+		.ai-tpl-item:hover {
+			background: rgba(212,175,55,0.08);
+		}
+		.ai-tpl-item.active {
+			background: rgba(212,175,55,0.12);
+			border-left-color: var(--gold);
+			color: var(--gold2);
+			font-weight: 600;
+		}
+		.ai-tpl-item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+		.ai-tpl-item-badge {
+			font-size: 9px;
+			padding: 2px 6px;
+			border-radius: 3px;
+			background: rgba(59,130,246,0.18);
+			color: #93c5fd;
+			border: 1px solid rgba(59,130,246,0.35);
+			flex-shrink: 0;
+		}
+		.ai-tpl-item-del {
+			background: none;
+			border: none;
+			color: var(--muted2);
+			cursor: pointer;
+			font-size: 13px;
+			padding: 0 4px;
+			opacity: 0;
+			transition: opacity .15s;
+		}
+		.ai-tpl-item:hover .ai-tpl-item-del { opacity: 0.8; }
+		.ai-tpl-item-del:hover { color: #f87171; opacity: 1; }
+
+		.ai-empty {
+			color: var(--muted2);
+			text-align: center;
+			padding: 80px 20px;
+			font-size: 14px;
+		}
+		.ai-detail-title {
+			font-size: 18px;
+			font-weight: 800;
+			color: var(--gold2);
+			margin: 0 0 4px;
+		}
+		.ai-detail-desc {
+			color: var(--muted2);
+			font-size: 13px;
+			margin: 0 0 14px;
+		}
+		.ai-detail-section-title {
+			font-size: 12px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			color: var(--gold);
+			margin: 14px 0 6px;
+		}
+		.ai-var-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 8px;
+		}
+		.ai-var-row { display: flex; flex-direction: column; gap: 4px; }
+		.ai-var-row label {
+			font-size: 12px;
+			font-weight: 600;
+			color: var(--muted2);
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+		.ai-var-row input[type="text"],
+		.ai-var-row textarea {
+			background: var(--bg) !important;
+			border: 1px solid var(--border) !important;
+			color: var(--text) !important;
+			border-radius: var(--radius-sm) !important;
+			padding: 8px 10px !important;
+			font-family: inherit;
+			font-size: 13px;
+			outline: none;
+		}
+		.ai-var-row input[type="text"]:focus,
+		.ai-var-row textarea:focus {
+			border-color: var(--gold) !important;
+			box-shadow: 0 0 0 2px rgba(212,175,55,0.15);
+		}
+		.ai-var-row textarea {
+			min-height: 80px;
+			resize: vertical;
+		}
+		.ai-var-autofill {
+			font-size: 11px;
+			padding: 2px 8px !important;
+			background: rgba(59,130,246,0.18) !important;
+			color: #93c5fd !important;
+			border: 1px solid rgba(59,130,246,0.35) !important;
+			border-radius: 4px !important;
+			cursor: pointer;
+			margin-left: auto;
+		}
+		.ai-var-autofill:hover {
+			background: rgba(59,130,246,0.30) !important;
+		}
+		.ai-prompt-preview {
+			background: var(--bg2);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-sm);
+			padding: 12px 14px;
+			font-family: 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
+			font-size: 12.5px;
+			color: var(--text);
+			line-height: 1.7;
+			white-space: pre-wrap;
+			word-break: break-word;
+			max-height: 280px;
+			overflow-y: auto;
+		}
+		.ai-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-top: 12px;
+		}
+		.ai-action-btn {
+			padding: 8px 14px !important;
+			font-size: 13px !important;
+		}
+		.ai-action-btn.secondary {
+			background: var(--surface) !important;
+			color: var(--gold2) !important;
+			border: 1px solid var(--border) !important;
+			box-shadow: none !important;
+		}
+		.ai-action-btn.secondary:hover {
+			background: rgba(212,175,55,0.10) !important;
+			border-color: var(--border-hi) !important;
+		}
+
+		/* AIテンプレート編集モーダル（既存 modal 系を使うが念のため） */
+		#aiTplEditModal textarea {
+			min-height: 140px;
+			font-family: 'Consolas', 'Menlo', 'Monaco', monospace;
+		}
+
+		/* ========== スニペットタブ ========== */
+		.snip-code-block {
+			background: var(--bg2);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-sm);
+			padding: 12px 14px;
+			font-family: 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
+			font-size: 12.5px;
+			color: var(--text);
+			line-height: 1.6;
+			white-space: pre;
+			word-break: normal;
+			overflow-x: auto;
+			max-height: 420px;
+			overflow-y: auto;
+			margin: 0;
+			tab-size: 4;
+		}
+		.snip-tag {
+			display: inline-block;
+			font-size: 11px;
+			padding: 2px 8px;
+			background: rgba(212,175,55,0.10);
+			color: var(--gold2);
+			border: 1px solid rgba(212,175,55,0.30);
+			border-radius: 10px;
+			margin-right: 4px;
+			margin-bottom: 4px;
+		}
+		.snip-meta {
+			font-size: 11px;
+			color: var(--muted2);
+			margin: 0 0 10px;
+		}
+		.snip-lang-badge {
+			display: inline-block;
+			font-size: 10px;
+			padding: 2px 8px;
+			background: rgba(59,130,246,0.18);
+			color: #93c5fd;
+			border: 1px solid rgba(59,130,246,0.35);
+			border-radius: 10px;
+			margin-right: 6px;
+			vertical-align: middle;
+		}
+		#snipEditModal textarea#snipEditCode {
+			min-height: 240px;
+			font-family: 'Consolas', 'Menlo', 'Monaco', monospace;
+			white-space: pre;
+			word-break: normal;
+		}
+
+		/* ========== チケット番号インライン表示 ========== */
+		.panel-description .ticket-link {
+			display: inline-block;
+			padding: 0 4px;
+			background: rgba(212,175,55,0.14);
+			color: var(--gold2);
+			border: 1px solid rgba(212,175,55,0.30);
+			border-radius: 3px;
+			font-family: 'Consolas','Menlo',monospace;
+			font-size: 0.92em;
+			text-decoration: none;
+			cursor: pointer;
+			pointer-events: auto;
+		}
+		.panel-description .ticket-link.no-url {
+			cursor: default;
+			opacity: 0.85;
+		}
+		body.dark .panel-description .ticket-link { color: #f0d060; }
+
+		/* ---------- ボタン（プライマリ / セカンダリ） ---------- */
+		.action-btn,
+		.add-btn,
+		.modal button:not(.close-btn),
+		button#addCategoryBtn,
+		button#addPanelBtn {
+			background: linear-gradient(135deg, var(--gold), var(--gold2)) !important;
+			color: #0b0e1a !important;
+			border: 1px solid rgba(212,175,55,.6) !important;
+			border-radius: var(--radius-sm) !important;
+			font-weight: 700 !important;
+			box-shadow: 0 2px 10px rgba(212,175,55,.18) !important;
+			transition: all .2s ease !important;
+		}
+		.action-btn:hover,
+		.add-btn:hover,
+		.modal button:not(.close-btn):hover,
+		button#addCategoryBtn:hover,
+		button#addPanelBtn:hover {
+			background: linear-gradient(135deg, var(--gold2), var(--gold)) !important;
+			box-shadow: var(--shadow-gold) !important;
+			transform: translateY(-1px);
+		}
+		.action-btn:active,
+		.add-btn:active,
+		.modal button:not(.close-btn):active {
+			transform: scale(.98);
+		}
+		.action-btn.danger {
+			background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+			color: #fff !important;
+			border-color: rgba(239,68,68,.5) !important;
+		}
+		/* セカンダリ系（モーダル close 等） */
+		.modal .close-btn {
+			background: var(--surface) !important;
+			color: var(--muted2) !important;
+			border: 1px solid var(--border) !important;
+			border-radius: var(--radius-sm) !important;
+			transition: all .2s ease !important;
+		}
+		.modal .close-btn:hover {
+			background: rgba(212,175,55,.08) !important;
+			border-color: var(--border-hi) !important;
+			color: var(--gold2) !important;
+		}
+
+		/* ---------- パネルカード ---------- */
+		.panel {
+			background: var(--surface) !important;
+			border: 1px solid var(--border) !important;
+			border-radius: var(--radius-md) !important;
+			color: var(--text) !important;
+			transition: all .25s ease !important;
+			position: relative;
+			overflow: hidden;
+		}
+		.panel::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			width: 3px;
+			background: linear-gradient(180deg, var(--gold), var(--gold2));
+			opacity: 0;
+			transition: opacity .25s ease;
+		}
+		.panel:hover {
+			background: rgba(212,175,55,.06) !important;
+			border-color: var(--border-hi) !important;
+			box-shadow: var(--shadow-gold) !important;
+			transform: translateY(-1px);
+		}
+		.panel:hover::before {
+			opacity: 1;
+		}
+		.panel-title {
+			color: var(--text) !important;
+		}
+		.panel-description {
+			color: var(--muted2) !important;
+		}
+		.panel-tag {
+			color: var(--gold2) !important;
+		}
+
+		/* アコーディオン カテゴリヘッダ */
+		.accordion-header,
+		.cat-header,
+		.category-header {
+			background: var(--accordion-header-bg) !important;
+			color: var(--gold2) !important;
+			border: 1px solid var(--border) !important;
+			border-radius: var(--radius-sm) !important;
+			font-weight: 700 !important;
+		}
+		/* ユーザー設定の背景色は inline で差し込まれるため、その上に
+		   半透明ダーク膜を被せて高級感を保つ */
+		.accordion-header[style*="background"]::before,
+		.cat-header[style*="background"]::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(180deg, rgba(6,8,15,.55), rgba(6,8,15,.75));
+			pointer-events: none;
+			border-radius: inherit;
+		}
+		.accordion-header,
+		.cat-header { position: relative; }
+
+		/* ---------- モーダル ---------- */
+		.modal-bg {
+			background: rgba(0,0,0,.7) !important;
+			backdrop-filter: blur(8px) !important;
+			-webkit-backdrop-filter: blur(8px) !important;
+		}
+		.modal {
+			background: var(--bg2) !important;
+			border: 1px solid var(--border) !important;
+			border-radius: var(--radius-md) !important;
+			box-shadow: 0 20px 60px rgba(0,0,0,.6) !important;
+			color: var(--text) !important;
+			position: relative;
+		}
+		.modal::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 18px;
+			right: 18px;
+			height: 1px;
+			background: linear-gradient(90deg, transparent, var(--gold), transparent);
+			opacity: .55;
+			pointer-events: none;
+		}
+		.modal label {
+			color: var(--gold2) !important;
+		}
+		.modal input,
+		.modal select,
+		.modal textarea {
+			background: var(--bg) !important;
+			border: 1px solid var(--border) !important;
+			color: var(--text) !important;
+			border-radius: var(--radius-sm) !important;
+		}
+		.modal input:focus,
+		.modal select:focus,
+		.modal textarea:focus {
+			border-color: var(--gold) !important;
+			box-shadow: 0 0 0 3px rgba(212,175,55,.10) !important;
+			outline: none !important;
+		}
+
+		/* ---------- タグ ---------- */
+		.tag-filter-dropdown {
+			background: var(--bg2) !important;
+			border: 1px solid var(--border) !important;
+			box-shadow: 0 12px 40px rgba(0,0,0,.55) !important;
+		}
+		.tag-filter-dropdown-header {
+			color: var(--gold2) !important;
+		}
+
+		/* バージョン履歴コンテナ */
+		#hiddenVersionHistory p,
+		#versionModalBg .modal p {
+			color: var(--muted2);
+		}
+		#hiddenVersionHistory strong,
+		#versionModalBg .modal strong {
+			color: var(--gold2);
+		}
+
+		/* ---------- ダークモード上書き（v1.5.1〜ダーク固定） ---------- */
+		.panel {
+			background: var(--surface) !important;
+			border: 1px solid var(--border) !important;
+			color: var(--text) !important;
+		}
+
+		/* ============================================================
+		   v1.6.1 ダークモード視認性全面改善
+		   ライト前提で書かれた固定色（白背景＋濃文字）を、
+		   ダーク基調の安全な配色に強制的に置き換えるオーバーライド層。
+		   ============================================================ */
+
+		/* ヘルプモーダル / ヘルプタブ内の色付き案内ボックスを
+		   ダーク背景でも読めるトーンに統一（緑＝success, 黄＝warning） */
+		#helpModalBg .modal div[style*="background:#e8f5e8"],
+		#helpModalBg .modal div[style*="background:#E8F5E8"] {
+			background: rgba(40, 167, 69, 0.10) !important;
+			border-left-color: #34d399 !important;
+			color: var(--text) !important;
+		}
+		#helpModalBg .modal div[style*="background:#fff3cd"],
+		#helpModalBg .modal div[style*="background:#FFF3CD"] {
+			background: rgba(255, 193, 7, 0.08) !important;
+			border-left-color: #fbbf24 !important;
+			color: var(--text) !important;
+		}
+		/* 緑系・黄系で固定された文字色を、明るいトーンに書き換え
+		   body.dark .modal p (0,2,1) より強い specificity が必要なので
+		   body.dark を含めて指定 + !important */
+		body.dark #helpModalBg .modal p[style*="color:#155724"],
+		body.dark #helpModalBg .modal p[style*="color: #155724"],
+		body.dark #helpModalBg .modal ul[style*="color:#155724"],
+		body.dark #helpModalBg .modal ul[style*="color: #155724"],
+		body.dark #helpModalBg .modal li[style*="color:#155724"],
+		body.dark #helpModalBg .modal li[style*="color: #155724"] {
+			color: #6ee7b7 !important;
+		}
+		body.dark #helpModalBg .modal p[style*="color:#856404"],
+		body.dark #helpModalBg .modal p[style*="color: #856404"],
+		body.dark #helpModalBg .modal h4[style*="color:#856404"],
+		body.dark #helpModalBg .modal h4[style*="color: #856404"],
+		body.dark #helpModalBg .modal ol[style*="color:#856404"],
+		body.dark #helpModalBg .modal ol[style*="color: #856404"],
+		body.dark #helpModalBg .modal ul[style*="color:#856404"],
+		body.dark #helpModalBg .modal ul[style*="color: #856404"],
+		body.dark #helpModalBg .modal li[style*="color:#856404"],
+		body.dark #helpModalBg .modal li[style*="color: #856404"] {
+			color: #fcd34d !important;
+		}
+
+		/* インラインで書かれている #666 / #999 / #888 / #333 等のグレー系を
+		   ダーク背景でも見えるトーン（muted2 / text）に矯正。
+		   body.dark .modal p（0,2,1）等より強くするため body.dark + element 指定 */
+		body.dark .modal p[style*="color:#666"],
+		body.dark .modal p[style*="color: #666"],
+		body.dark .modal div[style*="color:#666"],
+		body.dark .modal div[style*="color: #666"],
+		body.dark .tab-panel p[style*="color:#666"],
+		body.dark .tab-panel p[style*="color: #666"],
+		body.dark .tab-panel div[style*="color:#666"],
+		body.dark .tab-panel div[style*="color: #666"] {
+			color: var(--muted2) !important;
+		}
+		body.dark span[style*="color:#888"],
+		body.dark span[style*="color: #888"],
+		body.dark span[style*="color:#999"],
+		body.dark span[style*="color: #999"],
+		body.dark div[style*="color:#888"],
+		body.dark div[style*="color: #888"],
+		body.dark div[style*="color:#999"],
+		body.dark div[style*="color: #999"] {
+			color: var(--muted2) !important;
+		}
+		body.dark .modal h2[style*="color:#333"],
+		body.dark .modal h2[style*="color: #333"],
+		body.dark .tab-panel h2[style*="color:#333"],
+		body.dark .tab-panel h2[style*="color: #333"] {
+			color: var(--text) !important;
+		}
+
+		/* 白背景の固定インラインを surface 系に矯正 */
+		[style*="background:#fff;"],
+		[style*="background: #fff;"],
+		[style*="background:#FFF;"],
+		[style*="background: #FFF;"] {
+			background: var(--bg2) !important;
+		}
+		[style*="background:#fafafa"],
+		[style*="background: #fafafa"],
+		[style*="background:#f5f5f5"],
+		[style*="background: #f5f5f5"],
+		[style*="background:#f0f0f0"],
+		[style*="background: #f0f0f0"] {
+			background: var(--surface) !important;
+		}
+		[style*="background:#fff0f0"],
+		[style*="background: #fff0f0"] {
+			background: rgba(248, 113, 113, 0.10) !important;
+		}
+		[style*="background:#fffbdd"],
+		[style*="background: #fffbdd"] {
+			background: rgba(212, 175, 55, 0.10) !important;
+		}
+
+		/* 「カテゴリがありません」の白カード（動的生成） */
+		.accordion-list > div[style*="background:#fff"] {
+			background: var(--bg2) !important;
+			color: var(--text) !important;
+			box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
+			border: 1px solid var(--border) !important;
+		}
+
+		/* タグサジェスト・タグ入力下のヒントテキスト */
+		#tagSuggestions span,
+		#headerTagFilterList div[style*="color:#999"] {
+			color: var(--muted2) !important;
+		}
+
+		/* 検索ヒント */
+		.search-hint-overlay {
+			color: var(--muted2) !important;
+		}
+
+		/* 入力フォームの placeholder（モーダル全般） */
+		.modal input::placeholder,
+		.modal textarea::placeholder,
+		.modal-bg input::placeholder,
+		.modal-bg textarea::placeholder {
+			color: var(--muted) !important;
+			opacity: 1;
+		}
+
+		/* テーブル要素（th/td）— ダーク背景上で読めるよう text 色固定 */
+		table th, table td {
+			color: var(--text);
+		}
+
+		/* バージョン履歴 strong / em / li も明るく */
+		#hiddenVersionHistory li,
+		#versionModalBg .modal li,
+		#hiddenVersionHistory em,
+		#versionModalBg .modal em {
+			color: var(--text);
+		}
+
+		/* AIツールタブ — 先頭の使い方ガイドカード（v1.6.1） */
+		.ai-usage-hint-card {
+			margin: 4px 0 16px;
+			padding: 12px 16px;
+			background: rgba(59, 130, 246, 0.08);
+			border-left: 4px solid var(--blue);
+			border-radius: var(--radius-sm);
+			color: var(--text);
+			font-size: 13px;
+			line-height: 1.7;
+		}
+		.ai-usage-hint-card strong {
+			color: var(--gold2);
+		}
+		.ai-usage-hint-card .note {
+			margin-top: 6px;
+			font-size: 12px;
+			color: var(--muted2);
+		}
+		.ai-action-help {
+			display: block;
+			margin-top: -4px;
+			margin-bottom: 6px;
+			font-size: 11px;
+			color: var(--muted2);
+			line-height: 1.4;
+		}
+
+		/* プロジェクトセレクタの「？」ヘルプアイコン（v1.6.1） */
+		.project-help-btn {
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			border: 1px solid rgba(212, 160, 23, 0.45);
+			background: rgba(30, 30, 40, 0.85);
+			color: #f5d77a;
+			font-size: 12px;
+			font-weight: 700;
+			cursor: pointer;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0;
+			line-height: 1;
+			transition: all 0.2s ease;
+		}
+		.project-help-btn:hover {
+			background: rgba(212, 160, 23, 0.20);
+			border-color: rgba(212, 160, 23, 0.85);
+			transform: scale(1.05);
+		}
+		.project-help-tooltip {
+			position: absolute;
+			z-index: 200;
+			top: calc(100% + 8px);
+			left: 0;
+			background: var(--bg2);
+			color: var(--text);
+			border: 1px solid var(--border-hi);
+			border-radius: var(--radius-md);
+			padding: 14px 16px;
+			font-size: 12.5px;
+			line-height: 1.7;
+			width: 320px;
+			max-width: 90vw;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+		}
+		.project-help-tooltip strong { color: var(--gold2); }
+		.project-help-tooltip code {
+			background: var(--surface);
+			color: #93c5fd;
+			padding: 1px 6px;
+			border-radius: 4px;
+			font-size: 11.5px;
+		}
+		.project-help-tooltip ul {
+			margin: 6px 0 0 18px;
+			padding: 0;
+		}
+		.project-help-tooltip li { margin: 3px 0; }
+
 	</style>
 </head>
 
-<body>
+<body class="dark">
 	<header>
 		<h1>
 			gkLinks
 		</h1>
-		
+
+		<!-- プロジェクトコンテキスト切替（v1.5.0、v1.6.1で？ヘルプ追加） -->
+		<div id="projectContextWrap" class="project-context-wrap" style="position:relative;">
+			<select id="projectContext" class="project-context-select" title="プロジェクトコンテキスト切替">
+				<option value="">📂 プロジェクト未選択（すべて表示）</option>
+				<option value="__new__">➕ 新規プロジェクト</option>
+			</select>
+			<button type="button" id="projectHelpBtn" class="project-help-btn" title="プロジェクト機能とは？" aria-label="プロジェクト機能の説明">？</button>
+			<div id="projectHelpTooltip" class="project-help-tooltip" style="display:none;">
+				<strong>📂 プロジェクトとは？</strong>
+				<div style="margin-top:4px;">
+					業務案件・プロジェクト単位でリンクをグループ化して、必要なものだけ絞って表示する機能です。
+				</div>
+				<ul>
+					<li>例：案件Aのリンクだけ見たい時に切替</li>
+					<li>パネルのタグに <code>@案件名</code> を追加すると、そのプロジェクト選択時に自動でフィルタ対象</li>
+					<li>パネル編集の「📌 プロジェクトに紐付ける」で簡単追加</li>
+					<li>「全プロジェクト」を選ぶと通常表示に戻ります</li>
+				</ul>
+			</div>
+			<span id="projectContextBadge" class="project-context-badge" style="display:none;"></span>
+		</div>
+
 		<!-- 検索フィルターエリア -->
 		<div class="header-search-area">
-			<div style="display:flex;flex-direction:column;gap:2px;">
-				<div class="search-input-wrapper">
+			<div style="position:relative;">
+				<div class="search-input-wrapper" style="display:flex;align-items:center;gap:6px;">
 					<input type="text" id="headerSearchInput" placeholder="パネルを検索...">
+					<button id="voiceSearchBtn" type="button" title="音声検索（クリックして話す）" style="position:relative;background:rgba(255,255,255,0.18);border:2px solid rgba(255,255,255,0.3);border-radius:10px;width:38px;height:38px;cursor:pointer;color:#fff;font-size:1.1em;transition:all 0.25s ease;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;">🎤</button>
 				</div>
-				<div style="font-size:0.72em;color:rgba(255,255,255,0.55);padding:0 4px;white-space:nowrap;letter-spacing:0.01em;">スペース=AND / |=OR / -=除外</div>
+				<div class="search-hint-overlay" style="position:absolute;top:100%;left:0;right:0;font-size:9px;color:rgba(255,255,255,0.55);padding:2px 6px 0 0;white-space:nowrap;letter-spacing:0.01em;pointer-events:none;opacity:0;transition:opacity 0.2s ease;">スペース=AND / |=OR / -=除外 / 🎤音声 / Ctrl+K</div>
 			</div>
 			<div class="search-input-wrapper">
 				<input type="text" id="headerUrlSearchInput" placeholder="URLで検索...">
@@ -1572,37 +3075,12 @@
 			<button class="tab-item active" data-tab="main"><span class="tab-icon">🏠</span>メイン</button>
 			<button class="tab-item" data-tab="view"><span class="tab-icon">📊</span>表示設定</button>
 			<button class="tab-item" data-tab="settings"><span class="tab-icon">⚙️</span>データ管理</button>
+			<button class="tab-item" data-tab="dashboard"><span class="tab-icon">📊</span>ダッシュボード</button>
 			<button class="tab-item" data-tab="memo"><span class="tab-icon">📝</span>メモ帳</button>
+			<button class="tab-item" data-tab="aitools"><span class="tab-icon">🤖</span>AIツール</button>
+			<button class="tab-item" data-tab="snippets"><span class="tab-icon">🧩</span>スニペット</button>
 			<button class="tab-item" data-tab="help"><span class="tab-icon">❓</span>ヘルプ</button>
 			<button id="versionShowBtnTop" class="tab-item-action" title="バージョン履歴を表示" style="margin-left:auto;">バージョン履歴</button>
-			<button id="modeToggleBtn" class="tab-item-action" title="表示モード切り替え">
-				<span id="modeIcon">
-					<!-- ライトモード: 太陽 -->
-					<svg id="lightSvg" width="26" height="26" viewBox="0 0 26 26" style="display:inline;"
-						xmlns="http://www.w3.org/2000/svg">
-						<circle cx="13" cy="13" r="6" fill="#ffc800" />
-						<g stroke="#ffc800" stroke-width="2">
-							<line x1="13" y1="2.5" x2="13" y2="6" />
-							<line x1="13" y1="20" x2="13" y2="23.5" />
-							<line x1="2.5" y1="13" x2="6" y2="13" />
-							<line x1="20" y1="13" x2="23.5" y2="13" />
-							<line x1="5.6" y1="5.6" x2="8" y2="8" />
-							<line x1="20.4" y1="20.4" x2="18" y2="18" />
-							<line x1="20.4" y1="5.6" x2="18" y2="8" />
-							<line x1="5.6" y1="20.4" x2="8" y2="18" />
-						</g>
-					</svg>
-					<!-- ダークモード: 月 -->
-					<svg id="darkSvg" width="26" height="26" viewBox="0 0 26 26" style="display:none;"
-						xmlns="http://www.w3.org/2000/svg">
-						<path d="M21 19a9 9 0 01-9-15a1 1 0 00-1.1 1.2A7 7 0 1020.8 19.1A1 1 0 0021 19z"
-							fill="#ffbe21" />
-						<circle cx="18" cy="10" r="1.2" fill="#ffe08a" />
-						<circle cx="16" cy="14" r="0.8" fill="#fff6c4" />
-					</svg>
-					<img id="hbaGif" src="" width="26" height="26" style="display:none;" alt="" />
-				</span>
-			</button>
 		</div>
 		
 		<div class="tab-content-area">
@@ -1684,7 +3162,31 @@
 						<button id="exportSettingBtn" class="action-btn" type="button"><span>📤</span>設定データをエクスポート</button>
 						<button id="importSettingBtn" class="action-btn" type="button"><span>📥</span>設定データをインポート</button>
 						<button id="importHbaBaseBtn" class="action-btn" type="button" style="background:#2563eb;color:#fff;"><span>🌐</span>スターターセットを追加</button>
+						<button id="urlShareBtn" class="action-btn" type="button" style="background:#5a67d8;color:#fff;"><span>🔗</span>設定をURL共有</button>
 						<input type="file" id="importSettingFile" style="display:none;">
+					</div>
+				</div>
+
+				<div class="setting-group" style="margin-top:12px;">
+					<h3><span>🎫</span>チケット連携設定</h3>
+					<p style="margin:8px 0;color:var(--dropdown-fg);font-size:13px;">パネル説明文中のチケット番号（例: <code>PROJ-123</code> / <code>[BACKLOG-1234]</code> / <code>#1234</code>）を自動でクリックリンクに変換します。ベースURL未設定の項目は強調表示のみ（クリック不可）になります。</p>
+					<div style="display:flex;flex-direction:column;gap:10px;max-width:680px;">
+						<label style="display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--modal-label-fg);">
+							<span>JIRA ベースURL <code style="opacity:.6;font-size:11px;">PROJ-123</code></span>
+							<input type="text" id="ticketJiraBase" placeholder="https://yourorg.atlassian.net/browse/" style="padding:8px 10px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);font-size:13px;outline:none;">
+						</label>
+						<label style="display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--modal-label-fg);">
+							<span>Backlog ベースURL <code style="opacity:.6;font-size:11px;">[BACKLOG-1234]</code></span>
+							<input type="text" id="ticketBacklogBase" placeholder="https://yourorg.backlog.com/view/" style="padding:8px 10px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);font-size:13px;outline:none;">
+						</label>
+						<label style="display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--modal-label-fg);">
+							<span>Redmine ベースURL <code style="opacity:.6;font-size:11px;">#1234</code></span>
+							<input type="text" id="ticketRedmineBase" placeholder="https://yourorg/redmine/issues/" style="padding:8px 10px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);font-size:13px;outline:none;">
+						</label>
+						<div style="display:flex;gap:8px;margin-top:4px;">
+							<button id="ticketSaveBtn" class="action-btn" type="button" style="padding:8px 16px;font-size:13px;">💾 保存</button>
+							<span id="ticketSaveStatus" style="align-self:center;font-size:12px;color:var(--gold2);"></span>
+						</div>
 					</div>
 				</div>
 
@@ -1707,6 +3209,90 @@
 					</div>
 				</div>
 		</div>
+
+		<!-- ダッシュボードタブ -->
+		<div class="tab-panel" data-panel="dashboard">
+			<!-- スタンドアップ生成セクション -->
+			<div class="setting-group" style="border:2px solid #d4a017;background:linear-gradient(135deg,rgba(212,160,23,0.08) 0%,rgba(212,160,23,0.02) 100%);">
+				<h3 style="display:flex;align-items:center;gap:8px;color:var(--gold2);">
+					<span>📋</span>スタンドアップ生成
+					<span style="font-size:11px;font-weight:normal;background:#d4a017;color:#fff;padding:2px 8px;border-radius:10px;">NEW</span>
+				</h3>
+				<p style="color:var(--dropdown-fg);font-size:13px;margin:6px 0 12px;">デイリースタンドアップ用のサマリを自動生成します。よく開いたリンク・編集パネル・AIプロンプト使用状況を集計し、Markdown でコピーできます。</p>
+				<div id="standupActions" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+					<button id="standupYesterdayBtn" class="action-btn" style="padding:8px 16px;font-size:13px;background:#d4a017;color:#fff;" type="button">📅 昨日のサマリ</button>
+					<button id="standupWeekBtn" class="action-btn" style="padding:8px 16px;font-size:13px;background:#b8870e;color:#fff;" type="button">📆 今週のサマリ</button>
+					<button id="standupCopyBtn" class="action-btn" style="padding:8px 16px;font-size:13px;" type="button" disabled>📋 コピー</button>
+				</div>
+				<textarea id="standupOutput" placeholder="「📅 昨日のサマリ」または「📆 今週のサマリ」をクリックして生成..." readonly style="width:100%;box-sizing:border-box;min-height:240px;padding:12px;font-family:'SFMono-Regular','Consolas','Menlo',monospace;font-size:12.5px;line-height:1.6;border:1.5px solid var(--modal-input-border);border-radius:8px;background:var(--modal-input-bg);color:inherit;resize:vertical;"></textarea>
+			</div>
+
+			<div class="setting-group">
+				<h3 style="display:flex;align-items:center;gap:8px;">
+					<span>📊</span>ダッシュボード
+					<button id="dashboardRefreshBtn" class="action-btn" style="margin-left:auto;padding:6px 12px;font-size:13px;" type="button">🔄 更新</button>
+				</h3>
+				<p style="color:var(--dropdown-fg);font-size:13px;margin:6px 0 16px;">あなたの利用状況を可視化します。タブを開くたびに自動集計します。</p>
+
+				<!-- 数値カード -->
+				<div class="dash-cards">
+					<div class="dash-card">
+						<div class="dash-card-label">📦 累計パネル数</div>
+						<div class="dash-card-value" id="dashTotalPanels">0</div>
+						<div class="dash-card-sub" id="dashTotalPanelsSub">—</div>
+					</div>
+					<div class="dash-card">
+						<div class="dash-card-label">📁 カテゴリ数</div>
+						<div class="dash-card-value" id="dashTotalCats">0</div>
+						<div class="dash-card-sub">登録済みカテゴリ</div>
+					</div>
+					<div class="dash-card">
+						<div class="dash-card-label">⭐ お気に入り</div>
+						<div class="dash-card-value" id="dashTotalFavs">0</div>
+						<div class="dash-card-sub">お気に入り設定数</div>
+					</div>
+					<div class="dash-card">
+						<div class="dash-card-label">👆 累計クリック数</div>
+						<div class="dash-card-value" id="dashTotalClicks">0</div>
+						<div class="dash-card-sub" id="dashTotalClicksSub">全期間合計</div>
+					</div>
+				</div>
+
+				<!-- Top10 + タグクラウド (2カラム) -->
+				<div class="dash-row-2col">
+					<div class="dash-section">
+						<div class="dash-section-title">🏆 最もよく開くリンク Top10</div>
+						<ol class="dash-toplist" id="dashTopList"><li class="dash-empty">クリック履歴がまだありません</li></ol>
+					</div>
+					<div class="dash-section">
+						<div class="dash-section-title">🏷️ タグクラウド</div>
+						<div class="dash-tagcloud" id="dashTagCloud"><span class="dash-empty">タグが登録されていません</span></div>
+					</div>
+				</div>
+
+				<!-- ヒートマップ -->
+				<div class="dash-section" style="margin-top:18px;">
+					<div class="dash-section-title">🔥 過去90日 アクティビティヒートマップ</div>
+					<div id="dashHeatmap" class="dash-heatmap"></div>
+					<div class="dash-heatmap-legend">
+						<span>少ない</span>
+						<span class="dash-cell dash-cell-l0"></span>
+						<span class="dash-cell dash-cell-l1"></span>
+						<span class="dash-cell dash-cell-l2"></span>
+						<span class="dash-cell dash-cell-l3"></span>
+						<span class="dash-cell dash-cell-l4"></span>
+						<span>多い</span>
+					</div>
+				</div>
+
+				<!-- カテゴリ別パネル数（横棒グラフ） -->
+				<div class="dash-section" style="margin-top:18px;">
+					<div class="dash-section-title">📊 カテゴリ別パネル数</div>
+					<div id="dashCatBar" class="dash-bar-chart"></div>
+				</div>
+			</div>
+		</div>
+
 	</div>		<!-- メモ帳タブ -->
 		<div class="tab-panel" data-panel="memo">
 			<div class="setting-group">
@@ -1738,10 +3324,65 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- AIツールタブ -->
+		<div class="tab-panel" data-panel="aitools">
+			<div class="setting-group">
+				<h3 style="display:flex;align-items:center;gap:8px;">
+					<span>🤖</span>AIプロンプトライブラリ
+					<button id="aiTplNewBtn" class="action-btn" style="margin-left:auto;padding:6px 12px;font-size:13px;" type="button">➕ 新規作成</button>
+				</h3>
+				<p style="color:var(--dropdown-fg);font-size:13px;margin:6px 0 10px;">
+					Claude Code / GitHub Copilot 連携用のプロンプトテンプレート集。変数を埋めてワンクリックでコピー → AIエディタへ貼り付け。
+				</p>
+				<div class="ai-usage-hint-card">
+					<strong>💡 使い方</strong>
+					<ol style="margin:6px 0 0 22px;padding:0;">
+						<li>テンプレートを選択して、左の変数欄を入力</li>
+						<li>用途に合わせたコピーボタンでクリップボードへ</li>
+						<li>Claude Code / Copilot Chat / ChatGPT に貼り付けて実行</li>
+					</ol>
+					<div class="note">
+						注: ブラウザから直接 AI を実行することはできません。コピーした内容を、お使いの AI ツールに貼り付けてください。
+					</div>
+				</div>
+				<div class="ai-tools-layout">
+					<aside class="ai-tools-left" id="aiTplListPane"></aside>
+					<section class="ai-tools-right" id="aiTplDetailPane">
+						<div class="ai-empty">← 左のリストからテンプレートを選択してください</div>
+					</section>
+				</div>
+			</div>
+		</div>
+
+		<!-- スニペットタブ -->
+		<div class="tab-panel" data-panel="snippets">
+			<div class="setting-group">
+				<h3 style="display:flex;align-items:center;gap:8px;">
+					<span>🧩</span>コードスニペット集
+					<button id="snipNewBtn" class="action-btn" style="margin-left:auto;padding:6px 12px;font-size:13px;" type="button">➕ 新規作成</button>
+				</h3>
+				<p style="color:var(--dropdown-fg);font-size:13px;margin:6px 0 14px;">
+					業務でよく使うコードパターン集。言語別にカテゴライズ、コピーボタンですぐ使える。
+				</p>
+				<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap;">
+					<input type="text" id="snipSearchInput" placeholder="🔍 タイトル・コード本文・タグで検索..." style="flex:1;min-width:240px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);font-size:13px;outline:none;">
+					<select id="snipLangFilter" style="padding:8px 12px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);font-size:13px;outline:none;">
+						<option value="">すべての言語</option>
+					</select>
+				</div>
+				<div class="ai-tools-layout">
+					<aside class="ai-tools-left" id="snipListPane"></aside>
+					<section class="ai-tools-right" id="snipDetailPane">
+						<div class="ai-empty">← 左のリストからスニペットを選択してください</div>
+					</section>
+				</div>
+			</div>
+		</div>
 	</div>
 	<main>
 		<!-- 件数表示 -->
-		<div id="filterResultCount" style="text-align:left;padding:8px 20px;font-size:13px;color:var(--accordion-fg);display:none;">
+		<div id="filterResultCount" style="text-align:left;padding:8px 20px;font-size:13px;color:var(--muted2);display:none;">
 			<span id="filterResultText"></span>
 			<button id="openAllFilteredBtn" class="action-btn" style="display:none;margin-left:12px;padding:6px 14px;font-size:13px;background:#4CAF50;color:#fff;" onclick="openAllFilteredPanels()">
 				🌐 絞込結果を一括で開く
@@ -1762,11 +3403,54 @@
 	<div id="panelContextMenu">
 		<button class="ctx-item" id="ctxOpen">🔗 リンクを開く（新しいタブ）</button>
 		<button class="ctx-item" id="ctxCopy">📋 URLをコピー</button>
+		<button class="ctx-item" id="ctxQr">📱 QRコードを表示</button>
 		<div class="ctx-sep"></div>
 		<button class="ctx-item" id="ctxEdit">✏️ 編集</button>
 		<button class="ctx-item" id="ctxFav">⭐ お気に入りに追加/解除</button>
 		<div class="ctx-sep"></div>
 		<button class="ctx-item danger" id="ctxDel">🗑️ 削除</button>
+	</div>
+
+	<!-- 機能2: QRコードモーダル -->
+	<div id="qrModalBg">
+		<div id="qrModal">
+			<h3>📱 QRコード</h3>
+			<div class="qr-image-wrap">
+				<img class="qr-img" id="qrImage" src="" alt="QR Code">
+			</div>
+			<div class="qr-url" id="qrUrl"></div>
+			<button type="button" class="qr-close" id="qrCloseBtn">閉じる</button>
+		</div>
+	</div>
+
+	<!-- 機能3: 音声トースト -->
+	<div id="voiceToast"></div>
+	<div id="voiceBigToast" role="status" aria-live="polite">
+		<span class="vbt-icon">🎤</span>
+		<div class="vbt-title">聞いています...</div>
+		<div class="vbt-text"></div>
+	</div>
+
+	<!-- 機能6: URL共有モーダル -->
+	<div id="urlShareModalBg">
+		<div id="urlShareModal" role="dialog" aria-label="URL共有">
+			<h3>🔗 設定をURLで共有</h3>
+			<div class="url-share-info">下記URLをコピーして共有すると、相手のブラウザで同じ設定を取り込めます（取り込み前に確認ダイアログが出ます）。</div>
+			<textarea id="urlShareText" readonly></textarea>
+			<div class="url-share-warn" id="urlShareWarn" style="display:none;"></div>
+			<div class="url-share-actions">
+				<button type="button" class="action-btn" id="urlShareCopyBtn">📋 URLをコピー</button>
+				<button type="button" class="action-btn" id="urlShareCloseBtn" style="background:var(--modal-close-btn-bg);color:#fff;">閉じる</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- 機能4: コマンドパレット -->
+	<div id="cmdPaletteBg">
+		<div id="cmdPalette" role="dialog" aria-label="コマンドパレット">
+			<input type="text" id="cmdPaletteInput" placeholder="コマンド・パネル・カテゴリを検索...  (Esc で閉じる)" autocomplete="off">
+			<ul id="cmdPaletteList"></ul>
+		</div>
 	</div>
 
 	<!-- モーダル：カテゴリ・パネル編集用 -->
@@ -1789,9 +3473,13 @@
 				<div style="font-size:0.8em;color:#666;margin-top:2px;margin-bottom:4px;"> 既存のタグをクリックして選択できます</div>
 					<div id="tagSuggestions" class="tag-suggestions"></div>
 					<div id="currentTags" class="tag-container"></div>
+					<div style="margin-top:6px;">
+						<button type="button" id="panelPinProjectBtn" style="padding:6px 12px;font-size:12px;background:linear-gradient(135deg,#d4a017 0%,#b8870e 100%);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;box-shadow:0 2px 6px rgba(212,160,23,0.3);transition:all 0.2s;" title="現在のプロジェクトタグを追加">📌 プロジェクトに紐付ける</button>
+						<span id="panelPinProjectHint" style="margin-left:8px;font-size:11px;color:var(--muted2);"></span>
+					</div>
 				</div>
-				<label for="panelDescription">説明文（任意）</label>
-				<textarea id="panelDescription" rows="3" style="width:94%;box-sizing:border-box;margin-bottom:14px;font-size:1em;border:1.3px solid var(--modal-input-border);border-radius:6px;padding:8px;background:var(--modal-input-bg);resize:vertical;font-family:inherit;color:inherit;" placeholder="このリンクの説明を入力（省略可）"></textarea>
+				<label for="panelDescription">説明文（任意・Markdown対応: **太字** *斜体* ~~取消~~ `code` [link](url)）</label>
+				<textarea id="panelDescription" rows="3" style="width:94%;box-sizing:border-box;margin-bottom:14px;font-size:1em;border:1.3px solid var(--modal-input-border);border-radius:6px;padding:8px;background:var(--modal-input-bg);resize:vertical;font-family:inherit;color:inherit;" placeholder="このリンクの説明を入力（Markdown 可）"></textarea>
 				<button type="submit"
 					id="panelSaveBtn">保存</button> <button type="button" class="close-btn"
 					id="panelCancelBtn">キャンセル</button>
@@ -1837,7 +3525,7 @@
 		</div>
 	</div><!-- アップデート通知モーダル -->
 
-	<div class="modal-bg" id="versionModalBg" style="display:none;z-index:50;">
+	<div class="modal-bg" id="versionModalBg" style="display:none;">
 		<div class="modal" style="min-width:600px;max-width:90vw;max-height:80vh;overflow-y:auto;">
 			<div style="display:flex;justify-content:space-between;align-items:center;">
 				<h2 style="margin:0;font-size:1.18em;">
@@ -1849,7 +3537,7 @@
 		</div>
 	</div>
 	<!-- ヘルプモーダル -->
-	<div class="modal-bg" id="helpModalBg" style="display:none;z-index:50;">
+	<div class="modal-bg" id="helpModalBg" style="display:none;">
 		<div class="modal" style="min-width:600px;max-width:90vw;max-height:80vh;overflow-y:auto;">
 			<div style="display:flex;justify-content:space-between;align-items:center;">
 				<h2 style="margin:0;font-size:1.3em;">❓ ヘルプ・使い方ガイド</h2>
@@ -1984,9 +3672,6 @@
 				<h3 style="color:var(--modal-label-fg);margin-top:24px;">⭐ お気に入り機能</h3>
 				<p>パネル左上の☆マークをクリックすると、「お気に入り」カテゴリに追加されます。</p>
 
-				<h3 style="color:var(--modal-label-fg);margin-top:24px;">🎨 表示モード切替</h3>
-				<p>メニューバーのモード切替ボタンで、ライトモード・ダークモードを切り替えられます。</p>
-
 				<h3 style="color:var(--modal-label-fg);margin-top:24px;">💾 データの保存とバックアップ</h3>
 				<p>全てのデータはブラウザのローカルストレージに保存されます。ブラウザのデータを消去すると設定も消えますので、定期的にバックアップすることをお勧めします。</p>
 				<ul style="margin:8px 0 16px 20px;">
@@ -2013,7 +3698,7 @@
 	</div>
 
 	<!-- 要望モーダル -->
-	<div class="modal-bg" id="feedbackModalBg" style="display:none;z-index:50;">
+	<div class="modal-bg" id="feedbackModalBg" style="display:none;">
 		<div class="modal" style="min-width:330px;">
 			<div style="display:flex;justify-content:space-between;align-items:center;">
 				<h2 style="margin:0;font-size:1.18em;">
@@ -2028,7 +3713,17 @@
 		</div>
 	</div>
 	<div id="hiddenVersionHistory" style="display:none;">
-  <p style="padding:16px;color:#666;">ver 1.0.0 — 2026/04/25 — gkAgent 初版リリース</p>
+  <p style="padding:16px;line-height:1.8;">
+    <strong>ver 1.6.1</strong> — 2026/04/25 — ダークモード視認性全面改善・UX修正<br>
+    <strong>ver 1.6.0</strong> — 2026/04/25 — コードスニペット集・チケット番号自動検出<br>
+    <strong>ver 1.5.1</strong> — 2026/04/25 — ダークモード固定（ライトモード廃止）<br>
+    <strong>ver 1.5.0</strong> — 2026/04/25 — スタンドアップ生成・プロジェクトコンテキスト切替<br>
+    <strong>ver 1.4.0</strong> — 2026/04/25 — AI プロンプトライブラリ追加（18テンプレート）<br>
+    <strong>ver 1.3.0</strong> — 2026/04/25 — gkAgent ブランドカラー適用<br>
+    <strong>ver 1.2.0</strong> — 2026/04/25 — ダッシュボード・URL共有・Markdown対応<br>
+    <strong>ver 1.1.0</strong> — 2026/04/25 — Favicon自動取得・QR・音声検索・Cmd Palette<br>
+    <strong>ver 1.0.0</strong> — 2026/04/25 — gkAgent 初版リリース
+  </p>
 </div>
 	<script>
 		// グローバル関数を先に定義
@@ -2076,6 +3771,13 @@
 					if (match && window.filterUrlText) {
 						const url = panel.url || '';
 						if (!url.toLowerCase().includes(window.filterUrlText.toLowerCase())) {
+							match = false;
+						}
+					}
+
+					// v1.5.0: プロジェクトコンテキストフィルター
+					if (match && typeof window.gkLinksGetCurrentProject === 'function' && window.gkLinksGetCurrentProject()) {
+						if (typeof window.gkLinksProjectFilter === 'function' && !window.gkLinksProjectFilter(panel)) {
 							match = false;
 						}
 					}
@@ -2573,9 +4275,14 @@
 	}		// ============= お気に入り抽出 =============
 		function getFavoritesPanels() {
 			let result = [];
+			const __curProj = (typeof window.gkLinksGetCurrentProject === 'function') ? window.gkLinksGetCurrentProject() : null;
 			catList.forEach((cat, catIdx) => {
 				(cat.panels || []).forEach((panel, panelIdx) => {
 					if (panel.favorite) {
+						// v1.5.0: プロジェクトコンテキストでフィルタ
+						if (__curProj && typeof window.gkLinksProjectFilter === 'function') {
+							if (!window.gkLinksProjectFilter(panel)) return;
+						}
 						console.log('[お気に入り抽出]', { catIdx, panelIdx, title: panel.text, favorite: panel.favorite });
 						result.push({ panel, catIdx, panelIdx });
 					}
@@ -2598,11 +4305,11 @@
 			// === カテゴリが1つも無い場合の案内表示 ===
 			if (catList.length === 0 && viewMode === "normal") {
 				const emptyMessage = document.createElement('div');
-				emptyMessage.style.cssText = 'padding:40px 20px;text-align:center;background:#fff;border-radius:12px;margin:20px;box-shadow:0 2px 8px rgba(0,0,0,0.1);';
+				emptyMessage.style.cssText = 'padding:40px 20px;text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px;margin:20px;box-shadow:0 4px 24px rgba(0,0,0,0.4);';
 				emptyMessage.innerHTML = `
 					<div style="font-size:48px;margin-bottom:16px;">📋</div>
-					<h2 style="color:#333;margin-bottom:12px;font-size:20px;">カテゴリがありません</h2>
-					<p style="color:#666;margin-bottom:24px;font-size:14px;line-height:1.6;">
+					<h2 style="color:var(--text);margin-bottom:12px;font-size:20px;">カテゴリがありません</h2>
+					<p style="color:var(--muted2);margin-bottom:24px;font-size:14px;line-height:1.6;">
 						まずはカテゴリを作成するか、<br>
 						スターターセットをインポートして始めましょう
 					</p>
@@ -2733,16 +4440,22 @@
 							return p.tags.some(tag => selectedHeaderTags.has(tag));
 						});
 					}
-					
+
 					// 期間フィルター適用
 					if (periodFilteredSet) {
 						panelsToRender = panelsToRender.filter((p) => {
 							return periodFilteredSet.has(`${catIdx}-${p.__originalIdx}`);
 						});
 					}
-					
+
+					// v1.5.0: プロジェクトコンテキストフィルター適用
+					const __curProj = (typeof window.gkLinksGetCurrentProject === 'function') ? window.gkLinksGetCurrentProject() : null;
+					if (__curProj && typeof window.gkLinksProjectFilter === 'function') {
+						panelsToRender = panelsToRender.filter(p => window.gkLinksProjectFilter(p));
+					}
+
 					totalPanelCount += panelsToRender.length;
-					if ((filterText || filterUrlText || periodFilteredSet || (selectedHeaderTags && selectedHeaderTags.size > 0)) && panelsToRender.length === 0) return;
+					if ((filterText || filterUrlText || periodFilteredSet || (selectedHeaderTags && selectedHeaderTags.size > 0) || __curProj) && panelsToRender.length === 0) return;
 					const wrap = document.createElement('div');
 					wrap.className = 'accordion';
 					const header = document.createElement('div');
@@ -2901,9 +4614,13 @@
 				// --- 画像（カスタム or favicon）
 				let imgTag = '';
 				if (p.img && p.img.trim()) {
-					imgTag = `<img class="panel-bgimg" src="${p.img.replace(/\\/g, "/").replace(/"/g, "&quot;")}" alt="">`;
+					// 失敗時は favicon にフォールバック
+					const faviconFallback = p.url && p.url.trim()
+						? `https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(p.url)}`
+						: '';
+					imgTag = `<img class="panel-bgimg" src="${p.img.replace(/\\/g, "/").replace(/"/g, "&quot;")}" alt="" onerror="if(this.dataset.fallback!=='1'&&'${faviconFallback}'){this.dataset.fallback='1';this.src='${faviconFallback}';}else{this.style.visibility='hidden';}">`;
 				} else if (p.url && p.url.trim()) {
-					imgTag = `<img class="panel-bgimg" src="https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(p.url)}" alt="">`;
+					imgTag = `<img class="panel-bgimg" src="https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(p.url)}" alt="" onerror="this.style.visibility='hidden';">`;
 				}
 
 				// --- 順位バッジ・カウント・日付
@@ -2929,10 +4646,13 @@
 					tagsHtml += '</div>';
 				}
 
-				// --- description 表示
+				// --- description 表示（Markdown 対応: 機能7）
 				let descHtml = '';
 				if (p.description && p.description.trim() && mode === "normal") {
-					descHtml = `<span class="panel-description">${p.description.replace(/</g,"&lt;")}</span>`;
+					const md = (typeof window.renderMarkdownInline === 'function')
+						? window.renderMarkdownInline(p.description)
+						: p.description.replace(/</g, "&lt;");
+					descHtml = `<span class="panel-description">${md}</span>`;
 					a.classList.add('has-description');
 				}
 
@@ -3137,18 +4857,28 @@
 			
 			const text = document.getElementById('panelTitle').value.replace(/</g, "&lt;");
 			const url = document.getElementById('panelUrl').value;
-			const img = document.getElementById('panelImg').value.replace(/\\/g, "/");
+			let img = document.getElementById('panelImg').value.replace(/\\/g, "/");
+			// 機能1: 画像URL未入力時、URLからfaviconを自動取得して補完
+			if ((!img || !img.trim()) && url && url.trim()) {
+				const autoFav = window.faviconFromUrl ? window.faviconFromUrl(url) : '';
+				if (autoFav) img = autoFav;
+			}
 			const tags = [...currentPanelTags];
 			const description = document.getElementById('panelDescription').value.trim();
 
 			let list = catList[catIdx].panels;
+			const nowTs = Date.now();
 			if (idx === "") {
-				list.push({ text, img, url, tags, description });
+				// v1.5.0: addedAt / editedAt 記録
+				list.push({ text, img, url, tags, description, addedAt: nowTs, editedAt: nowTs });
 			} else {
 				// 既存パネルのお気に入りフラグを保持
 				const existingFav = list[idx] ? list[idx].favorite : undefined;
-				list[idx] = { text, img, url, tags, description };
+				const existingAddedAt = list[idx] ? list[idx].addedAt : undefined;
+				list[idx] = { text, img, url, tags, description, editedAt: nowTs };
 				if (typeof existingFav !== 'undefined') list[idx].favorite = existingFav;
+				if (typeof existingAddedAt !== 'undefined') list[idx].addedAt = existingAddedAt;
+				else list[idx].addedAt = nowTs;
 			}
 			saveCats(catList);
 			collectAllTags();
@@ -3668,59 +5398,10 @@
 	
 	renderCats();
 	enableCatSortable();
-	// 表示モード: 'light', 'dark', 'hba' の3つ
-	let displayMode = localStorage.getItem('displayMode') || 'light';		// モードに応じてアイコンとクラスを更新する関数
-		function updateDisplayMode() {
-			const lightSvg = document.getElementById('lightSvg');
-			const darkSvg = document.getElementById('darkSvg');
-			const hbaGif = document.getElementById('hbaGif');
-			const btn = document.getElementById('modeToggleBtn');
-
-			// 全てのアイコンを非表示
-			lightSvg.style.display = 'none';
-			darkSvg.style.display = 'none';
-			hbaGif.style.display = 'none';
-
-			// bodyのクラスをリセット
-			document.body.classList.remove('dark');
-
-			if (displayMode === 'light') {
-				lightSvg.style.display = 'inline';
-				btn.title = 'ライトモード';
-			} else if (displayMode === 'dark') {
-				darkSvg.style.display = 'inline';
-				document.body.classList.add('dark');
-				btn.title = 'ダークモード';
-			}
-		}
-
-		// モード切り替えボタン（light → dark → hba → light...）
-		setTimeout(() => {
-			const modeBtn = document.getElementById('modeToggleBtn');
-			if (modeBtn) {
-				console.log('モードトグルボタン設定完了');
-				modeBtn.onclick = function (e) {
-					e.preventDefault();
-					e.stopPropagation();
-					console.log('現在のモード:', displayMode);
-					if (displayMode === 'light') {
-						displayMode = 'dark';
-					} else if (displayMode === 'dark') {
-						displayMode = 'light';
-					} else {
-						displayMode = 'light';
-					}
-					localStorage.setItem('displayMode', displayMode);
-					updateDisplayMode();
-					console.log('新しいモード:', displayMode);
-				};
-			} else {
-				console.error('modeToggleBtnが見つかりません');
-			}
-		}, 100);
-
-		// ページ読み込み時にモードを復元
-		updateDisplayMode();
+	// v1.5.1〜: ダークモード固定（ライトモード廃止）
+	document.body.classList.add('dark');
+	// レガシーキー掃除
+	try { localStorage.removeItem('displayMode'); localStorage.removeItem('gkLinks_THEME'); } catch (e) {}
 
 		// ============= タブメニュー =============
 		setTimeout(() => {
@@ -3946,9 +5627,12 @@
 
 				let imgTag = '';
 				if (p.img && p.img.trim()) {
-					imgTag = `<img class="panel-bgimg" src="${p.img.replace(/\\/g, "/").replace(/"/g, "&quot;")}" alt="">`;
+					const faviconFallback = p.url && p.url.trim()
+						? `https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(p.url)}`
+						: '';
+					imgTag = `<img class="panel-bgimg" src="${p.img.replace(/\\/g, "/").replace(/"/g, "&quot;")}" alt="" onerror="if(this.dataset.fallback!=='1'&&'${faviconFallback}'){this.dataset.fallback='1';this.src='${faviconFallback}';}else{this.style.visibility='hidden';}">`;
 				} else if (p.url && p.url.trim()) {
-					imgTag = `<img class="panel-bgimg" src="https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(p.url)}" alt="">`;
+					imgTag = `<img class="panel-bgimg" src="https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(p.url)}" alt="" onerror="this.style.visibility='hidden';">`;
 				}
 
 				// タグ表示
@@ -4073,7 +5757,7 @@
 		catList.forEach((cat) => {
 			cat.panels.forEach((panel) => {
 				let match = true;
-				
+
 				// タグフィルターチェック
 				if (selectedHeaderTags && selectedHeaderTags.size > 0) {
 					if (!panel.tags || !Array.isArray(panel.tags)) {
@@ -4083,7 +5767,7 @@
 						if (!hasTag) match = false;
 					}
 				}
-				
+
 				// テキスト検索チェック（AND/OR/除外対応）
 				if (match && filterText) {
 					const matchFn = parseSearchQuery(filterText);
@@ -4094,6 +5778,13 @@
 				if (match && filterUrlText) {
 					const url = panel.url || '';
 					if (!url.toLowerCase().includes(filterUrlText.toLowerCase())) {
+						match = false;
+					}
+				}
+
+				// v1.5.0: プロジェクトコンテキストフィルター
+				if (match && typeof window.gkLinksGetCurrentProject === 'function' && window.gkLinksGetCurrentProject()) {
+					if (typeof window.gkLinksProjectFilter === 'function' && !window.gkLinksProjectFilter(panel)) {
 						match = false;
 					}
 				}
@@ -4221,6 +5912,17 @@ panelTagsInput.oninput = function() {
 				currentTagsDiv.appendChild(tagEl);
 			});
 		}
+
+		// v1.5.0: プロジェクトコンテキスト等から呼び出すためグローバル公開
+		window.renderCats = renderCats;
+		window.enableCatSortable = enableCatSortable;
+		window.updateCurrentTagsDisplay = updateCurrentTagsDisplay;
+		// currentPanelTags は let なのでオブジェクト参照ではなく getter/setter 的に扱う必要がある
+		Object.defineProperty(window, 'currentPanelTags', {
+			get: function () { return currentPanelTags; },
+			set: function (v) { currentPanelTags = v; },
+			configurable: true
+		});
 
 		//全体
 		renderCats();
@@ -4391,6 +6093,2762 @@ panelTagsInput.oninput = function() {
 		return includes.every(inc => lc.includes(inc));
 	}
 
+
+	// ============================================================
+	// 機能1: 🌐 Favicon自動取得（共通ヘルパー）
+	// ============================================================
+	(function () {
+		window.faviconFromUrl = function (url) {
+			if (!url) return '';
+			try {
+				const u = (/^https?:\/\//i.test(url)) ? new URL(url) : new URL('https://' + url);
+				const host = u.hostname;
+				if (!host) return '';
+				return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=64`;
+			} catch (e) {
+				const m = String(url).match(/^(?:https?:\/\/)?([^\/\?#:]+)/i);
+				if (m && m[1]) return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(m[1])}&sz=64`;
+				return '';
+			}
+		};
+		console.log('機能1完成: Favicon自動取得 helper を有効化');
+	})();
+
+	// ============================================================
+	// 機能2: 📷 QRコード表示
+	// ============================================================
+	(function () {
+		const qrBg = document.getElementById('qrModalBg');
+		const qrImg = document.getElementById('qrImage');
+		const qrUrl = document.getElementById('qrUrl');
+		const qrClose = document.getElementById('qrCloseBtn');
+		const ctxQrBtn = document.getElementById('ctxQr');
+
+		window.showQrModal = function (url) {
+			if (!url) return;
+			const api = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
+			qrImg.src = api;
+			qrUrl.textContent = url;
+			qrBg.classList.add('active');
+		};
+		function closeQr() { qrBg.classList.remove('active'); }
+		if (qrClose) qrClose.addEventListener('click', closeQr);
+		if (qrBg) qrBg.addEventListener('click', function (e) {
+			if (e.target === qrBg) closeQr();
+		});
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape' && qrBg && qrBg.classList.contains('active')) closeQr();
+		});
+
+		// 右クリックメニューに紐付け（既存ハンドラの ctxTarget はクロージャ内なので
+		// accordion-list の contextmenu を capture フェーズで拾って URL を保存）
+		const accList = document.getElementById('accordionList');
+		if (accList) {
+			accList.addEventListener('contextmenu', function (e) {
+				const panelEl = e.target.closest('.panel');
+				if (!panelEl) return;
+				const href = panelEl.getAttribute('href') || '';
+				window.lastCtxUrl = href;
+			}, true);
+		}
+
+		if (ctxQrBtn) {
+			ctxQrBtn.addEventListener('click', function () {
+				const url = window.lastCtxUrl;
+				const ctxMenu = document.getElementById('panelContextMenu');
+				if (ctxMenu) ctxMenu.style.display = 'none';
+				if (url) showQrModal(url);
+			});
+		}
+
+		console.log('機能2完成: QRコード表示');
+	})();
+
+	// ============================================================
+	// 機能3: 🎤 音声検索コマンド
+	// ============================================================
+	(function () {
+		const voiceBtn = document.getElementById('voiceSearchBtn');
+		const toast = document.getElementById('voiceToast');
+		const bigToast = document.getElementById('voiceBigToast');
+		const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+		if (!voiceBtn) return;
+
+		// 大きな中央フィードバック
+		function showBigToast(opts) {
+			if (!bigToast) return;
+			const o = opts || {};
+			bigToast.classList.remove('listening', 'error', 'success');
+			if (o.state) bigToast.classList.add(o.state);
+			const iconEl = bigToast.querySelector('.vbt-icon');
+			const titleEl = bigToast.querySelector('.vbt-title');
+			const textEl = bigToast.querySelector('.vbt-text');
+			if (iconEl) iconEl.textContent = o.icon || '🎤';
+			if (titleEl) titleEl.textContent = o.title || '';
+			if (textEl) {
+				textEl.innerHTML = '';
+				if (o.text) {
+					const span = document.createElement('span');
+					if (o.interim) span.className = 'vbt-interim';
+					span.textContent = o.text;
+					textEl.appendChild(span);
+				}
+			}
+			bigToast.classList.add('active');
+			clearTimeout(bigToast._t);
+			if (o.duration && o.duration > 0) {
+				bigToast._t = setTimeout(() => {
+					bigToast.classList.remove('active', 'listening', 'error', 'success');
+				}, o.duration);
+			}
+		}
+		function hideBigToast() {
+			if (!bigToast) return;
+			bigToast.classList.remove('active', 'listening', 'error', 'success');
+			clearTimeout(bigToast._t);
+		}
+
+		if (!SR) {
+			voiceBtn.addEventListener('click', function () {
+				showBigToast({
+					icon: '🚫',
+					title: 'ブラウザが対応していません',
+					text: 'Chrome / Edge を推奨します',
+					state: 'error',
+					duration: 3500
+				});
+			});
+			console.log('機能3: 音声認識API非対応のため無効化');
+			return;
+		}
+
+		let recognition = null;
+		let listening = false;
+		let lastInterim = '';
+
+		function showToast(msg, ms) {
+			if (!toast) return;
+			toast.textContent = msg;
+			toast.classList.add('active');
+			clearTimeout(toast._t);
+			toast._t = setTimeout(() => toast.classList.remove('active'), ms || 2200);
+		}
+
+		function findPanelByKeyword(keyword) {
+			if (!keyword || !window.catList) return null;
+			const kw = keyword.toLowerCase().replace(/\s+/g, '');
+			for (const cat of window.catList) {
+				if (!cat || !cat.panels) continue;
+				for (const p of cat.panels) {
+					const text = (p.text || '').toLowerCase().replace(/\s+/g, '');
+					const url = (p.url || '').toLowerCase();
+					const tags = (p.tags || []).join(' ').toLowerCase();
+					if (text.includes(kw) || url.includes(kw) || tags.includes(kw)) {
+						return p;
+					}
+				}
+			}
+			return null;
+		}
+
+		function handleCommand(transcript) {
+			const t = (transcript || '').trim();
+			if (!t) {
+				showBigToast({ icon: '❌', title: '認識できませんでした', text: '声が小さい・無音の可能性', state: 'error', duration: 2800 });
+				return;
+			}
+
+			// モード切替は v1.5.1 で廃止（ダークモード固定）
+			if (/(ダーク|だーく|ライト|らいと).*(モード)|dark mode|light mode/i.test(t)) {
+				showBigToast({ icon: 'ℹ️', title: '「' + t + '」', text: 'モード切替は廃止されました', state: 'info', duration: 3000 });
+				return;
+			}
+
+			// 「○○ を開く / 開いて」
+			let m = t.match(/^(.+?)\s*(?:を)?\s*(?:開く|開いて|ひらく|ひらいて)$/);
+			if (m) {
+				const kw = m[1].trim();
+				const panel = findPanelByKeyword(kw);
+				if (panel && panel.url) {
+					window.open(panel.url, '_blank');
+					showBigToast({ icon: '✅', title: '「' + t + '」', text: '🔗 「' + (panel.text || kw) + '」を開きました', state: 'success', duration: 3000 });
+				} else {
+					showBigToast({ icon: '❌', title: '「' + t + '」', text: '「' + kw + '」に一致するパネルが見つかりません', state: 'error', duration: 3000 });
+				}
+				return;
+			}
+
+			// 「○○ を検索 / で検索」
+			m = t.match(/^(.+?)\s*(?:を|で)?\s*(?:検索|けんさく)$/);
+			if (m) {
+				const kw = m[1].trim();
+				const inp = document.getElementById('headerSearchInput');
+				if (inp) {
+					inp.value = kw;
+					inp.dispatchEvent(new Event('input', { bubbles: true }));
+					inp.focus();
+					showBigToast({ icon: '✅', title: '「' + t + '」', text: '🔍 「' + kw + '」で絞り込み', state: 'success', duration: 3000 });
+				}
+				return;
+			}
+
+			// 認識できなかったコマンドはそのまま検索ボックスへ
+			const inp = document.getElementById('headerSearchInput');
+			if (inp) {
+				inp.value = t;
+				inp.dispatchEvent(new Event('input', { bubbles: true }));
+				showBigToast({ icon: '✅', title: '「' + t + '」', text: '🔍 検索ボックスに反映', state: 'success', duration: 3000 });
+			}
+		}
+
+		function describeError(code) {
+			const map = {
+				'no-speech':       '音声を検出できませんでした。もう少し大きな声でお試しください。',
+				'aborted':         '認識がキャンセルされました。',
+				'audio-capture':   'マイクが見つかりません。マイクの接続を確認してください。',
+				'network':         'ネットワークエラーが発生しました。',
+				'not-allowed':     'マイク権限を許可してください（ブラウザ設定）。',
+				'service-not-allowed': 'マイク権限を許可してください（ブラウザ設定）。',
+				'bad-grammar':     '文法エラーです。',
+				'language-not-supported': 'この言語は対応していません。'
+			};
+			return map[code] || ('エラー: ' + code);
+		}
+
+		function startListening() {
+			if (listening) { stopListening(); return; }
+			lastInterim = '';
+			try {
+				recognition = new SR();
+				recognition.lang = 'ja-JP';
+				recognition.interimResults = true;
+				recognition.maxAlternatives = 1;
+				recognition.continuous = false;
+
+				recognition.onstart = function () {
+					listening = true;
+					voiceBtn.classList.add('listening');
+					showBigToast({
+						icon: '🎤',
+						title: '聞いています...',
+						text: 'マイクに向かって話してください',
+						state: 'listening',
+						duration: 0
+					});
+				};
+				recognition.onresult = function (ev) {
+					let finalTranscript = '';
+					let interimTranscript = '';
+					for (let i = ev.resultIndex; i < ev.results.length; i++) {
+						const res = ev.results[i];
+						if (res.isFinal) {
+							finalTranscript += res[0].transcript;
+						} else {
+							interimTranscript += res[0].transcript;
+						}
+					}
+					if (interimTranscript) {
+						lastInterim = interimTranscript;
+						showBigToast({
+							icon: '🎤',
+							title: '聞いています...',
+							text: interimTranscript,
+							interim: true,
+							state: 'listening',
+							duration: 0
+						});
+					}
+					if (finalTranscript) {
+						handleCommand(finalTranscript);
+					}
+				};
+				recognition.onerror = function (ev) {
+					const code = ev.error || 'unknown';
+					if (code === 'not-allowed' || code === 'service-not-allowed') {
+						showBigToast({
+							icon: '🔒',
+							title: 'マイク権限を許可してください',
+							text: 'ブラウザのアドレスバー左の鍵アイコンから許可できます',
+							state: 'error',
+							duration: 4500
+						});
+					} else if (code === 'no-speech') {
+						showBigToast({
+							icon: '❌',
+							title: '認識できませんでした',
+							text: describeError(code),
+							state: 'error',
+							duration: 3000
+						});
+					} else {
+						showBigToast({
+							icon: '⚠️',
+							title: '音声認識エラー',
+							text: describeError(code),
+							state: 'error',
+							duration: 3500
+						});
+					}
+				};
+				recognition.onend = function () {
+					listening = false;
+					voiceBtn.classList.remove('listening');
+					// onresult が発火せず onend だけ来たケース（ヒットなし）
+					if (bigToast && bigToast.classList.contains('listening')) {
+						showBigToast({
+							icon: '❌',
+							title: '認識できませんでした',
+							text: lastInterim ? ('途中まで: ' + lastInterim) : '声を検出できませんでした',
+							state: 'error',
+							duration: 2800
+						});
+					}
+				};
+				recognition.start();
+			} catch (e) {
+				showBigToast({
+					icon: '⚠️',
+					title: '音声認識を開始できません',
+					text: e.message || '不明なエラー',
+					state: 'error',
+					duration: 3500
+				});
+				listening = false;
+				voiceBtn.classList.remove('listening');
+			}
+		}
+		function stopListening() {
+			if (recognition && listening) {
+				try { recognition.stop(); } catch (e) {}
+			}
+			listening = false;
+			voiceBtn.classList.remove('listening');
+		}
+
+		voiceBtn.addEventListener('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			startListening();
+		});
+
+		// 大トーストクリックで早期に閉じる（リスニング中以外）
+		if (bigToast) {
+			bigToast.addEventListener('click', function () {
+				if (!listening) hideBigToast();
+			});
+		}
+
+		console.log('機能3完成: 音声検索コマンド（強化版）');
+	})();
+
+	// ============================================================
+	// 機能4: ⌘ Cmd Palette (Ctrl+K / Cmd+K)
+	// ============================================================
+	(function () {
+		const bg = document.getElementById('cmdPaletteBg');
+		const input = document.getElementById('cmdPaletteInput');
+		const list = document.getElementById('cmdPaletteList');
+		if (!bg || !input || !list) return;
+
+		let activeIdx = 0;
+		let currentItems = [];
+
+		function escapeHtml(s) {
+			return String(s).replace(/[&<>"']/g, c => ({
+				'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+			}[c]));
+		}
+
+		function highlight(text, query) {
+			if (!query) return escapeHtml(text);
+			const safe = escapeHtml(text);
+			const q = query.toLowerCase();
+			const lc = safe.toLowerCase();
+			let result = '';
+			let lastIdx = 0;
+			let idx = lc.indexOf(q);
+			while (idx !== -1) {
+				result += safe.slice(lastIdx, idx) + '<span class="cmd-highlight">' + safe.slice(idx, idx + q.length) + '</span>';
+				lastIdx = idx + q.length;
+				idx = lc.indexOf(q, lastIdx);
+			}
+			result += safe.slice(lastIdx);
+			return result;
+		}
+
+		const staticCommands = [
+			{ icon: '➕', label: 'カテゴリを追加', section: 'コマンド', run: () => document.getElementById('addCategoryBtn')?.click() },
+			{ icon: '🔗', label: 'パネルを追加', section: 'コマンド', run: () => document.getElementById('addPanelBtn')?.click() },
+			{ icon: '📥', label: '設定をエクスポート', section: 'コマンド', run: () => document.getElementById('exportSettingBtn')?.click() },
+			{ icon: '📤', label: '設定をインポート', section: 'コマンド', run: () => document.getElementById('importSettingBtn')?.click() },
+			{ icon: '🌐', label: 'スターターセットを追加', section: 'コマンド', run: () => document.getElementById('importHbaBaseBtn')?.click() },
+			{ icon: '📚', label: 'ブックマーク形式でエクスポート', section: 'コマンド', run: () => document.getElementById('exportBtn')?.click() },
+			{ icon: '📥', label: 'ブックマーク形式でインポート', section: 'コマンド', run: () => document.getElementById('importBtn')?.click() },
+			{ icon: '📂', label: '全て開く / 閉じる', section: 'コマンド', run: () => document.getElementById('toggleAllBtn')?.click() },
+			{ icon: '🎤', label: '音声検索を開始', section: 'コマンド', run: () => document.getElementById('voiceSearchBtn')?.click() },
+			{ icon: '❓', label: 'ヘルプを表示', section: 'コマンド', run: () => document.getElementById('helpBtn')?.click() },
+		];
+
+		function buildPanelItems() {
+			const items = [];
+			if (!window.catList) return items;
+			window.catList.forEach(cat => {
+				if (!cat || !cat.panels) return;
+				cat.panels.forEach(p => {
+					items.push({
+						icon: '🔗',
+						label: p.text || '(no name)',
+						hint: cat.title || '',
+						section: 'パネル',
+						url: p.url,
+						run: () => { if (p.url) window.open(p.url, '_blank'); }
+					});
+				});
+			});
+			return items;
+		}
+
+		function buildCategoryItems() {
+			const items = [];
+			if (!window.catList) return items;
+			window.catList.forEach((cat) => {
+				items.push({
+					icon: '📁',
+					label: cat.title || '(no name)',
+					hint: (cat.panels ? cat.panels.length : 0) + ' panels',
+					section: 'カテゴリ',
+					run: () => {
+						const titleSel = `[data-cat-title]`;
+						const found = Array.from(document.querySelectorAll('.accordion-header')).find(el => (el.textContent || '').includes(cat.title));
+						if (found) {
+							found.scrollIntoView({ behavior: 'smooth', block: 'start' });
+							if (typeof found.click === 'function') {
+								// ヘッダーをクリックして開く（既に開いていれば閉じる挙動になるため再度開く判定省略）
+							}
+						}
+					}
+				});
+			});
+			return items;
+		}
+
+		function render(filter) {
+			const q = (filter || '').trim().toLowerCase();
+			const all = staticCommands
+				.concat(buildCategoryItems())
+				.concat(buildPanelItems());
+			let filtered = all;
+			if (q) {
+				filtered = all.filter(it => {
+					const hay = (it.label + ' ' + (it.hint || '') + ' ' + (it.section || '')).toLowerCase();
+					return hay.includes(q);
+				});
+			}
+			currentItems = filtered;
+			activeIdx = 0;
+
+			if (filtered.length === 0) {
+				list.innerHTML = '<li class="cmd-empty">該当するコマンドがありません</li>';
+				return;
+			}
+
+			let html = '';
+			let lastSection = '';
+			filtered.forEach((it, i) => {
+				if (it.section && it.section !== lastSection) {
+					html += `<li class="cmd-section">${escapeHtml(it.section)}</li>`;
+					lastSection = it.section;
+				}
+				const labelHtml = highlight(it.label, q);
+				const hintHtml = it.hint ? `<span class="cmd-hint">${escapeHtml(it.hint)}</span>` : '';
+				html += `<li class="cmd-item${i === 0 ? ' active' : ''}" data-idx="${i}"><span class="cmd-icon">${it.icon || '•'}</span><span class="cmd-label">${labelHtml}</span>${hintHtml}</li>`;
+			});
+			list.innerHTML = html;
+
+			list.querySelectorAll('.cmd-item').forEach(el => {
+				el.addEventListener('mouseenter', () => setActive(parseInt(el.dataset.idx, 10)));
+				el.addEventListener('click', () => {
+					const i = parseInt(el.dataset.idx, 10);
+					runItem(i);
+				});
+			});
+		}
+
+		function setActive(i) {
+			if (i < 0 || i >= currentItems.length) return;
+			activeIdx = i;
+			list.querySelectorAll('.cmd-item').forEach(el => {
+				el.classList.toggle('active', parseInt(el.dataset.idx, 10) === i);
+			});
+			const el = list.querySelector(`.cmd-item[data-idx="${i}"]`);
+			if (el) el.scrollIntoView({ block: 'nearest' });
+		}
+
+		function runItem(i) {
+			const it = currentItems[i];
+			if (!it) return;
+			closePalette();
+			try { it.run(); } catch (e) { console.error('cmd palette run error', e); }
+		}
+
+		function openPalette() {
+			bg.classList.add('active');
+			input.value = '';
+			render('');
+			setTimeout(() => input.focus(), 30);
+		}
+		function closePalette() {
+			bg.classList.remove('active');
+		}
+
+		input.addEventListener('input', function () { render(input.value); });
+		input.addEventListener('keydown', function (e) {
+			if (e.key === 'ArrowDown') {
+				e.preventDefault();
+				let next = activeIdx + 1;
+				if (next >= currentItems.length) next = 0;
+				setActive(next);
+			} else if (e.key === 'ArrowUp') {
+				e.preventDefault();
+				let prev = activeIdx - 1;
+				if (prev < 0) prev = currentItems.length - 1;
+				setActive(prev);
+			} else if (e.key === 'Enter') {
+				e.preventDefault();
+				runItem(activeIdx);
+			} else if (e.key === 'Escape') {
+				e.preventDefault();
+				closePalette();
+			}
+		});
+
+		bg.addEventListener('click', function (e) {
+			if (e.target === bg) closePalette();
+		});
+
+		document.addEventListener('keydown', function (e) {
+			const isMod = e.ctrlKey || e.metaKey;
+			if (isMod && (e.key === 'k' || e.key === 'K')) {
+				e.preventDefault();
+				if (bg.classList.contains('active')) closePalette();
+				else openPalette();
+			}
+		});
+
+		window.openCmdPalette = openPalette;
+		console.log('機能4完成: Cmd Palette (Ctrl+K)');
+	})();
+
+	/* ============================================================
+	 * 機能7: 軽量Markdownパーサー (パネル説明文用)
+	 * - HTMLエスケープ → 構文変換 の順で XSS対策
+	 * - 対応: **bold** *italic* ~~strike~~ `code` [link](url) 改行→<br>
+	 * ============================================================ */
+	(function () {
+		function escapeHtml(s) {
+			return String(s)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;');
+		}
+		function isSafeUrl(url) {
+			const u = String(url).trim();
+			return /^(https?:|mailto:|\/|#)/i.test(u) && !/^javascript:/i.test(u);
+		}
+		// チケット連携設定の取得（v1.6.0）
+		function getTicketBases() {
+			try {
+				const raw = localStorage.getItem('gkLinks_TICKET_BASES');
+				if (!raw) return { jira: '', backlog: '', redmine: '' };
+				const o = JSON.parse(raw);
+				return {
+					jira: (o && typeof o.jira === 'string') ? o.jira : '',
+					backlog: (o && typeof o.backlog === 'string') ? o.backlog : '',
+					redmine: (o && typeof o.redmine === 'string') ? o.redmine : ''
+				};
+			} catch (e) {
+				return { jira: '', backlog: '', redmine: '' };
+			}
+		}
+		function buildTicketLink(label, kind, baseUrl, ticketKey, displayText) {
+			const safeKey = String(ticketKey).replace(/"/g, '&quot;');
+			const tipPrefix = label + ': ' + ticketKey;
+			if (baseUrl && /^https?:\/\//i.test(baseUrl)) {
+				const url = baseUrl + ticketKey;
+				const safeUrl = url.replace(/"/g, '&quot;');
+				return '<a class="ticket-link" href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" data-ticket-kind="' + kind + '" data-ticket-key="' + safeKey + '" title="' + tipPrefix + ' を開く">' + displayText + '</a>';
+			}
+			return '<span class="ticket-link no-url" data-ticket-kind="' + kind + '" data-ticket-key="' + safeKey + '" title="' + tipPrefix + '（ベースURL未設定）">' + displayText + '</span>';
+		}
+		window.renderMarkdownInline = function (src) {
+			if (src == null) return '';
+			let s = escapeHtml(src);
+			// コード `...`（最優先で抽出してプレースホルダ化）
+			const codes = [];
+			s = s.replace(/`([^`\n]+)`/g, function (m, c) {
+				codes.push('<code>' + c + '</code>');
+				return '__GKLINKS_CODE_MARK__CODE' + (codes.length - 1) + '__GKLINKS_CODE_MARK__';
+			});
+
+			// Markdown リンク [text](url) を先にプレースホルダ化（URL 内のチケット風文字列を保護）
+			// パネル説明文は親が <a class="panel"> なので、ネストアンカーを避けて
+			// 視覚的にリンク風の <span class="md-link"> として描画する
+			const mdLinks = [];
+			s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function (m, text, url) {
+				if (!isSafeUrl(url)) return m;
+				const safeUrl = url.replace(/"/g, '&quot;');
+				mdLinks.push({ text: text, url: safeUrl });
+				return '__GKLINKS_MDLINK_MARK__' + (mdLinks.length - 1) + '__GKLINKS_MDLINK_MARK__';
+			});
+
+			// チケット番号自動検出（v1.6.0）— コード/MDリンクは既にプレースホルダ化済みなので
+			// テキスト本文のみが対象になる
+			const tickets = [];
+			const tBases = getTicketBases();
+			// 1) Backlog [BACKLOG-1234] 形式（最優先 — 角括弧パターン）
+			s = s.replace(/\[(BACKLOG-\d+)\]/g, function (m, key) {
+				const html = buildTicketLink('Backlog', 'backlog', tBases.backlog, key, '[' + key + ']');
+				tickets.push(html);
+				return '__GKLINKS_TKT_MARK__' + (tickets.length - 1) + '__GKLINKS_TKT_MARK__';
+			});
+			// 2) JIRA PROJ-123 形式（大文字英字 + ハイフン + 数字 / 単語境界）
+			s = s.replace(/(^|[^A-Za-z0-9_-])([A-Z][A-Z0-9]+-\d+)(?![A-Za-z0-9_-])/g, function (m, pre, key) {
+				const html = buildTicketLink('JIRA', 'jira', tBases.jira, key, key);
+				tickets.push(html);
+				return pre + '__GKLINKS_TKT_MARK__' + (tickets.length - 1) + '__GKLINKS_TKT_MARK__';
+			});
+			// 3) Redmine #1234 形式（先頭または非英数字の後ろの # に続く数字）
+			s = s.replace(/(^|[^A-Za-z0-9_&])#(\d+)(?![A-Za-z0-9_])/g, function (m, pre, num) {
+				const key = num;
+				const html = buildTicketLink('Redmine', 'redmine', tBases.redmine, key, '#' + num);
+				tickets.push(html);
+				return pre + '__GKLINKS_TKT_MARK__' + (tickets.length - 1) + '__GKLINKS_TKT_MARK__';
+			});
+
+			// 太字 **...**
+			s = s.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+			// 斜体 *...*
+			s = s.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+			// 取消線 ~~...~~
+			s = s.replace(/~~([^~\n]+)~~/g, '<del>$1</del>');
+			// 改行
+			s = s.replace(/\r\n|\n|\r/g, '<br>');
+			// プレースホルダを復元（順序: チケット → MDリンク → コード）
+			s = s.replace(/__GKLINKS_TKT_MARK__(\d+)__GKLINKS_TKT_MARK__/g, function (m, i) {
+				return tickets[Number(i)] || '';
+			});
+			s = s.replace(/__GKLINKS_MDLINK_MARK__(\d+)__GKLINKS_MDLINK_MARK__/g, function (m, i) {
+				const lk = mdLinks[Number(i)];
+				if (!lk) return '';
+				return '<span class="md-link" data-url="' + lk.url + '" title="' + lk.url + '">' + lk.text + '</span>';
+			});
+			s = s.replace(/__GKLINKS_CODE_MARK__CODE(\d+)__GKLINKS_CODE_MARK__/g, function (m, i) {
+				return codes[Number(i)] || '';
+			});
+			return s;
+		};
+		// チケットリンクのクリック処理（v1.6.0）
+		// .panel-description は pointer-events: none だが .ticket-link は auto に上書きしている。
+		// 親 <a class="panel"> のナビゲーション・パネルクリック集計も止めて、
+		// ticket-link の href を新規タブで開く。
+		document.addEventListener('click', function (e) {
+			const t = e.target.closest && e.target.closest('.ticket-link');
+			if (!t) return;
+			e.preventDefault();
+			e.stopPropagation();
+			// stopImmediatePropagation でダッシュボード集計（同じ document の capture リスナ）も抑止
+			if (typeof e.stopImmediatePropagation === 'function') {
+				e.stopImmediatePropagation();
+			}
+			if (t.classList.contains('no-url')) {
+				return; // ベースURL未設定: ハイライトのみ
+			}
+			const href = t.getAttribute('href');
+			if (href) {
+				try { window.open(href, '_blank', 'noopener,noreferrer'); }
+				catch (err) { location.href = href; }
+			}
+		}, true);
+		console.log('機能7完成: Markdown対応 + チケット番号検出 (v1.6.0)');
+	})();
+
+	/* ============================================================
+	 * 機能5: ダッシュボード
+	 * - 既存のタブシステムに乗っかる（dashboard タブ表示時に集計）
+	 * ============================================================ */
+	(function () {
+		const DAILY_KEY = 'PANEL_CLICK_DAILY';
+
+		function todayKey(d) {
+			d = d || new Date();
+			const y = d.getFullYear();
+			const m = String(d.getMonth() + 1).padStart(2, '0');
+			const day = String(d.getDate()).padStart(2, '0');
+			return y + '-' + m + '-' + day;
+		}
+		function recordClickDaily() {
+			try {
+				const key = todayKey();
+				const map = JSON.parse(localStorage.getItem(DAILY_KEY) || '{}');
+				map[key] = (map[key] || 0) + 1;
+				localStorage.setItem(DAILY_KEY, JSON.stringify(map));
+			} catch (e) { /* noop */ }
+		}
+		// 既存の saveClickHistory をフックして日次集計も記録
+		if (typeof window.saveClickHistory === 'function') {
+			const orig = window.saveClickHistory;
+			window.saveClickHistory = function () {
+				try { recordClickDaily(); } catch (e) {}
+				return orig.apply(this, arguments);
+			};
+		} else if (typeof saveClickHistory === 'function') {
+			// グローバル関数のラップ（function宣言なので window 経由で再代入できないケース）
+			window.__recordClickDaily = recordClickDaily;
+		}
+		// もう一段の保険: クリックイベントから直接呼ぶ
+		document.addEventListener('click', function (e) {
+			const a = e.target.closest && e.target.closest('a.panel');
+			if (a && !e.target.closest('.edbtn')) {
+				try { recordClickDaily(); } catch (err) {}
+			}
+		}, true);
+
+		function getCatList() {
+			return window.catList || [];
+		}
+		function getClickCountMap() {
+			try { return JSON.parse(localStorage.getItem('PANEL_CLICK_COUNT') || '{}'); }
+			catch (e) { return {}; }
+		}
+		function getDailyMap() {
+			try { return JSON.parse(localStorage.getItem(DAILY_KEY) || '{}'); }
+			catch (e) { return {}; }
+		}
+
+		function renderCards() {
+			const cats = getCatList();
+			let totalPanels = 0;
+			let totalFavs = 0;
+			cats.forEach(c => {
+				(c.panels || []).forEach(p => {
+					totalPanels++;
+					if (p.favorite) totalFavs++;
+				});
+			});
+			document.getElementById('dashTotalPanels').textContent = totalPanels.toLocaleString();
+			document.getElementById('dashTotalCats').textContent = cats.length.toLocaleString();
+			document.getElementById('dashTotalFavs').textContent = totalFavs.toLocaleString();
+
+			// カテゴリ別 sub-text
+			const sub = cats.length === 0 ? '—' :
+				cats.slice().sort((a,b)=>(b.panels||[]).length-(a.panels||[]).length)
+					.slice(0, 2)
+					.map(c => (c.title || '?') + ' ' + ((c.panels||[]).length))
+					.join(' / ');
+			document.getElementById('dashTotalPanelsSub').textContent = sub;
+
+			// 累計クリック数 = PANEL_CLICK_COUNT の合計
+			const counts = getClickCountMap();
+			let totalClicks = 0;
+			Object.values(counts).forEach(v => totalClicks += Number(v) || 0);
+			document.getElementById('dashTotalClicks').textContent = totalClicks.toLocaleString();
+
+			const daily = getDailyMap();
+			const today = todayKey();
+			const todayCount = daily[today] || 0;
+			document.getElementById('dashTotalClicksSub').textContent =
+				totalClicks === 0 ? 'まだクリックがありません' : ('本日 ' + todayCount + ' 回');
+		}
+
+		function renderTopList() {
+			const cats = getCatList();
+			const counts = getClickCountMap();
+			const items = [];
+			Object.keys(counts).forEach(k => {
+				const m = k.match(/^(\d+)-(\d+)$/);
+				if (!m) return;
+				const ci = Number(m[1]), pi = Number(m[2]);
+				const cat = cats[ci];
+				if (!cat) return;
+				const panel = (cat.panels || [])[pi];
+				if (!panel) return;
+				items.push({
+					title: panel.text || '(no name)',
+					cat: cat.title || '',
+					count: Number(counts[k]) || 0
+				});
+			});
+			items.sort((a,b)=>b.count-a.count);
+			const top = items.slice(0, 10);
+			const max = top.length ? top[0].count : 1;
+			const ol = document.getElementById('dashTopList');
+			if (!top.length) {
+				ol.innerHTML = '<li class="dash-empty">クリック履歴がまだありません</li>';
+				return;
+			}
+			ol.innerHTML = top.map((it, i) => {
+				const w = Math.max(4, Math.round((it.count / max) * 100));
+				const safeTitle = String(it.title).replace(/</g, '&lt;');
+				const safeCat = String(it.cat).replace(/</g, '&lt;');
+				return '<li>'
+					+ '<span class="dash-rank">' + (i+1) + '</span>'
+					+ '<span class="dash-title" title="' + safeCat + ' / ' + safeTitle + '">'
+					+ safeTitle
+					+ '<div class="dash-bar" style="width:' + w + '%;"></div>'
+					+ '</span>'
+					+ '<span class="dash-count">' + it.count + '</span>'
+					+ '</li>';
+			}).join('');
+		}
+
+		function renderTagCloud() {
+			const cats = getCatList();
+			const tagMap = {};
+			cats.forEach(c => (c.panels || []).forEach(p => {
+				(p.tags || []).forEach(t => {
+					if (!t) return;
+					tagMap[t] = (tagMap[t] || 0) + 1;
+				});
+			}));
+			const entries = Object.entries(tagMap);
+			const cloud = document.getElementById('dashTagCloud');
+			if (!entries.length) {
+				cloud.innerHTML = '<span class="dash-empty">タグが登録されていません</span>';
+				return;
+			}
+			const max = Math.max.apply(null, entries.map(e => e[1]));
+			const min = Math.min.apply(null, entries.map(e => e[1]));
+			const palette = [
+				'#5a67d8','#4369ea','#1976d2','#0e7490','#0d9488',
+				'#7c3aed','#9333ea','#db2777','#dc2626','#d97706',
+				'#65a30d','#16a34a','#0891b2','#475569'
+			];
+			entries.sort((a,b)=>b[1]-a[1]);
+			cloud.innerHTML = entries.map((e, i) => {
+				const ratio = max === min ? 0.5 : (e[1] - min) / (max - min);
+				const fs = (0.8 + ratio * 1.2).toFixed(2); // 0.8em - 2.0em
+				const color = palette[(i + e[0].length) % palette.length];
+				const safeTag = String(e[0]).replace(/</g, '&lt;').replace(/"/g, '&quot;');
+				return '<span class="dash-tag" style="font-size:' + fs + 'em;color:' + color + ';" title="' + safeTag + ' (' + e[1] + ')">'
+					+ safeTag + '</span>';
+			}).join('');
+		}
+
+		function renderHeatmap() {
+			const daily = getDailyMap();
+			const wrap = document.getElementById('dashHeatmap');
+			// 90日分（開始は90日前の日曜日に揃える）
+			const today = new Date();
+			today.setHours(0,0,0,0);
+			const start = new Date(today);
+			start.setDate(today.getDate() - 89);
+			// 開始週の日曜日へ
+			start.setDate(start.getDate() - start.getDay());
+			const cells = [];
+			const cur = new Date(start);
+			const end = new Date(today);
+			end.setDate(today.getDate() + (6 - today.getDay())); // 今週土曜まで
+			let maxCount = 0;
+			Object.values(daily).forEach(v => { if (v > maxCount) maxCount = v; });
+			while (cur <= end) {
+				const key = todayKey(cur);
+				const c = daily[key] || 0;
+				let lvl = 0;
+				if (c > 0 && maxCount > 0) {
+					const r = c / maxCount;
+					if (r > 0.75) lvl = 4;
+					else if (r > 0.5) lvl = 3;
+					else if (r > 0.25) lvl = 2;
+					else lvl = 1;
+				}
+				cells.push({ date: key, count: c, level: lvl, future: cur > today });
+				cur.setDate(cur.getDate() + 1);
+			}
+			wrap.innerHTML = cells.map(c => {
+				if (c.future) return '<span class="dash-cell" style="visibility:hidden;"></span>';
+				return '<span class="dash-cell dash-cell-l' + c.level + '" title="' + c.date + ': ' + c.count + ' クリック"></span>';
+			}).join('');
+		}
+
+		function renderCatBar() {
+			const cats = getCatList();
+			const wrap = document.getElementById('dashCatBar');
+			if (!cats.length) {
+				wrap.innerHTML = '<div class="dash-empty">カテゴリがありません</div>';
+				return;
+			}
+			const data = cats.map(c => ({ title: c.title || '(no name)', count: (c.panels || []).length }));
+			data.sort((a,b)=>b.count-a.count);
+			const max = Math.max.apply(null, data.map(d => d.count)) || 1;
+			wrap.innerHTML = data.map(d => {
+				const w = Math.max(2, Math.round((d.count / max) * 100));
+				const safeTitle = String(d.title).replace(/</g, '&lt;');
+				return '<div class="dash-bar-row">'
+					+ '<div class="dash-bar-label" title="' + safeTitle + '">' + safeTitle + '</div>'
+					+ '<div class="dash-bar-fill" style="width:' + w + '%;"></div>'
+					+ '<div class="dash-bar-count">' + d.count + '</div>'
+					+ '</div>';
+			}).join('');
+		}
+
+		function renderDashboard() {
+			try {
+				renderCards();
+				renderTopList();
+				renderTagCloud();
+				renderHeatmap();
+				renderCatBar();
+			} catch (e) {
+				console.error('dashboard render error', e);
+			}
+		}
+		window.renderDashboard = renderDashboard;
+
+		// ダッシュボードタブを開いた時にレンダ
+		document.addEventListener('click', function (e) {
+			const t = e.target.closest && e.target.closest('.tab-item[data-tab="dashboard"]');
+			if (t) setTimeout(renderDashboard, 60);
+		});
+		// 更新ボタン
+		document.addEventListener('click', function (e) {
+			if (e.target && e.target.id === 'dashboardRefreshBtn') {
+				renderDashboard();
+			}
+		});
+
+		console.log('機能5完成: ダッシュボード');
+	})();
+
+	/* ============================================================
+	 * 機能6: URL共有
+	 * - localStorage の catList を Base64 化して URLに埋め込み
+	 * - ?import=... を検出して取り込み確認
+	 * ============================================================ */
+	(function () {
+		const PARAM = 'import';
+		const URL_LIMIT = 8 * 1024; // 8KB
+
+		function encodeCatList(list) {
+			const json = JSON.stringify(list);
+			// btoa に通すため UTF-8 → URI エンコード → btoa
+			return btoa(unescape(encodeURIComponent(json)));
+		}
+		function decodeCatList(b64) {
+			const json = decodeURIComponent(escape(atob(b64)));
+			return JSON.parse(json);
+		}
+		function buildShareUrl() {
+			const list = window.catList || [];
+			const b64 = encodeCatList(list);
+			const base = location.origin && location.origin !== 'null'
+				? location.origin + location.pathname
+				: location.href.replace(/[?#].*$/, '');
+			return base + '?' + PARAM + '=' + b64;
+		}
+
+		function openShareModal() {
+			const url = buildShareUrl();
+			const ta = document.getElementById('urlShareText');
+			const warn = document.getElementById('urlShareWarn');
+			ta.value = url;
+			if (url.length > URL_LIMIT) {
+				warn.style.display = 'block';
+				warn.textContent = '⚠️ URLサイズが ' + url.length.toLocaleString() + ' 文字あります（推奨上限 ' + URL_LIMIT + '）。一部のブラウザ・SNSで切り詰められる可能性があります。';
+			} else {
+				warn.style.display = 'none';
+				warn.textContent = '';
+			}
+			document.getElementById('urlShareModalBg').classList.add('active');
+			setTimeout(() => { ta.focus(); ta.select(); }, 30);
+		}
+		function closeShareModal() {
+			document.getElementById('urlShareModalBg').classList.remove('active');
+		}
+
+		// ボタン配線
+		document.addEventListener('click', function (e) {
+			if (e.target && e.target.id === 'urlShareBtn') {
+				openShareModal();
+			} else if (e.target && e.target.id === 'urlShareCloseBtn') {
+				closeShareModal();
+			} else if (e.target && e.target.id === 'urlShareCopyBtn') {
+				const ta = document.getElementById('urlShareText');
+				ta.select();
+				let ok = false;
+				try {
+					if (navigator.clipboard && navigator.clipboard.writeText) {
+						navigator.clipboard.writeText(ta.value).then(() => {
+							e.target.textContent = '✅ コピーしました';
+							setTimeout(() => { e.target.textContent = '📋 URLをコピー'; }, 1500);
+						});
+						ok = true;
+					}
+				} catch (err) {}
+				if (!ok) {
+					try {
+						document.execCommand('copy');
+						e.target.textContent = '✅ コピーしました';
+						setTimeout(() => { e.target.textContent = '📋 URLをコピー'; }, 1500);
+					} catch (err) {
+						alert('コピーに失敗しました。手動で選択してコピーしてください。');
+					}
+				}
+			} else if (e.target && e.target.id === 'urlShareModalBg') {
+				closeShareModal();
+			}
+		});
+		// Esc閉じ
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape' && document.getElementById('urlShareModalBg').classList.contains('active')) {
+				closeShareModal();
+			}
+		});
+
+		// ?import=... を検出して取り込み（ロード時に1回）
+		function handleImportParam() {
+			try {
+				const params = new URLSearchParams(location.search);
+				const b64 = params.get(PARAM);
+				if (!b64) return;
+				let imported;
+				try {
+					imported = decodeCatList(b64);
+				} catch (e) {
+					alert('共有URLのデコードに失敗しました: ' + e.message);
+					return;
+				}
+				if (!Array.isArray(imported)) {
+					alert('共有URLのデータ形式が不正です');
+					return;
+				}
+				const totalPanels = imported.reduce((acc, c) => acc + ((c.panels || []).length), 0);
+				const ok = confirm(
+					'共有URLから設定データを取り込みますか？\n\n' +
+					'  カテゴリ数: ' + imported.length + '\n' +
+					'  パネル数: ' + totalPanels + '\n\n' +
+					'※ 現在の設定は上書きされます。'
+				);
+				// URLからパラメータを除去（取り込み有無に関わらず）
+				const cleanUrl = location.pathname + (location.hash || '');
+				try { history.replaceState(null, '', cleanUrl); } catch (e) {}
+				if (!ok) return;
+				if (typeof window.catList !== 'undefined') {
+					window.catList = imported;
+				}
+				try {
+					const ver = (document.querySelector('meta[name="app-version"]') || {}).content || '1';
+					// 既存 LOCAL_KEY を尊重: HBA_PANEL_CATS_v* を全部上書きする方が確実
+					Object.keys(localStorage).forEach(k => {
+						if (/^HBA_PANEL_CATS_v/.test(k)) localStorage.setItem(k, JSON.stringify(imported));
+					});
+					if (!Object.keys(localStorage).some(k => /^HBA_PANEL_CATS_v/.test(k))) {
+						localStorage.setItem('HBA_PANEL_CATS_v1', JSON.stringify(imported));
+					}
+				} catch (e) {}
+				alert('設定を取り込みました。ページを再読み込みします。');
+				location.reload();
+			} catch (e) {
+				console.error('import param error', e);
+			}
+		}
+		// DOM 構築完了後に処理
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', handleImportParam);
+		} else {
+			setTimeout(handleImportParam, 0);
+		}
+		console.log('機能6完成: URL共有');
+	})();
+
+	/* ============================================================
+	 * 機能8: AIプロンプトライブラリ（v1.4.0）
+	 * - 18ビルトインテンプレート + ユーザーカスタム
+	 * - 変数差し込み・コピー（Claude Code / Copilot / 通常）
+	 * - VS Code 起動（vscode://）
+	 * ============================================================ */
+	(function () {
+		const CUSTOM_KEY = 'gkLinks_AI_TEMPLATES_CUSTOM';
+
+		const AI_PROMPT_TEMPLATES = [
+			// === コードレビュー ===
+			{
+				category: "🔍 コードレビュー",
+				title: "PRコードレビュー（全観点）",
+				description: "Pull Request を全観点でレビュー",
+				variables: ["language", "code_or_url"],
+				body: "あなたは {language} のシニアエンジニアです。以下のコードを次の観点でレビューしてください：\n\n1. ロジックの正確性\n2. パフォーマンス\n3. セキュリティ\n4. 可読性・命名\n5. テスタビリティ\n6. エラーハンドリング\n\nレビュー結果は「重大」「警告」「改善提案」の3段階で分類し、各指摘に行番号と修正案を付けてください。\n\n対象コード:\n{code_or_url}"
+			},
+			{
+				category: "🔍 コードレビュー",
+				title: "セキュリティ観点レビュー",
+				description: "OWASP観点で脆弱性を洗い出す",
+				variables: ["language", "code_or_url"],
+				body: "以下の {language} コードを OWASP Top 10 + CWE 観点でレビューしてください。\nSQLインジェクション・XSS・CSRF・認証認可漏れ・暗号化不備・依存ライブラリ脆弱性を重点的に。\n各指摘には CVE/CWE 番号と修正例を付記。\n\n対象コード:\n{code_or_url}"
+			},
+			{
+				category: "🔍 コードレビュー",
+				title: "日本SIエンタープライズ観点レビュー",
+				description: "日本企業の現場ルールでレビュー",
+				variables: ["language", "code_or_url"],
+				body: "日本のSI業界・エンタープライズ環境を前提に、以下の {language} コードをレビューしてください。\n\n観点：\n- 命名規則（日本語混在の妥当性）\n- 例外処理（業務エラー vs システムエラー）\n- ログ出力（運用監視を考慮）\n- トランザクション境界\n- 既存コードへの影響範囲\n- レガシー連携（COBOL/PL/SQLなど）\n\n対象コード:\n{code_or_url}"
+			},
+			// === リファクタリング ===
+			{
+				category: "♻️ リファクタリング",
+				title: "コードのリファクタ提案",
+				description: "可読性・保守性を上げる",
+				variables: ["language", "code_or_url"],
+				body: "以下の {language} コードをリファクタリングしてください。\n機能は変えず、可読性・保守性を上げる方向で。\n\n変更前後のコードを diff 形式で示し、各変更の意図を1行コメントで添えてください。\n\nコード:\n{code_or_url}"
+			},
+			{
+				category: "♻️ リファクタリング",
+				title: "命名改善提案",
+				description: "変数・関数の命名を改善",
+				variables: ["language", "code_or_url"],
+				body: "以下の {language} コードの変数名・関数名・クラス名を改善してください。\n業界標準の命名規則に沿い、意図が明確な英語名に。日本語コメントは保持。\n\nコード:\n{code_or_url}"
+			},
+			// === 仕様書 ===
+			{
+				category: "📋 仕様書・設計",
+				title: "ソースから仕様書生成（日本SI形式）",
+				description: "詳細仕様書 Markdown を生成",
+				variables: ["language", "code_or_url"],
+				body: "以下の {language} コードから、日本SIの詳細仕様書フォーマットで Markdown を生成してください。\n\n章立て：\n1. 処理概要\n2. 入力（パラメータ・画面入力）\n3. 処理フロー（番号付きステップ）\n4. DB操作（テーブル・条件）\n5. 出力・戻り値\n6. エラー処理\n7. TODO・要確認事項\n\n推測で埋めず、根拠不足は TODO に明記。\n\nコード:\n{code_or_url}"
+			},
+			{
+				category: "📋 仕様書・設計",
+				title: "シーケンス図 PlantUML 生成",
+				description: "PlantUML のシーケンス図を生成",
+				variables: ["scenario", "code_or_url"],
+				body: "以下のシナリオから PlantUML のシーケンス図コードを生成してください。\nアクター・参加者・メソッド呼び出し・戻り値・分岐を含めてください。\n\nシナリオ:\n{scenario}\n\n参考コード:\n{code_or_url}"
+			},
+			// === テスト ===
+			{
+				category: "🧪 テスト",
+				title: "単体テスト生成",
+				description: "テストフレームワーク自動選択",
+				variables: ["language", "code_or_url"],
+				body: "以下の {language} コードに対する単体テストを生成してください。\n言語に応じた標準テストフレームワーク（Java=JUnit, TS=Jest, C#=xUnit, Python=pytest）を使用。\n\nテストケース：\n- 正常系\n- 境界値\n- 異常系（null, 空, 不正入力）\n\n各テストには `@Test` 直前に1行のコメントで意図を記載。\n\nコード:\n{code_or_url}"
+			},
+			{
+				category: "🧪 テスト",
+				title: "E2E シナリオ生成（Playwright）",
+				description: "Playwright のテストコード",
+				variables: ["scenario"],
+				body: "以下のシナリオを Playwright (TypeScript) のE2Eテストコードに変換してください。\nPage Object Model パターンを使い、test.describe / test.beforeEach / test() で構造化。\n\nシナリオ:\n{scenario}"
+			},
+			// === デバッグ ===
+			{
+				category: "🐛 デバッグ",
+				title: "エラー調査",
+				description: "エラーの原因を体系的に分析",
+				variables: ["language", "error_message", "code_or_url"],
+				body: "以下の {language} 環境でエラーが発生しました。原因を分析し、修正案を提示してください。\n\nエラー:\n{error_message}\n\n関連コード:\n{code_or_url}\n\n出力形式：\n1. 直接原因\n2. 根本原因（Why-Why-Why）\n3. 修正コード（diff形式）\n4. 同じエラーを防ぐための恒久対策"
+			},
+			{
+				category: "🐛 デバッグ",
+				title: "スタックトレース解析",
+				description: "スタックトレースから原因を特定",
+				variables: ["stack_trace"],
+				body: "以下のスタックトレースを解析してください。\n\n{stack_trace}\n\n以下を出力：\n1. エラーの種類と意味\n2. 最も可能性の高い原因（3つまで）\n3. 確認すべきコードの場所\n4. 暫定対応と恒久対応"
+			},
+			// === プロジェクト管理 ===
+			{
+				category: "📊 プロジェクト管理",
+				title: "議事録要約",
+				description: "議事録から要点・TODO を抽出",
+				variables: ["meeting_notes"],
+				body: "以下の議事録から、要点と TODO を整理してください。\n\n出力フォーマット：\n## 決定事項\n- ...\n\n## TODO\n| # | 内容 | 担当 | 期限 |\n|---|------|------|------|\n\n## 持ち越し論点\n- ...\n\n議事録:\n{meeting_notes}"
+			},
+			{
+				category: "📊 プロジェクト管理",
+				title: "要件をユーザーストーリー化",
+				description: "要件をINVEST準拠のストーリーに",
+				variables: ["requirement"],
+				body: "以下の要件を、INVEST 準拠のユーザーストーリーに分解してください。\n各ストーリーは「{ユーザー}として、{機能}したい。なぜなら{理由}」形式。\n受け入れ条件 (Given-When-Then) も付けてください。\n\n要件:\n{requirement}"
+			},
+			{
+				category: "📊 プロジェクト管理",
+				title: "タスク見積もり（プランニングポーカー）",
+				description: "タスクの工数を見積もり",
+				variables: ["tasks"],
+				body: "以下のタスクを、フィボナッチ数列（1,2,3,5,8,13,21）で見積もってください。\n各タスクの見積もり根拠と、想定リスクも併記。\n\nタスク一覧:\n{tasks}"
+			},
+			// === SQL・DB ===
+			{
+				category: "🗄️ SQL・DB",
+				title: "SQL最適化提案",
+				description: "実行計画を考慮した最適化",
+				variables: ["sql"],
+				body: "以下の SQL を最適化してください。\n\nSQL:\n{sql}\n\n出力：\n1. 改善後 SQL\n2. 想定される実行計画の変化\n3. 必要なインデックス\n4. 改善前後のパフォーマンス見込み"
+			},
+			{
+				category: "🗄️ SQL・DB",
+				title: "N+1問題 検出",
+				description: "ORM のN+1を検出",
+				variables: ["language", "code_or_url"],
+				body: "以下の {language} コードで N+1 問題が起きていないか確認してください。\n発見した場合：\n1. 該当箇所\n2. 発行されるクエリ数\n3. 修正案（Eager Loading / バッチ取得）\n\nコード:\n{code_or_url}"
+			},
+			// === ドキュメント・翻訳 ===
+			{
+				category: "📝 ドキュメント・翻訳",
+				title: "コードコメント自動生成",
+				description: "JSDoc / Javadoc 風コメント",
+				variables: ["language", "code_or_url"],
+				body: "以下の {language} コードに、適切なドキュメントコメント（JSDoc / Javadoc / docstring 等）を追加してください。\n各関数・クラス・パブリックメソッドに：\n- 概要\n- 引数の説明\n- 戻り値の説明\n- 例外（投げる可能性があれば）\n\nコード:\n{code_or_url}"
+			},
+			{
+				category: "📝 ドキュメント・翻訳",
+				title: "英語コメント → 日本語",
+				description: "英語コメントを日本語化",
+				variables: ["code_or_url"],
+				body: "以下のコード内の英語コメントを日本語に翻訳してください。\n変数名・関数名はそのまま、コメントだけ日本語化。\n専門用語は日本のIT現場で使われる訳語を採用。\n\nコード:\n{code_or_url}"
+			},
+		];
+
+		// 変数定義: タイプ・プレースホルダなど
+		const VAR_META = {
+			language:      { type: 'text',     label: '言語', placeholder: '例: TypeScript / Java / Python' },
+			code_or_url:   { type: 'textarea', label: 'コード または URL', placeholder: 'コードを貼り付け、または現在パネルから自動入力', autofillUrl: true },
+			scenario:      { type: 'textarea', label: 'シナリオ', placeholder: 'ユーザーが何をして、何が起きるか' },
+			error_message: { type: 'text',     label: 'エラーメッセージ', placeholder: '例: NullPointerException at ...' },
+			stack_trace:   { type: 'textarea', label: 'スタックトレース', placeholder: 'スタックトレース全文を貼り付け' },
+			meeting_notes: { type: 'textarea', label: '議事録', placeholder: '議事録テキストを貼り付け' },
+			requirement:   { type: 'textarea', label: '要件', placeholder: '機能要件を自由記述' },
+			tasks:         { type: 'textarea', label: 'タスク一覧', placeholder: '1行1タスクで列挙' },
+			sql:           { type: 'textarea', label: 'SQL', placeholder: 'SELECT ... FROM ...' },
+		};
+
+		function defaultVarMeta(name) {
+			return { type: 'text', label: name, placeholder: '' };
+		}
+		function getVarMeta(name) {
+			return VAR_META[name] || defaultVarMeta(name);
+		}
+
+		// === ストレージ ===
+		function loadCustom() {
+			try {
+				const raw = localStorage.getItem(CUSTOM_KEY);
+				if (!raw) return [];
+				const arr = JSON.parse(raw);
+				return Array.isArray(arr) ? arr : [];
+			} catch (e) { return []; }
+		}
+		function saveCustom(list) {
+			try { localStorage.setItem(CUSTOM_KEY, JSON.stringify(list)); }
+			catch (e) { console.warn('AI templates save failed', e); }
+		}
+
+		// 全テンプレ取得（ビルトイン + カスタム）
+		function getAllTemplates() {
+			const customs = loadCustom().map((t, i) => Object.assign({}, t, { _custom: true, _customIdx: i }));
+			return AI_PROMPT_TEMPLATES.map(t => Object.assign({}, t)).concat(customs);
+		}
+
+		// 変数を本文から抽出（{xxx} パターン）
+		function extractVars(body) {
+			const set = new Set();
+			const re = /\{([a-zA-Z_][a-zA-Z0-9_]*)\}/g;
+			let m;
+			while ((m = re.exec(body)) !== null) set.add(m[1]);
+			return Array.from(set);
+		}
+
+		// 変数置換
+		function applyVars(body, values) {
+			return body.replace(/\{([a-zA-Z_][a-zA-Z0-9_]*)\}/g, (full, name) => {
+				if (Object.prototype.hasOwnProperty.call(values, name)) {
+					return values[name] || '';
+				}
+				return full; // 未定義はそのまま残す
+			});
+		}
+
+		// === 状態 ===
+		const state = {
+			selectedKey: null, // "builtin:idx" or "custom:idx"
+			openCats: new Set(),
+			values: {},
+		};
+
+		function makeKey(tpl) {
+			if (tpl._custom) return 'custom:' + tpl._customIdx;
+			const idx = AI_PROMPT_TEMPLATES.indexOf(AI_PROMPT_TEMPLATES.find(t => t.title === tpl.title && t.body === tpl.body));
+			return 'builtin:' + idx;
+		}
+
+		function getTemplateByKey(key) {
+			if (!key) return null;
+			const [kind, idxStr] = key.split(':');
+			const idx = parseInt(idxStr, 10);
+			if (kind === 'builtin') return Object.assign({}, AI_PROMPT_TEMPLATES[idx]);
+			if (kind === 'custom') {
+				const c = loadCustom()[idx];
+				if (!c) return null;
+				return Object.assign({}, c, { _custom: true, _customIdx: idx });
+			}
+			return null;
+		}
+
+		// === レンダ: 左ペイン ===
+		function renderLeft() {
+			const pane = document.getElementById('aiTplListPane');
+			if (!pane) return;
+			const all = getAllTemplates();
+			// カテゴリでグループ化
+			const byCat = {};
+			const catOrder = [];
+			all.forEach((t, idx) => {
+				const cat = t.category || '未分類';
+				if (!byCat[cat]) { byCat[cat] = []; catOrder.push(cat); }
+				byCat[cat].push({ tpl: t, key: t._custom ? 'custom:' + t._customIdx : 'builtin:' + AI_PROMPT_TEMPLATES.indexOf(AI_PROMPT_TEMPLATES.find(x => x.title === t.title && x.body === t.body)) });
+			});
+
+			// 最初のカテゴリは初期展開
+			if (state.openCats.size === 0 && catOrder.length) {
+				state.openCats.add(catOrder[0]);
+			}
+
+			let html = '';
+			catOrder.forEach(cat => {
+				const open = state.openCats.has(cat);
+				const items = byCat[cat];
+				html += '<div class="ai-tpl-cat ' + (open ? 'open' : '') + '" data-cat="' + escapeHtml(cat) + '">';
+				html += '<div class="ai-tpl-cat-header"><span class="ai-tpl-cat-arrow">▶</span><span>' + escapeHtml(cat) + '</span><span style="margin-left:auto;font-size:11px;color:var(--muted2);font-weight:400;">' + items.length + '</span></div>';
+				html += '<div class="ai-tpl-cat-body">';
+				items.forEach(it => {
+					const active = state.selectedKey === it.key ? 'active' : '';
+					const customBadge = it.tpl._custom ? '<span class="ai-tpl-item-badge">マイ</span>' : '';
+					const delBtn = it.tpl._custom ? '<button class="ai-tpl-item-del" data-del-key="' + it.key + '" title="削除">🗑</button>' : '';
+					html += '<div class="ai-tpl-item ' + active + '" data-key="' + it.key + '">';
+					html += '<span class="ai-tpl-item-title" title="' + escapeAttr(it.tpl.title) + '">' + escapeHtml(it.tpl.title) + '</span>';
+					html += customBadge + delBtn;
+					html += '</div>';
+				});
+				html += '</div></div>';
+			});
+			pane.innerHTML = html;
+
+			// イベント
+			pane.querySelectorAll('.ai-tpl-cat-header').forEach(h => {
+				h.addEventListener('click', () => {
+					const cat = h.parentElement.getAttribute('data-cat');
+					if (state.openCats.has(cat)) state.openCats.delete(cat);
+					else state.openCats.add(cat);
+					renderLeft();
+				});
+			});
+			pane.querySelectorAll('.ai-tpl-item').forEach(el => {
+				el.addEventListener('click', (e) => {
+					if (e.target.closest('.ai-tpl-item-del')) return;
+					const k = el.getAttribute('data-key');
+					selectTemplate(k);
+				});
+			});
+			pane.querySelectorAll('.ai-tpl-item-del').forEach(b => {
+				b.addEventListener('click', (e) => {
+					e.stopPropagation();
+					const k = b.getAttribute('data-del-key');
+					deleteCustom(k);
+				});
+			});
+		}
+
+		function selectTemplate(key) {
+			state.selectedKey = key;
+			state.values = {};
+			renderLeft();
+			renderRight();
+		}
+
+		function deleteCustom(key) {
+			const [kind, idxStr] = key.split(':');
+			if (kind !== 'custom') return;
+			if (!confirm('このカスタムテンプレートを削除しますか？')) return;
+			const list = loadCustom();
+			list.splice(parseInt(idxStr, 10), 1);
+			saveCustom(list);
+			if (state.selectedKey === key) state.selectedKey = null;
+			renderLeft();
+			renderRight();
+		}
+
+		// === レンダ: 右ペイン ===
+		function renderRight() {
+			const pane = document.getElementById('aiTplDetailPane');
+			if (!pane) return;
+			const tpl = getTemplateByKey(state.selectedKey);
+			if (!tpl) {
+				pane.innerHTML = '<div class="ai-empty">← 左のリストからテンプレートを選択してください</div>';
+				return;
+			}
+			const vars = extractVars(tpl.body);
+			let html = '';
+			html += '<h3 class="ai-detail-title">' + escapeHtml(tpl.title) + '</h3>';
+			html += '<p class="ai-detail-desc">' + escapeHtml(tpl.description || '') + '</p>';
+
+			if (vars.length) {
+				html += '<div class="ai-detail-section-title">📝 変数入力</div>';
+				html += '<div class="ai-var-grid">';
+				vars.forEach(v => {
+					const meta = getVarMeta(v);
+					const val = state.values[v] || '';
+					const labelExtra = meta.autofillUrl ? '<button class="ai-var-autofill" data-autofill="' + v + '" type="button">📌 現在のパネルURLを自動入力</button>' : '';
+					html += '<div class="ai-var-row">';
+					html += '<label><span>' + escapeHtml(meta.label) + ' <code style="opacity:.6;font-size:10px;">{' + v + '}</code></span>' + labelExtra + '</label>';
+					if (meta.type === 'textarea') {
+						html += '<textarea data-var="' + v + '" placeholder="' + escapeAttr(meta.placeholder) + '">' + escapeHtml(val) + '</textarea>';
+					} else {
+						html += '<input type="text" data-var="' + v + '" placeholder="' + escapeAttr(meta.placeholder) + '" value="' + escapeAttr(val) + '">';
+					}
+					html += '</div>';
+				});
+				html += '</div>';
+			}
+
+			html += '<div class="ai-detail-section-title">👁 プレビュー（変数置換後）</div>';
+			html += '<div class="ai-prompt-preview" id="aiPromptPreview"></div>';
+
+			html += '<div class="ai-actions">';
+			html += '<button class="action-btn ai-action-btn" data-copy="plain" type="button">📋 クリップボードにコピー</button>';
+			html += '<button class="action-btn ai-action-btn" data-copy="claude" type="button">🤖 Claude Code 用にコピー</button>';
+			html += '<button class="action-btn ai-action-btn" data-copy="copilot" type="button">💻 Copilot Chat 用にコピー</button>';
+			html += '<button class="action-btn ai-action-btn secondary" id="aiOpenVscodeBtn" type="button">🪟 VS Code を開く（インストール済みなら）</button>';
+			if (!tpl._custom) {
+				html += '<button class="action-btn ai-action-btn secondary" id="aiSaveAsCustomBtn" type="button">💾 カスタム保存</button>';
+			} else {
+				html += '<button class="action-btn ai-action-btn secondary" id="aiEditCustomBtn" type="button">✏️ 編集</button>';
+			}
+			html += '</div>';
+			html += '<small class="ai-action-help">'
+				+ '※ ブラウザから直接 AI を実行することはできません。<br>'
+				+ '・<strong>Claude Code 用</strong>：コピー後、Claude Code の入力欄にペースト<br>'
+				+ '・<strong>Copilot Chat 用</strong>：コピー後、VS Code Copilot Chat の入力欄にペースト<br>'
+				+ '・<strong>クリップボードにコピー</strong>：ChatGPT 等そのまま使う場合'
+				+ '</small>';
+
+			pane.innerHTML = html;
+
+			// 変数イベント
+			pane.querySelectorAll('[data-var]').forEach(el => {
+				el.addEventListener('input', () => {
+					state.values[el.getAttribute('data-var')] = el.value;
+					updatePreview();
+				});
+			});
+			pane.querySelectorAll('[data-autofill]').forEach(b => {
+				b.addEventListener('click', () => {
+					const v = b.getAttribute('data-autofill');
+					const url = getCurrentPanelUrl();
+					if (!url) {
+						aiToast('現在のパネルURLが取得できませんでした', 'error');
+						return;
+					}
+					state.values[v] = url;
+					const target = pane.querySelector('[data-var="' + v + '"]');
+					if (target) target.value = url;
+					updatePreview();
+				});
+			});
+			// アクションボタン
+			pane.querySelectorAll('[data-copy]').forEach(b => {
+				b.addEventListener('click', () => {
+					const mode = b.getAttribute('data-copy');
+					const text = buildPrompt(tpl, mode);
+					copyToClipboard(text, b);
+					// v1.5.0: AI プロンプト使用回数を記録
+					try {
+						if (typeof window.recordAIUsage === 'function') {
+							window.recordAIUsage(tpl.title || '(無題)');
+						}
+					} catch (e) {}
+				});
+			});
+			const vsBtn = pane.querySelector('#aiOpenVscodeBtn');
+			if (vsBtn) vsBtn.addEventListener('click', openVscode);
+			const saveBtn = pane.querySelector('#aiSaveAsCustomBtn');
+			if (saveBtn) saveBtn.addEventListener('click', () => openEditModal(tpl, false, true /*forkAsCustom*/));
+			const editBtn = pane.querySelector('#aiEditCustomBtn');
+			if (editBtn) editBtn.addEventListener('click', () => openEditModal(tpl, true));
+
+			updatePreview();
+		}
+
+		function updatePreview() {
+			const tpl = getTemplateByKey(state.selectedKey);
+			if (!tpl) return;
+			const el = document.getElementById('aiPromptPreview');
+			if (!el) return;
+			el.textContent = applyVars(tpl.body, state.values);
+		}
+
+		function buildPrompt(tpl, mode) {
+			let body = applyVars(tpl.body, state.values);
+			if (mode === 'claude') {
+				body = '# Claude Code Prompt\n\n' + body;
+			} else if (mode === 'copilot') {
+				body = '@workspace ' + body;
+			}
+			return body;
+		}
+
+		// === コピー ===
+		function copyToClipboard(text, btn) {
+			const onSuccess = () => {
+				if (btn) {
+					const orig = btn.innerHTML;
+					btn.innerHTML = '✅ コピーしました';
+					setTimeout(() => { btn.innerHTML = orig; }, 1400);
+				}
+				aiToast('クリップボードにコピーしました', 'success');
+			};
+			const onFail = () => aiToast('コピーに失敗しました', 'error');
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+					fallbackCopy(text) ? onSuccess() : onFail();
+				});
+			} else {
+				fallbackCopy(text) ? onSuccess() : onFail();
+			}
+		}
+		function fallbackCopy(text) {
+			try {
+				const ta = document.createElement('textarea');
+				ta.value = text;
+				ta.style.position = 'fixed';
+				ta.style.opacity = '0';
+				document.body.appendChild(ta);
+				ta.select();
+				const ok = document.execCommand('copy');
+				document.body.removeChild(ta);
+				return ok;
+			} catch (e) { return false; }
+		}
+
+		// === VS Code 起動 ===
+		function openVscode() {
+			try {
+				// vscode:// は何もパスがなくても VS Code を起動する
+				location.href = 'vscode://';
+				setTimeout(() => {
+					aiToast('VS Code 起動を試行しました（インストール済みなら開きます）', 'success');
+				}, 200);
+			} catch (e) {
+				aiToast('VS Code を起動できませんでした。クリップボードに貼り付けてください', 'error');
+			}
+		}
+
+		// === パネルURL 自動入力 ===
+		function getCurrentPanelUrl() {
+			// 優先順: フォーカス中のパネル要素 → アクティブパネル → 何もなければ null
+			try {
+				const active = document.querySelector('.panel.active, .panel:focus, .panel:hover');
+				if (active && active.dataset && active.dataset.url) return active.dataset.url;
+				// 一般的な panel 要素から url を探す
+				const link = document.querySelector('.panel a[href]');
+				if (link) return link.href;
+			} catch (e) {}
+			return null;
+		}
+
+		// === トースト（既存 voiceToast 流用、なければ独自） ===
+		function aiToast(msg, kind) {
+			const t = document.getElementById('voiceToast');
+			if (t) {
+				t.textContent = msg;
+				t.classList.add('active');
+				clearTimeout(t._t);
+				t._t = setTimeout(() => t.classList.remove('active'), 1800);
+				return;
+			}
+			console.log('[AI Toast] ' + msg);
+		}
+
+		// === HTML エスケープ ===
+		function escapeHtml(s) {
+			return String(s == null ? '' : s)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;');
+		}
+		function escapeAttr(s) {
+			return escapeHtml(s).replace(/"/g, '&quot;');
+		}
+
+		// === カスタム編集モーダル（簡易: prompt ベース→ shadowless modal を inline 生成） ===
+		function openEditModal(tpl, isEditExisting, isFork) {
+			// 既に存在すれば破棄
+			const old = document.getElementById('aiTplEditModal');
+			if (old) old.remove();
+
+			const modalBg = document.createElement('div');
+			modalBg.id = 'aiTplEditModal';
+			modalBg.className = 'modal-bg';
+			modalBg.style.display = 'flex';
+			modalBg.innerHTML = ''
+				+ '<div class="modal" style="min-width:520px;max-width:720px;width:90%;max-height:88vh;overflow-y:auto;">'
+				+ '  <div style="display:flex;justify-content:space-between;align-items:center;">'
+				+ '    <h2 style="margin:0;font-size:1.2em;">' + (isEditExisting ? '✏️ カスタムテンプレート編集' : '💾 カスタムテンプレートとして保存') + '</h2>'
+				+ '    <button type="button" class="close-btn" id="aiTplEditClose" style="margin-left:14px;">×</button>'
+				+ '  </div>'
+				+ '  <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;">'
+				+ '    <label>カテゴリ<input type="text" id="aiTplEditCat" value="' + escapeAttr(tpl.category || '🌟 マイテンプレ') + '"></label>'
+				+ '    <label>タイトル<input type="text" id="aiTplEditTitle" value="' + escapeAttr(tpl.title || '') + '"></label>'
+				+ '    <label>説明<input type="text" id="aiTplEditDesc" value="' + escapeAttr(tpl.description || '') + '"></label>'
+				+ '    <label>本文（{変数名} で置換可能）<textarea id="aiTplEditBody" style="min-height:200px;">' + escapeHtml(tpl.body || '') + '</textarea></label>'
+				+ '  </div>'
+				+ '  <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;">'
+				+ '    <button type="button" class="action-btn secondary" id="aiTplEditCancel">キャンセル</button>'
+				+ '    <button type="button" class="action-btn" id="aiTplEditSave">保存</button>'
+				+ '  </div>'
+				+ '</div>';
+			document.body.appendChild(modalBg);
+
+			const close = () => modalBg.remove();
+			modalBg.querySelector('#aiTplEditClose').addEventListener('click', close);
+			modalBg.querySelector('#aiTplEditCancel').addEventListener('click', close);
+			modalBg.addEventListener('click', (e) => { if (e.target === modalBg) close(); });
+
+			modalBg.querySelector('#aiTplEditSave').addEventListener('click', () => {
+				const newTpl = {
+					category: modalBg.querySelector('#aiTplEditCat').value.trim() || '🌟 マイテンプレ',
+					title:    modalBg.querySelector('#aiTplEditTitle').value.trim() || '(無題)',
+					description: modalBg.querySelector('#aiTplEditDesc').value.trim(),
+					body:     modalBg.querySelector('#aiTplEditBody').value,
+				};
+				newTpl.variables = extractVars(newTpl.body);
+
+				const list = loadCustom();
+				if (isEditExisting && tpl._custom && typeof tpl._customIdx === 'number') {
+					list[tpl._customIdx] = newTpl;
+				} else {
+					list.push(newTpl);
+				}
+				saveCustom(list);
+				aiToast('カスタムテンプレートを保存しました', 'success');
+				close();
+				// 新規 / 更新後は該当を選択
+				const idx = isEditExisting ? tpl._customIdx : list.length - 1;
+				state.selectedKey = 'custom:' + idx;
+				state.values = {};
+				renderLeft();
+				renderRight();
+			});
+		}
+
+		// === 新規作成ボタン ===
+		function bindNewBtn() {
+			const btn = document.getElementById('aiTplNewBtn');
+			if (!btn) return;
+			btn.addEventListener('click', () => {
+				openEditModal({ category: '🌟 マイテンプレ', title: '', description: '', body: '' }, false);
+			});
+		}
+
+		// === 初期化 ===
+		function init() {
+			renderLeft();
+			renderRight();
+			bindNewBtn();
+		}
+
+		// AIツールタブを開いた瞬間に初期化（DOM がまだ無い可能性に備え遅延）
+		document.addEventListener('click', function (e) {
+			const t = e.target.closest && e.target.closest('.tab-item[data-tab="aitools"]');
+			if (t) {
+				setTimeout(() => {
+					if (!document.getElementById('aiTplListPane')) return;
+					if (document.getElementById('aiTplListPane').dataset.inited === '1') {
+						return;
+					}
+					init();
+					document.getElementById('aiTplListPane').dataset.inited = '1';
+				}, 60);
+			}
+		});
+
+		// 公開
+		window.gkAITools = { reload: () => { renderLeft(); renderRight(); } };
+
+		console.log('機能8完成: AIプロンプトライブラリ');
+	})();
+
+	/* ============================================================
+	 * 機能9: AI プロンプト使用回数 記録（v1.5.0）
+	 * - gkLinks_AI_USAGE = { 'YYYY-MM-DD': { 'テンプレ名': 回数, ... } }
+	 * ============================================================ */
+	(function () {
+		const KEY = 'gkLinks_AI_USAGE';
+		function todayKey(d) {
+			d = d || new Date();
+			return d.getFullYear() + '-'
+				+ String(d.getMonth() + 1).padStart(2, '0') + '-'
+				+ String(d.getDate()).padStart(2, '0');
+		}
+		window.recordAIUsage = function (tplTitle) {
+			try {
+				const map = JSON.parse(localStorage.getItem(KEY) || '{}');
+				const k = todayKey();
+				if (!map[k]) map[k] = {};
+				map[k][tplTitle] = (map[k][tplTitle] || 0) + 1;
+				localStorage.setItem(KEY, JSON.stringify(map));
+			} catch (e) { /* noop */ }
+		};
+		window.getAIUsage = function () {
+			try { return JSON.parse(localStorage.getItem(KEY) || '{}'); }
+			catch (e) { return {}; }
+		};
+		console.log('機能9完成: AI使用回数記録');
+	})();
+
+	/* ============================================================
+	 * 機能10: デイリースタンドアップ生成（v1.5.0）
+	 * - 過去24時間 / 今週 のサマリを Markdown 生成
+	 * - PANEL_CLICK_HISTORY / PANEL_CLICK_DAILY / gkLinks_AI_USAGE / panel.editedAt を集計
+	 * ============================================================ */
+	(function () {
+		function pad(n) { return String(n).padStart(2, '0'); }
+		function fmtDate(d) {
+			return d.getFullYear() + '/' + pad(d.getMonth() + 1) + '/' + pad(d.getDate());
+		}
+		function dayKey(d) {
+			return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+		}
+		function getCats() { return window.catList || []; }
+		function safe(s) { return String(s == null ? '' : s); }
+
+		// 範囲 [startTs, endTs) に該当するクリックを集計
+		function aggregateClicks(startTs, endTs) {
+			let history = [];
+			try { history = JSON.parse(localStorage.getItem('PANEL_CLICK_HISTORY') || '[]'); }
+			catch (e) {}
+			const cats = getCats();
+			const counts = {}; // key: catIdx-panelIdx
+			history.forEach(item => {
+				if (!item || typeof item.ts !== 'number') return;
+				if (item.ts < startTs || item.ts >= endTs) return;
+				const k = item.catIdx + '-' + item.panelIdx;
+				counts[k] = (counts[k] || 0) + 1;
+			});
+			// PANEL_CLICK_HISTORY は最新20件しか持たないので、
+			// PANEL_CLICK_DAILY からその期間内の合計（パネル内訳なし）も補助的に取得
+			let daily = {};
+			try { daily = JSON.parse(localStorage.getItem('PANEL_CLICK_DAILY') || '{}'); } catch (e) {}
+			let totalClicksInRange = 0;
+			const start = new Date(startTs); start.setHours(0,0,0,0);
+			const end = new Date(endTs); // exclusive
+			for (let cur = new Date(start); cur < end; cur.setDate(cur.getDate() + 1)) {
+				totalClicksInRange += (daily[dayKey(cur)] || 0);
+			}
+			// パネル詳細
+			const items = [];
+			Object.keys(counts).forEach(k => {
+				const m = k.match(/^(\d+)-(\d+)$/);
+				if (!m) return;
+				const ci = Number(m[1]), pi = Number(m[2]);
+				const cat = cats[ci];
+				if (!cat) return;
+				const panel = (cat.panels || [])[pi];
+				if (!panel) return;
+				items.push({
+					title: panel.text || '(無題)',
+					url: panel.url || '',
+					count: counts[k]
+				});
+			});
+			items.sort((a, b) => b.count - a.count);
+			return { items: items, totalDaily: totalClicksInRange };
+		}
+
+		// 編集 / 追加されたパネル
+		function aggregateEdits(startTs, endTs) {
+			const cats = getCats();
+			const added = [];
+			const edited = [];
+			cats.forEach(cat => {
+				(cat.panels || []).forEach(p => {
+					const a = p.addedAt;
+					const e = p.editedAt;
+					if (typeof a === 'number' && a >= startTs && a < endTs) {
+						added.push({ title: p.text || '(無題)', cat: cat.title || '' });
+					} else if (typeof e === 'number' && e >= startTs && e < endTs) {
+						edited.push({ title: p.text || '(無題)', cat: cat.title || '' });
+					}
+				});
+			});
+			return { added: added, edited: edited };
+		}
+
+		// AI プロンプト使用集計
+		function aggregateAIUsage(startTs, endTs) {
+			let map = {};
+			try { map = JSON.parse(localStorage.getItem('gkLinks_AI_USAGE') || '{}'); } catch (e) {}
+			const total = {}; // title -> count
+			const start = new Date(startTs); start.setHours(0,0,0,0);
+			const end = new Date(endTs);
+			for (let cur = new Date(start); cur < end; cur.setDate(cur.getDate() + 1)) {
+				const dayMap = map[dayKey(cur)] || {};
+				Object.keys(dayMap).forEach(t => {
+					total[t] = (total[t] || 0) + dayMap[t];
+				});
+			}
+			const arr = Object.keys(total).map(t => ({ title: t, count: total[t] }));
+			arr.sort((a, b) => b.count - a.count);
+			return arr;
+		}
+
+		function buildMarkdown(scope) {
+			const now = new Date();
+			let startTs, endTs, label, headerLabel;
+			if (scope === 'yesterday') {
+				// 過去24時間（=「昨日」とする）
+				const start = new Date(now); start.setDate(now.getDate() - 1); start.setHours(0,0,0,0);
+				const end = new Date(start); end.setDate(start.getDate() + 1);
+				startTs = start.getTime();
+				endTs = end.getTime();
+				label = fmtDate(start);
+				headerLabel = '昨日やったこと（' + label + '）';
+			} else {
+				// 今週（直近7日 = 今日含む過去7日間）
+				const start = new Date(now); start.setDate(now.getDate() - 6); start.setHours(0,0,0,0);
+				const end = new Date(now); end.setHours(23,59,59,999);
+				startTs = start.getTime();
+				endTs = end.getTime() + 1;
+				label = fmtDate(start) + ' 〜 ' + fmtDate(now);
+				headerLabel = '今週やったこと（' + label + '）';
+			}
+
+			const clicks = aggregateClicks(startTs, endTs);
+			const edits = aggregateEdits(startTs, endTs);
+			const ai = aggregateAIUsage(startTs, endTs);
+
+			const lines = [];
+			lines.push('## ' + headerLabel);
+			lines.push('');
+			lines.push('### よく開いたリンク Top5');
+			if (!clicks.items.length) {
+				lines.push('- _(クリック履歴がありません — PANEL_CLICK_HISTORY は最新20件のみ保持されるため、長期間の集計には反映されない場合があります)_');
+				if (clicks.totalDaily > 0) {
+					lines.push('- _(参考: 期間中の合計クリック数 ' + clicks.totalDaily + ' 回)_');
+				}
+			} else {
+				clicks.items.slice(0, 5).forEach(it => {
+					const t = safe(it.title).replace(/\]/g, '\\]');
+					if (it.url) {
+						lines.push('- [' + t + '](' + safe(it.url) + ') — ' + it.count + '回');
+					} else {
+						lines.push('- ' + t + ' — ' + it.count + '回');
+					}
+				});
+			}
+			lines.push('');
+
+			lines.push('### 追加・編集したパネル');
+			if (!edits.added.length && !edits.edited.length) {
+				lines.push('- _(該当なし)_');
+			} else {
+				edits.added.forEach(e => {
+					lines.push('- 「' + safe(e.title) + '」を追加' + (e.cat ? '（' + safe(e.cat) + '）' : ''));
+				});
+				edits.edited.forEach(e => {
+					lines.push('- 「' + safe(e.title) + '」を更新' + (e.cat ? '（' + safe(e.cat) + '）' : ''));
+				});
+			}
+			lines.push('');
+
+			lines.push('### 使った AI プロンプト');
+			if (!ai.length) {
+				lines.push('- _(該当なし)_');
+			} else {
+				ai.slice(0, 8).forEach(a => {
+					lines.push('- ' + safe(a.title) + ' × ' + a.count + '回');
+				});
+			}
+			lines.push('');
+
+			lines.push('## 今日やる予定');
+			lines.push('- (記入してください)');
+			lines.push('');
+			lines.push('## 相談・共有したいこと');
+			lines.push('- (記入してください)');
+			lines.push('');
+
+			return lines.join('\n');
+		}
+
+		function toast(msg) {
+			const t = document.getElementById('voiceToast');
+			if (t) {
+				t.textContent = msg;
+				t.classList.add('active');
+				clearTimeout(t._t);
+				t._t = setTimeout(() => t.classList.remove('active'), 1800);
+			}
+		}
+
+		function copyText(text, btn) {
+			const onSuccess = () => {
+				if (btn) {
+					const orig = btn.innerHTML;
+					btn.innerHTML = '✅ コピーしました';
+					setTimeout(() => { btn.innerHTML = orig; }, 1400);
+				}
+				toast('クリップボードにコピーしました');
+			};
+			const fallback = () => {
+				try {
+					const ta = document.createElement('textarea');
+					ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+					document.body.appendChild(ta); ta.select();
+					const ok = document.execCommand('copy');
+					document.body.removeChild(ta);
+					return ok;
+				} catch (e) { return false; }
+			};
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+					if (fallback()) onSuccess(); else toast('コピーに失敗しました');
+				});
+			} else {
+				if (fallback()) onSuccess(); else toast('コピーに失敗しました');
+			}
+		}
+
+		document.addEventListener('click', function (e) {
+			if (!e.target) return;
+			const id = e.target.id;
+			if (id === 'standupYesterdayBtn' || id === 'standupWeekBtn') {
+				const scope = (id === 'standupYesterdayBtn') ? 'yesterday' : 'week';
+				const md = buildMarkdown(scope);
+				const ta = document.getElementById('standupOutput');
+				if (ta) {
+					ta.value = md;
+					ta.removeAttribute('readonly');
+				}
+				const cp = document.getElementById('standupCopyBtn');
+				if (cp) cp.disabled = false;
+				toast(scope === 'yesterday' ? '昨日のサマリを生成しました' : '今週のサマリを生成しました');
+			} else if (id === 'standupCopyBtn') {
+				const ta = document.getElementById('standupOutput');
+				if (!ta || !ta.value) return;
+				copyText(ta.value, e.target);
+			}
+		});
+
+		console.log('機能10完成: スタンドアップ生成');
+	})();
+
+	/* ============================================================
+	 * 機能11: プロジェクトコンテキスト切替（v1.5.0）
+	 * - gkLinks_PROJECTS = ["CRM", "経費精算", ...]
+	 * - gkLinks_CURRENT_PROJECT = "CRM" or null
+	 * - タグに @プロジェクト名 を含むパネルだけ表示
+	 * ============================================================ */
+	(function () {
+		const PROJECTS_KEY = 'gkLinks_PROJECTS';
+		const CURRENT_KEY = 'gkLinks_CURRENT_PROJECT';
+
+		function loadProjects() {
+			try {
+				const arr = JSON.parse(localStorage.getItem(PROJECTS_KEY) || '[]');
+				return Array.isArray(arr) ? arr : [];
+			} catch (e) { return []; }
+		}
+		function saveProjects(arr) {
+			localStorage.setItem(PROJECTS_KEY, JSON.stringify(arr));
+		}
+		function getCurrent() {
+			const v = localStorage.getItem(CURRENT_KEY);
+			return (v && v !== 'null') ? v : null;
+		}
+		function setCurrent(name) {
+			if (name) localStorage.setItem(CURRENT_KEY, name);
+			else localStorage.removeItem(CURRENT_KEY);
+		}
+		function projectTag(name) { return '@' + name; }
+
+		function refreshSelect() {
+			const sel = document.getElementById('projectContext');
+			if (!sel) return;
+			const projects = loadProjects();
+			const current = getCurrent();
+			// 全消し
+			sel.innerHTML = '';
+			const optAll = document.createElement('option');
+			optAll.value = ''; optAll.textContent = '📂 プロジェクト未選択（すべて表示）';
+			sel.appendChild(optAll);
+			projects.forEach(p => {
+				const opt = document.createElement('option');
+				opt.value = p; opt.textContent = '🎯 ' + p;
+				sel.appendChild(opt);
+			});
+			const optNew = document.createElement('option');
+			optNew.value = '__new__'; optNew.textContent = '➕ 新規プロジェクト';
+			sel.appendChild(optNew);
+
+			// 選択値復元
+			if (current && projects.indexOf(current) >= 0) sel.value = current;
+			else { sel.value = ''; if (current) setCurrent(null); }
+
+			updateBadge();
+		}
+
+		function updateBadge() {
+			const badge = document.getElementById('projectContextBadge');
+			if (!badge) return;
+			const cur = getCurrent();
+			if (cur) {
+				badge.textContent = '🎯 ' + cur;
+				badge.style.display = '';
+				badge.title = 'プロジェクト「' + cur + '」のパネルのみ表示中';
+			} else {
+				badge.style.display = 'none';
+				badge.textContent = '';
+			}
+		}
+
+		// グローバルフィルタ用関数（renderCats から使われる）
+		window.gkLinksProjectFilter = function (panel) {
+			const cur = getCurrent();
+			if (!cur) return true;
+			if (!panel || !Array.isArray(panel.tags)) return false;
+			return panel.tags.indexOf(projectTag(cur)) >= 0;
+		};
+		window.gkLinksGetCurrentProject = getCurrent;
+
+		function applyAndRender() {
+			updateBadge();
+			if (typeof window.renderCats === 'function') {
+				try { window.renderCats(); } catch (e) {}
+			}
+			if (typeof window.enableCatSortable === 'function') {
+				try { window.enableCatSortable(); } catch (e) {}
+			}
+		}
+
+		document.addEventListener('change', function (e) {
+			if (!e.target || e.target.id !== 'projectContext') return;
+			const sel = e.target;
+			const v = sel.value;
+			if (v === '__new__') {
+				const name = prompt('新規プロジェクト名を入力してください\n（例: CRM, 経費精算, 新人研修）\n\n💡 使い方:\n各パネルのタグに「@プロジェクト名」を追加すると、\nこのプロジェクト選択時に自動で絞り込まれます。');
+				if (!name || !name.trim()) {
+					sel.value = getCurrent() || '';
+					return;
+				}
+				const trimmed = name.trim();
+				if (/[@,]/.test(trimmed)) {
+					alert('プロジェクト名に @ や , は使えません');
+					sel.value = getCurrent() || '';
+					return;
+				}
+				const projects = loadProjects();
+				if (projects.indexOf(trimmed) < 0) {
+					projects.push(trimmed);
+					saveProjects(projects);
+				}
+				setCurrent(trimmed);
+				refreshSelect();
+				applyAndRender();
+			} else if (v === '') {
+				setCurrent(null);
+				updateBadge();
+				applyAndRender();
+			} else {
+				setCurrent(v);
+				updateBadge();
+				applyAndRender();
+			}
+		});
+
+		// 「📌 プロジェクトに紐付ける」ボタン
+		document.addEventListener('click', function (e) {
+			if (!e.target || e.target.id !== 'panelPinProjectBtn') return;
+			const cur = getCurrent();
+			const hint = document.getElementById('panelPinProjectHint');
+			if (!cur) {
+				if (hint) {
+					hint.textContent = 'ヘッダーでプロジェクトを選択してください';
+					hint.style.color = '#c33';
+					setTimeout(() => { hint.textContent = ''; hint.style.color = '#888'; }, 2500);
+				} else {
+					alert('ヘッダーでプロジェクトを選択してから紐付けてください');
+				}
+				return;
+			}
+			const tag = projectTag(cur);
+			// currentPanelTags はパネル編集モーダルのタグ配列（既存の renderCats 側で window 公開はしていないが、
+			//  パネル編集モーダルの生存中はクロージャ越しにアクセスできない。代わりに DOM の値経由で追加する）
+			try {
+				if (Array.isArray(window.currentPanelTags) && !window.currentPanelTags.includes(tag)) {
+					window.currentPanelTags.push(tag);
+					if (typeof window.updateCurrentTagsDisplay === 'function') {
+						window.updateCurrentTagsDisplay();
+					}
+				} else {
+					// クロージャ経由のフォールバック: タグ入力欄に追記して既存の addTagsFromInput に任せる
+					const inp = document.getElementById('panelTags');
+					if (inp) {
+						const cur2 = inp.value.trim();
+						inp.value = (cur2 && !cur2.endsWith(',')) ? (cur2 + ', ' + tag) : (cur2 + tag);
+						// Enter キーをシミュレート
+						const ev = new KeyboardEvent('keydown', { key: ',', bubbles: true });
+						inp.dispatchEvent(ev);
+						// blur で確定するパスもあるため値も保持
+					}
+				}
+			} catch (err) {}
+			if (hint) {
+				hint.textContent = '✓ ' + tag + ' を追加しました';
+				hint.style.color = '#1a8a3a';
+				setTimeout(() => { hint.textContent = ''; hint.style.color = '#888'; }, 2000);
+			}
+		});
+
+		// v1.6.1: 「？」ヘルプボタンのトグル + 外側クリックで閉じる
+		document.addEventListener('click', function (e) {
+			const helpBtn = e.target && e.target.closest && e.target.closest('#projectHelpBtn');
+			const tooltip = document.getElementById('projectHelpTooltip');
+			if (!tooltip) return;
+			if (helpBtn) {
+				e.stopPropagation();
+				tooltip.style.display = (tooltip.style.display === 'none' || !tooltip.style.display) ? 'block' : 'none';
+				return;
+			}
+			// ツールチップ自身のクリックは無視
+			if (e.target.closest && e.target.closest('#projectHelpTooltip')) return;
+			tooltip.style.display = 'none';
+		});
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') {
+				const tooltip = document.getElementById('projectHelpTooltip');
+				if (tooltip) tooltip.style.display = 'none';
+			}
+		});
+
+		// 初期化
+		function init() {
+			refreshSelect();
+			updateBadge();
+		}
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', init);
+		} else {
+			setTimeout(init, 0);
+		}
+
+		console.log('機能11完成: プロジェクトコンテキスト切替');
+	})();
+
+	/* ============================================================
+	 * 機能12: チケット連携設定（v1.6.0）
+	 * - localStorage 'gkLinks_TICKET_BASES' に { jira, backlog, redmine } を保存
+	 * - データ管理タブの入力 UI と双方向にバインド
+	 * - 保存時にパネル一覧を再描画してリンクを反映
+	 * ============================================================ */
+	(function () {
+		const KEY = 'gkLinks_TICKET_BASES';
+		function load() {
+			try {
+				const raw = localStorage.getItem(KEY);
+				if (!raw) return { jira: '', backlog: '', redmine: '' };
+				const o = JSON.parse(raw);
+				return {
+					jira: (o && typeof o.jira === 'string') ? o.jira : '',
+					backlog: (o && typeof o.backlog === 'string') ? o.backlog : '',
+					redmine: (o && typeof o.redmine === 'string') ? o.redmine : ''
+				};
+			} catch (e) {
+				return { jira: '', backlog: '', redmine: '' };
+			}
+		}
+		function save(v) {
+			try { localStorage.setItem(KEY, JSON.stringify(v)); }
+			catch (e) { console.warn('ticket bases save failed', e); }
+		}
+		function init() {
+			const jiraEl = document.getElementById('ticketJiraBase');
+			const backlogEl = document.getElementById('ticketBacklogBase');
+			const redmineEl = document.getElementById('ticketRedmineBase');
+			const btn = document.getElementById('ticketSaveBtn');
+			const status = document.getElementById('ticketSaveStatus');
+			if (!jiraEl || !backlogEl || !redmineEl || !btn) return;
+			const cur = load();
+			jiraEl.value = cur.jira;
+			backlogEl.value = cur.backlog;
+			redmineEl.value = cur.redmine;
+			btn.addEventListener('click', () => {
+				const v = {
+					jira: jiraEl.value.trim(),
+					backlog: backlogEl.value.trim(),
+					redmine: redmineEl.value.trim()
+				};
+				save(v);
+				if (status) {
+					status.textContent = '✅ 保存しました（パネル一覧を再描画します）';
+					setTimeout(() => { status.textContent = ''; }, 2400);
+				}
+				// パネル一覧を再描画してリンクを反映
+				try {
+					if (typeof window.renderCats === 'function') {
+						window.renderCats();
+					}
+				} catch (e) { /* noop */ }
+			});
+		}
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', init);
+		} else {
+			setTimeout(init, 0);
+		}
+		window.gkTicketBases = { load: load, save: save };
+		console.log('機能12完成: チケット連携設定');
+	})();
+
+	/* ============================================================
+	 * 機能13: コードスニペット集（v1.6.0）
+	 * - localStorage 'gkLinks_SNIPPETS' にカスタムスニペット保存
+	 * - ビルトイン17個 + ユーザー追加
+	 * - 言語別フィルタ・テキスト検索・コピー・編集・削除
+	 * ============================================================ */
+	(function () {
+		const KEY = 'gkLinks_SNIPPETS';
+
+		// === ビルトインスニペット ===
+		const BUILTIN_SNIPPETS = [
+			// === Java ===
+			{
+				language: "Java",
+				title: "Optional の安全な使い方",
+				description: "null セーフに値を取り出す典型例。orElseThrow で業務例外に変換するパターンも併記。",
+				code: "Optional<User> userOpt = userRepository.findById(id);\n\n// 値があれば処理、なければデフォルト\nString name = userOpt.map(User::getName).orElse(\"unknown\");\n\n// なければ業務例外\nUser user = userOpt.orElseThrow(\n    () -> new BusinessException(\"ユーザーが見つかりません: \" + id));\n\n// 副作用のみ\nuserOpt.ifPresent(u -> log.info(\"found: {}\", u.getId()));",
+				tags: ["null安全", "Optional", "Java8+"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "Java",
+				title: "Stream API でのグルーピング",
+				description: "Collectors.groupingBy で List をキー別に集約。日本SI現場の集計処理で頻出。",
+				code: "// 部署ごとに従業員をグルーピング\nMap<String, List<Employee>> byDept = employees.stream()\n    .collect(Collectors.groupingBy(Employee::getDepartment));\n\n// グループごとの件数\nMap<String, Long> countByDept = employees.stream()\n    .collect(Collectors.groupingBy(\n        Employee::getDepartment,\n        Collectors.counting()));\n\n// グループごとの合計給与\nMap<String, Integer> sumSalary = employees.stream()\n    .collect(Collectors.groupingBy(\n        Employee::getDepartment,\n        Collectors.summingInt(Employee::getSalary)));",
+				tags: ["Stream", "集計", "Collectors"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "Java",
+				title: "@Transactional の rollbackFor 設定",
+				description: "デフォルトはチェック例外でロールバックしない。業務例外でも巻き戻したい時の指定。",
+				code: "// デフォルト: RuntimeException / Error のみロールバック\n// チェック例外でもロールバックさせる\n@Transactional(rollbackFor = Exception.class)\npublic void register(User user) throws BusinessException {\n    userMapper.insert(user);\n    if (!validator.check(user)) {\n        throw new BusinessException(\"検証エラー\");\n    }\n}\n\n// 特定例外のみロールバック対象から除外\n@Transactional(noRollbackFor = NotFoundException.class)\npublic void update(...) { ... }",
+				tags: ["Spring", "Transaction", "例外"],
+				createdAt: "2026-04-25"
+			},
+			// === TypeScript ===
+			{
+				language: "TypeScript",
+				title: "Promise.allSettled を使った並列処理",
+				description: "失敗してもエラーで止まらず全部実行。成功分だけ拾うパターン。",
+				code: "const results = await Promise.allSettled([\n    fetch('/api/a'),\n    fetch('/api/b'),\n    fetch('/api/c'),\n]);\n\nconst successful = results\n    .filter((r): r is PromiseFulfilledResult<Response> => r.status === 'fulfilled')\n    .map(r => r.value);\n\nconst failed = results\n    .filter((r): r is PromiseRejectedResult => r.status === 'rejected')\n    .map(r => r.reason);\n\nconsole.log(`成功: ${successful.length} / 失敗: ${failed.length}`);",
+				tags: ["async", "並列処理", "Promise"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "TypeScript",
+				title: "型ガード（type guard）の書き方",
+				description: "実行時に型を絞り込むユーザー定義型ガード関数。is キーワードがポイント。",
+				code: "interface Cat { kind: 'cat'; meow: () => void; }\ninterface Dog { kind: 'dog'; bark: () => void; }\ntype Animal = Cat | Dog;\n\n// ユーザー定義型ガード\nfunction isCat(a: Animal): a is Cat {\n    return a.kind === 'cat';\n}\n\nfunction handle(a: Animal) {\n    if (isCat(a)) {\n        a.meow(); // ここでは Cat 型として推論される\n    } else {\n        a.bark(); // Dog 型\n    }\n}\n\n// unknown を絞り込む\nfunction isString(v: unknown): v is string {\n    return typeof v === 'string';\n}",
+				tags: ["型", "type guard", "narrowing"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "TypeScript",
+				title: "async/await のエラーハンドリング",
+				description: "try/catch + finally + 型安全な error narrowing パターン。",
+				code: "async function fetchUser(id: string): Promise<User | null> {\n    try {\n        const res = await fetch(`/api/users/${id}`);\n        if (!res.ok) {\n            throw new Error(`HTTP ${res.status}`);\n        }\n        return await res.json() as User;\n    } catch (err: unknown) {\n        // err は unknown — 型を絞ってから扱う\n        if (err instanceof Error) {\n            console.error('fetch failed:', err.message);\n        } else {\n            console.error('unknown error:', err);\n        }\n        return null;\n    } finally {\n        console.log('fetch finished');\n    }\n}",
+				tags: ["async", "エラー処理", "try-catch"],
+				createdAt: "2026-04-25"
+			},
+			// === C# ===
+			{
+				language: "C#",
+				title: "using ステートメント（IDisposable）",
+				description: "リソース確実解放の3パターン。C#8 の宣言形が最近のベストプラクティス。",
+				code: "// 旧来のブロック形\nusing (var conn = new SqlConnection(connStr))\n{\n    conn.Open();\n    // ...\n} // ここで Dispose\n\n// C#8 以降の宣言形（ブロック終了で Dispose）\nusing var conn = new SqlConnection(connStr);\nconn.Open();\n// メソッド終了時に Dispose\n\n// 非同期版（IAsyncDisposable）\nawait using var stream = File.OpenRead(path);\n// using 終了時に DisposeAsync が呼ばれる",
+				tags: ["IDisposable", "リソース管理", "C#8"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "C#",
+				title: "LINQ の GroupBy",
+				description: "コレクションをキーで集約。日本SI現場の集計バッチで定番。",
+				code: "var orders = GetOrders();\n\n// 顧客ごとに注文をグループ化\nvar byCustomer = orders\n    .GroupBy(o => o.CustomerId)\n    .Select(g => new {\n        CustomerId = g.Key,\n        OrderCount = g.Count(),\n        TotalAmount = g.Sum(o => o.Amount)\n    })\n    .OrderByDescending(x => x.TotalAmount)\n    .ToList();\n\nforeach (var c in byCustomer) {\n    Console.WriteLine($\"{c.CustomerId}: {c.OrderCount}件 / {c.TotalAmount:C}\");\n}",
+				tags: ["LINQ", "集計", "GroupBy"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "C#",
+				title: "async/await の ConfigureAwait(false)",
+				description: "ライブラリコードでは ConfigureAwait(false) を付けてデッドロック回避。UIコードでは付けない。",
+				code: "// ライブラリ／フレームワーク内部では SynchronizationContext を捕まえない\npublic async Task<User> GetUserAsync(int id)\n{\n    var data = await httpClient.GetStringAsync(url).ConfigureAwait(false);\n    return JsonSerializer.Deserialize<User>(data);\n}\n\n// ASP.NET Core / コンソール / .NET 5+ では基本不要だが、\n// .NET Framework / WPF / WinForms 互換のライブラリでは付ける慣習\n\n// UI スレッドで継続したい場合は付けない（デフォルト = true）\nprivate async void Button_Click(object s, EventArgs e)\n{\n    var user = await GetUserAsync(1); // UIに戻る\n    label.Text = user.Name;            // UIスレッド\n}",
+				tags: ["async", "ConfigureAwait", "デッドロック"],
+				createdAt: "2026-04-25"
+			},
+			// === VB.NET ===
+			{
+				language: "VB.NET",
+				title: "Try/Catch + ログ出力テンプレート",
+				description: "日本SI現場の典型的な例外処理。ログ4要素（時刻・処理名・エラー内容・スタック）を吐く。",
+				code: "Public Sub ProcessOrder(orderId As Integer)\n    Try\n        Logger.Info(\"注文処理 開始: orderId=\" & orderId)\n        ' ... 業務処理 ...\n        Logger.Info(\"注文処理 完了: orderId=\" & orderId)\n\n    Catch bex As BusinessException\n        ' 業務エラー: ログは Warn、利用者に通知\n        Logger.Warn(\"注文処理 業務エラー: \" & bex.Message)\n        Throw\n\n    Catch ex As Exception\n        ' システムエラー: ログは Error、スタック付き、ロールバック想定\n        Logger.Error(\"注文処理 異常終了: orderId=\" & orderId &\n                     \" / \" & ex.Message & vbCrLf & ex.StackTrace)\n        Throw New SystemException(\"注文処理に失敗しました\", ex)\n\n    Finally\n        Logger.Info(\"注文処理 終了処理\")\n    End Try\nEnd Sub",
+				tags: ["例外処理", "ログ", "業務エラー"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "VB.NET",
+				title: "DataReader の安全な扱い",
+				description: "Using で Connection / Command / Reader を漏れなく解放。NULL チェック付き。",
+				code: "Public Function GetUserName(userId As Integer) As String\n    Dim sql As String = \"SELECT USER_NAME FROM USER_M WHERE USER_ID = @id\"\n    Using conn As New OracleConnection(connStr)\n        conn.Open()\n        Using cmd As New OracleCommand(sql, conn)\n            cmd.Parameters.Add(\"@id\", OracleDbType.Int32).Value = userId\n            Using reader = cmd.ExecuteReader()\n                If reader.Read() Then\n                    ' NULL チェック必須（DBNull.Value 比較）\n                    If reader.IsDBNull(0) Then Return String.Empty\n                    Return reader.GetString(0)\n                End If\n            End Using\n        End Using\n    End Using\n    Return Nothing\nEnd Function",
+				tags: ["ADO.NET", "Oracle", "NULL対応"],
+				createdAt: "2026-04-25"
+			},
+			// === SQL ===
+			{
+				language: "SQL",
+				title: "ROW_NUMBER でデュプリケート除去",
+				description: "重複行のうち最新1件だけ残すパターン。日本SI現場で頻出。",
+				code: "-- USER_ID ごとに UPDATED_AT が最新の1件だけ残す\nWITH ranked AS (\n    SELECT\n        t.*,\n        ROW_NUMBER() OVER (\n            PARTITION BY USER_ID\n            ORDER BY UPDATED_AT DESC, USER_ID\n        ) AS rn\n    FROM USER_HISTORY_T t\n)\nSELECT *\nFROM ranked\nWHERE rn = 1;\n\n-- 削除版: 重複の古い側を消す\nDELETE FROM USER_HISTORY_T\nWHERE (USER_ID, UPDATED_AT) NOT IN (\n    SELECT USER_ID, MAX(UPDATED_AT)\n    FROM USER_HISTORY_T\n    GROUP BY USER_ID\n);",
+				tags: ["重複除去", "ROW_NUMBER", "ウィンドウ関数"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "SQL",
+				title: "WITH 句でのCTE",
+				description: "Common Table Expression。階層クエリ・段階集計・再利用に。",
+				code: "-- 段階集計: 月別売上 → 月別ランキング\nWITH monthly_sales AS (\n    SELECT\n        TO_CHAR(ORDER_DATE, 'YYYY-MM') AS month,\n        CUSTOMER_ID,\n        SUM(AMOUNT) AS total\n    FROM ORDER_T\n    WHERE ORDER_DATE >= ADD_MONTHS(SYSDATE, -12)\n    GROUP BY TO_CHAR(ORDER_DATE, 'YYYY-MM'), CUSTOMER_ID\n),\nranked AS (\n    SELECT\n        month,\n        CUSTOMER_ID,\n        total,\n        RANK() OVER (PARTITION BY month ORDER BY total DESC) AS rk\n    FROM monthly_sales\n)\nSELECT month, CUSTOMER_ID, total\nFROM ranked\nWHERE rk <= 3\nORDER BY month, rk;",
+				tags: ["CTE", "WITH句", "段階集計"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "SQL",
+				title: "日本SI伝統の「テーブル名_M / _T」命名規則メモ",
+				description: "マスタ系（_M）とトランザクション系（_T）の命名・運用ルール。新人配属時に覚える定番。",
+				code: "-- マスタ系（_M / MST_）: 変動が少ない参照データ\n--   USER_M           ユーザーマスタ\n--   DEPARTMENT_M     部署マスタ\n--   PRODUCT_M        商品マスタ\n--   PARAMETER_M      システムパラメータ\n--\n-- トランザクション系（_T / TRN_）: 業務発生で増えるデータ\n--   ORDER_T          注文データ\n--   ORDER_DETAIL_T   注文明細\n--   PAYMENT_T        入金データ\n--   USER_HISTORY_T   ユーザー操作履歴\n--\n-- ワーク系（_W / WRK_）: 一時テーブル・バッチ中間結果\n--   IMPORT_W         取込ワーク\n--   AGGREGATE_W      集計ワーク\n--\n-- ログ系（_L / LOG_）\n--   ACCESS_LOG_L     アクセスログ\n--   ERROR_LOG_L      エラーログ\n--\n-- 共通カラム（多くの現場で必須）:\n--   CREATE_USER  CREATE_DATE  UPDATE_USER  UPDATE_DATE  DELETE_FLG\n\nSELECT u.USER_NAME, d.DEPARTMENT_NAME\nFROM USER_M u\nINNER JOIN DEPARTMENT_M d ON u.DEPARTMENT_CD = d.DEPARTMENT_CD\nWHERE u.DELETE_FLG = '0';",
+				tags: ["命名規則", "日本SI", "DB設計"],
+				createdAt: "2026-04-25"
+			},
+			// === PowerShell ===
+			{
+				language: "PowerShell",
+				title: "Excel COM でセルを操作",
+				description: "Excelファイルをバックグラウンドで開いて読み書き。COM の解放（ReleaseComObject）が肝。",
+				code: "$excel = New-Object -ComObject Excel.Application\n$excel.Visible = $false\n$excel.DisplayAlerts = $false\n\ntry {\n    $book = $excel.Workbooks.Open(\"C:\\work\\input.xlsx\")\n    $sheet = $book.Sheets.Item(1)\n\n    # セル読み取り\n    $val = $sheet.Cells.Item(1, 1).Value2\n    Write-Host \"A1 = $val\"\n\n    # セル書き込み\n    $sheet.Cells.Item(2, 1).Value2 = \"hello\"\n    $sheet.Cells.Item(2, 2).Value2 = (Get-Date)\n\n    # 保存\n    $book.SaveAs(\"C:\\work\\output.xlsx\")\n    $book.Close($false)\n}\nfinally {\n    $excel.Quit()\n    # COM オブジェクト解放（メモリリーク防止）\n    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($excel) | Out-Null\n    [GC]::Collect()\n    [GC]::WaitForPendingFinalizers()\n}",
+				tags: ["Excel", "COM", "バッチ"],
+				createdAt: "2026-04-25"
+			},
+			{
+				language: "PowerShell",
+				title: "ファイル一括リネーム",
+				description: "正規表現でリネーム。-WhatIf でドライラン確認できるのが PowerShell の強み。",
+				code: "# 現在のフォルダ配下の .log ファイルを backup_YYYYMMDD_元名.log にリネーム\n$today = Get-Date -Format \"yyyyMMdd\"\n\nGet-ChildItem -Path . -Filter \"*.log\" -Recurse |\n    ForEach-Object {\n        $newName = \"backup_${today}_$($_.Name)\"\n        # ドライラン: -WhatIf を付けて実際の影響を確認してから外す\n        Rename-Item -Path $_.FullName -NewName $newName -WhatIf\n    }\n\n# 連番付与（image1.jpg → image_001.jpg ...）\n$i = 1\nGet-ChildItem -Filter \"image*.jpg\" | Sort-Object Name | ForEach-Object {\n    $newName = \"image_{0:D3}.jpg\" -f $i\n    Rename-Item $_.FullName -NewName $newName\n    $i++\n}",
+				tags: ["ファイル操作", "リネーム", "正規表現"],
+				createdAt: "2026-04-25"
+			},
+			// === Python ===
+			{
+				language: "Python",
+				title: "with でリソース管理",
+				description: "ファイル・ロック・DB接続などを安全に解放。コンテキストマネージャの基本。",
+				code: "# ファイル読み書き\nwith open('input.txt', 'r', encoding='utf-8') as f:\n    for line in f:\n        print(line.rstrip())\n\n# 複数同時に\nwith open('in.txt') as src, open('out.txt', 'w') as dst:\n    dst.write(src.read())\n\n# 自作コンテキスト\nfrom contextlib import contextmanager\n\n@contextmanager\ndef timer(name):\n    import time\n    start = time.time()\n    try:\n        yield\n    finally:\n        print(f'{name}: {time.time() - start:.3f}s')\n\nwith timer('処理A'):\n    do_something()",
+				tags: ["with", "リソース", "コンテキスト"],
+				createdAt: "2026-04-25"
+			},
+			// === Bash ===
+			{
+				language: "Bash",
+				title: "set -euo pipefail",
+				description: "本気のシェルスクリプトの先頭テンプレ。エラー即停止・未定義変数禁止・パイプ全段監視。",
+				code: "#!/usr/bin/env bash\nset -euo pipefail\nIFS=$'\\n\\t'\n\n# -e: コマンドが非0で終了したら即終了\n# -u: 未定義変数を使ったらエラー\n# -o pipefail: パイプの途中失敗もエラー扱い\n\nreadonly LOG_DIR=\"${LOG_DIR:-/var/log/myapp}\"\nreadonly DATE=\"$(date +%Y%m%d)\"\n\nlog() {\n    echo \"[$(date +'%F %T')] $*\" >&2\n}\n\nmain() {\n    log \"start\"\n    if [[ ! -d \"$LOG_DIR\" ]]; then\n        log \"ERROR: $LOG_DIR not found\"\n        exit 1\n    fi\n    # ... 処理 ...\n    log \"done\"\n}\n\nmain \"$@\"",
+				tags: ["シェル", "エラー処理", "テンプレート"],
+				createdAt: "2026-04-25"
+			},
+		];
+
+		// === ストレージ ===
+		function loadCustom() {
+			try {
+				const raw = localStorage.getItem(KEY);
+				if (!raw) return [];
+				const arr = JSON.parse(raw);
+				return Array.isArray(arr) ? arr : [];
+			} catch (e) { return []; }
+		}
+		function saveCustom(list) {
+			try { localStorage.setItem(KEY, JSON.stringify(list)); }
+			catch (e) { console.warn('snippets save failed', e); }
+		}
+		function getAll() {
+			const customs = loadCustom().map((s, i) => Object.assign({}, s, { _custom: true, _customIdx: i }));
+			const builtins = BUILTIN_SNIPPETS.map((s, i) => Object.assign({}, s, { _custom: false, _builtinIdx: i }));
+			return builtins.concat(customs);
+		}
+
+		// === HTML エスケープ ===
+		function escapeHtml(s) {
+			return String(s == null ? '' : s)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;');
+		}
+		function escapeAttr(s) {
+			return escapeHtml(s).replace(/"/g, '&quot;');
+		}
+
+		// === 状態 ===
+		const state = {
+			selectedKey: null, // 'builtin:idx' or 'custom:idx'
+			openLangs: new Set(),
+			search: '',
+			langFilter: '',
+		};
+		function makeKey(s) {
+			return s._custom ? 'custom:' + s._customIdx : 'builtin:' + s._builtinIdx;
+		}
+		function getByKey(key) {
+			if (!key) return null;
+			const [kind, idxStr] = key.split(':');
+			const idx = parseInt(idxStr, 10);
+			if (kind === 'builtin') {
+				const t = BUILTIN_SNIPPETS[idx];
+				return t ? Object.assign({}, t, { _custom: false, _builtinIdx: idx }) : null;
+			}
+			if (kind === 'custom') {
+				const list = loadCustom();
+				const t = list[idx];
+				return t ? Object.assign({}, t, { _custom: true, _customIdx: idx }) : null;
+			}
+			return null;
+		}
+
+		// === 検索フィルタ ===
+		function matchesSearch(s, q) {
+			if (!q) return true;
+			const lq = q.toLowerCase();
+			const tags = (s.tags || []).join(' ');
+			const hay = (s.title + ' ' + (s.code || '') + ' ' + (s.description || '') + ' ' + tags).toLowerCase();
+			return hay.indexOf(lq) >= 0;
+		}
+		function getFilteredByLang() {
+			const all = getAll();
+			const q = state.search.trim();
+			const lf = state.langFilter;
+			return all.filter(s => {
+				if (lf && s.language !== lf) return false;
+				if (!matchesSearch(s, q)) return false;
+				return true;
+			});
+		}
+
+		// === 左ペイン描画 ===
+		function renderLeft() {
+			const pane = document.getElementById('snipListPane');
+			if (!pane) return;
+			const items = getFilteredByLang();
+
+			// 言語別グルーピング
+			const byLang = {};
+			const langOrder = [];
+			items.forEach(s => {
+				const lang = s.language || 'その他';
+				if (!byLang[lang]) { byLang[lang] = []; langOrder.push(lang); }
+				byLang[lang].push(s);
+			});
+
+			// 初期展開（最初の言語）
+			if (state.openLangs.size === 0 && langOrder.length) {
+				state.openLangs.add(langOrder[0]);
+			}
+
+			if (!items.length) {
+				pane.innerHTML = '<div class="ai-empty" style="padding:40px 20px;">該当するスニペットがありません</div>';
+				return;
+			}
+
+			let html = '';
+			langOrder.forEach(lang => {
+				const open = state.openLangs.has(lang);
+				const list = byLang[lang];
+				html += '<div class="ai-tpl-cat ' + (open ? 'open' : '') + '" data-lang="' + escapeAttr(lang) + '">';
+				html += '<div class="ai-tpl-cat-header"><span class="ai-tpl-cat-arrow">▶</span><span>' + escapeHtml(lang) + '</span><span style="margin-left:auto;font-size:11px;color:var(--muted2);font-weight:400;">' + list.length + '</span></div>';
+				html += '<div class="ai-tpl-cat-body">';
+				list.forEach(s => {
+					const k = makeKey(s);
+					const active = state.selectedKey === k ? 'active' : '';
+					const customBadge = s._custom ? '<span class="ai-tpl-item-badge">マイ</span>' : '';
+					const delBtn = s._custom ? '<button class="ai-tpl-item-del" data-snip-del="' + k + '" title="削除">🗑</button>' : '';
+					html += '<div class="ai-tpl-item ' + active + '" data-snip-key="' + k + '">';
+					html += '<span class="ai-tpl-item-title" title="' + escapeAttr(s.title) + '">' + escapeHtml(s.title) + '</span>';
+					html += customBadge + delBtn;
+					html += '</div>';
+				});
+				html += '</div></div>';
+			});
+			pane.innerHTML = html;
+
+			pane.querySelectorAll('.ai-tpl-cat-header').forEach(h => {
+				h.addEventListener('click', () => {
+					const lang = h.parentElement.getAttribute('data-lang');
+					if (state.openLangs.has(lang)) state.openLangs.delete(lang);
+					else state.openLangs.add(lang);
+					renderLeft();
+				});
+			});
+			pane.querySelectorAll('.ai-tpl-item').forEach(el => {
+				el.addEventListener('click', (e) => {
+					if (e.target.closest('.ai-tpl-item-del')) return;
+					const k = el.getAttribute('data-snip-key');
+					selectSnippet(k);
+				});
+			});
+			pane.querySelectorAll('[data-snip-del]').forEach(b => {
+				b.addEventListener('click', (e) => {
+					e.stopPropagation();
+					const k = b.getAttribute('data-snip-del');
+					deleteCustom(k);
+				});
+			});
+		}
+
+		function selectSnippet(key) {
+			state.selectedKey = key;
+			renderLeft();
+			renderRight();
+		}
+
+		function deleteCustom(key) {
+			const [kind, idxStr] = key.split(':');
+			if (kind !== 'custom') return;
+			if (!confirm('このスニペットを削除しますか？')) return;
+			const list = loadCustom();
+			list.splice(parseInt(idxStr, 10), 1);
+			saveCustom(list);
+			if (state.selectedKey === key) state.selectedKey = null;
+			renderLeft();
+			renderRight();
+			refreshLangFilter();
+		}
+
+		// === 右ペイン描画 ===
+		function renderRight() {
+			const pane = document.getElementById('snipDetailPane');
+			if (!pane) return;
+			const s = getByKey(state.selectedKey);
+			if (!s) {
+				pane.innerHTML = '<div class="ai-empty">← 左のリストからスニペットを選択してください</div>';
+				return;
+			}
+			const tagsHtml = (s.tags || []).map(t => '<span class="snip-tag">' + escapeHtml(t) + '</span>').join('');
+			let html = '';
+			html += '<h3 class="ai-detail-title">' + escapeHtml(s.title) + '</h3>';
+			html += '<div class="snip-meta">';
+			html += '<span class="snip-lang-badge">' + escapeHtml(s.language || 'その他') + '</span>';
+			if (s.createdAt) html += '<span style="opacity:.7;">作成: ' + escapeHtml(s.createdAt) + '</span>';
+			if (s._custom) html += ' <span style="background:rgba(212,175,55,0.18);color:var(--gold2);padding:1px 6px;border-radius:8px;font-size:10px;margin-left:6px;">マイスニペット</span>';
+			html += '</div>';
+			if (s.description) {
+				html += '<p class="ai-detail-desc">' + escapeHtml(s.description) + '</p>';
+			}
+			if (tagsHtml) {
+				html += '<div style="margin:8px 0 12px;">' + tagsHtml + '</div>';
+			}
+			html += '<div class="ai-detail-section-title">💻 コード</div>';
+			html += '<pre class="snip-code-block" id="snipCodeBlock">' + escapeHtml(s.code || '') + '</pre>';
+			html += '<div class="ai-actions">';
+			html += '<button class="action-btn ai-action-btn" id="snipCopyBtn" type="button">📋 コピー</button>';
+			if (!s._custom) {
+				html += '<button class="action-btn ai-action-btn secondary" id="snipForkBtn" type="button">💾 マイスニペットとして保存</button>';
+			} else {
+				html += '<button class="action-btn ai-action-btn secondary" id="snipEditBtn" type="button">✏️ 編集</button>';
+			}
+			html += '</div>';
+			pane.innerHTML = html;
+
+			const copyBtn = pane.querySelector('#snipCopyBtn');
+			if (copyBtn) copyBtn.addEventListener('click', () => copyToClipboard(s.code || '', copyBtn));
+			const forkBtn = pane.querySelector('#snipForkBtn');
+			if (forkBtn) forkBtn.addEventListener('click', () => openEditModal(s, false, true));
+			const editBtn = pane.querySelector('#snipEditBtn');
+			if (editBtn) editBtn.addEventListener('click', () => openEditModal(s, true));
+		}
+
+		// === コピー（既存パターンを踏襲）===
+		function copyToClipboard(text, btn) {
+			const onSuccess = () => {
+				if (btn) {
+					const orig = btn.innerHTML;
+					btn.innerHTML = '✅ コピーしました';
+					setTimeout(() => { btn.innerHTML = orig; }, 1400);
+				}
+			};
+			const onFail = () => alert('コピーに失敗しました');
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+					fallbackCopy(text) ? onSuccess() : onFail();
+				});
+			} else {
+				fallbackCopy(text) ? onSuccess() : onFail();
+			}
+		}
+		function fallbackCopy(text) {
+			try {
+				const ta = document.createElement('textarea');
+				ta.value = text;
+				ta.style.position = 'fixed';
+				ta.style.opacity = '0';
+				document.body.appendChild(ta);
+				ta.select();
+				const ok = document.execCommand('copy');
+				document.body.removeChild(ta);
+				return ok;
+			} catch (e) { return false; }
+		}
+
+		// === 編集モーダル ===
+		function openEditModal(snip, isEditExisting, isFork) {
+			const old = document.getElementById('snipEditModal');
+			if (old) old.remove();
+
+			const modalBg = document.createElement('div');
+			modalBg.id = 'snipEditModal';
+			modalBg.className = 'modal-bg';
+			modalBg.style.display = 'flex';
+			const tags = (snip.tags || []).join(', ');
+			modalBg.innerHTML = ''
+				+ '<div class="modal" style="min-width:560px;max-width:820px;width:92%;max-height:90vh;overflow-y:auto;">'
+				+ '  <div style="display:flex;justify-content:space-between;align-items:center;">'
+				+ '    <h2 style="margin:0;font-size:1.2em;">' + (isEditExisting ? '✏️ スニペット編集' : (isFork ? '💾 マイスニペットとして保存' : '➕ スニペット新規作成')) + '</h2>'
+				+ '    <button type="button" class="close-btn" id="snipEditClose" style="margin-left:14px;">×</button>'
+				+ '  </div>'
+				+ '  <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;">'
+				+ '    <label>言語<input type="text" id="snipEditLang" placeholder="例: TypeScript / Java / Python" value="' + escapeAttr(snip.language || '') + '"></label>'
+				+ '    <label>タイトル<input type="text" id="snipEditTitle" value="' + escapeAttr(snip.title || '') + '"></label>'
+				+ '    <label>説明<input type="text" id="snipEditDesc" value="' + escapeAttr(snip.description || '') + '"></label>'
+				+ '    <label>タグ（カンマ区切り）<input type="text" id="snipEditTags" placeholder="async, 並列処理" value="' + escapeAttr(tags) + '"></label>'
+				+ '    <label>コード<textarea id="snipEditCode" placeholder="ここにコードを貼り付け">' + escapeHtml(snip.code || '') + '</textarea></label>'
+				+ '  </div>'
+				+ '  <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;">'
+				+ '    <button type="button" class="action-btn secondary" id="snipEditCancel">キャンセル</button>'
+				+ '    <button type="button" class="action-btn" id="snipEditSave">保存</button>'
+				+ '  </div>'
+				+ '</div>';
+			document.body.appendChild(modalBg);
+			const close = () => modalBg.remove();
+			modalBg.querySelector('#snipEditClose').addEventListener('click', close);
+			modalBg.querySelector('#snipEditCancel').addEventListener('click', close);
+			modalBg.addEventListener('click', (e) => { if (e.target === modalBg) close(); });
+			modalBg.querySelector('#snipEditSave').addEventListener('click', () => {
+				const tagsArr = modalBg.querySelector('#snipEditTags').value.split(',').map(t => t.trim()).filter(Boolean);
+				const today = (new Date()).toISOString().slice(0, 10);
+				const newSnip = {
+					language:    modalBg.querySelector('#snipEditLang').value.trim() || 'その他',
+					title:       modalBg.querySelector('#snipEditTitle').value.trim() || '(無題)',
+					description: modalBg.querySelector('#snipEditDesc').value.trim(),
+					tags:        tagsArr,
+					code:        modalBg.querySelector('#snipEditCode').value,
+					createdAt:   snip.createdAt || today,
+				};
+				const list = loadCustom();
+				let savedIdx;
+				if (isEditExisting && snip._custom && typeof snip._customIdx === 'number') {
+					list[snip._customIdx] = newSnip;
+					savedIdx = snip._customIdx;
+				} else {
+					list.push(newSnip);
+					savedIdx = list.length - 1;
+				}
+				saveCustom(list);
+				close();
+				state.selectedKey = 'custom:' + savedIdx;
+				renderLeft();
+				renderRight();
+				refreshLangFilter();
+			});
+		}
+
+		// === 言語フィルタの選択肢更新 ===
+		function refreshLangFilter() {
+			const sel = document.getElementById('snipLangFilter');
+			if (!sel) return;
+			const langs = new Set();
+			getAll().forEach(s => langs.add(s.language || 'その他'));
+			const sorted = Array.from(langs).sort();
+			const cur = sel.value;
+			let html = '<option value="">すべての言語</option>';
+			sorted.forEach(l => {
+				html += '<option value="' + escapeAttr(l) + '">' + escapeHtml(l) + '</option>';
+			});
+			sel.innerHTML = html;
+			if (cur && sorted.indexOf(cur) >= 0) sel.value = cur;
+		}
+
+		// === 検索/フィルタ入力 ===
+		function bindControls() {
+			const searchEl = document.getElementById('snipSearchInput');
+			const langEl = document.getElementById('snipLangFilter');
+			const newBtn = document.getElementById('snipNewBtn');
+			if (searchEl) {
+				searchEl.addEventListener('input', () => {
+					state.search = searchEl.value;
+					renderLeft();
+				});
+			}
+			if (langEl) {
+				langEl.addEventListener('change', () => {
+					state.langFilter = langEl.value;
+					renderLeft();
+				});
+			}
+			if (newBtn) {
+				newBtn.addEventListener('click', () => {
+					openEditModal({ language: '', title: '', description: '', tags: [], code: '' }, false);
+				});
+			}
+		}
+
+		// === 初期化 ===
+		function init() {
+			refreshLangFilter();
+			renderLeft();
+			renderRight();
+			bindControls();
+		}
+
+		// スニペットタブを開いた瞬間に初期化
+		document.addEventListener('click', function (e) {
+			const t = e.target.closest && e.target.closest('.tab-item[data-tab="snippets"]');
+			if (t) {
+				setTimeout(() => {
+					const pane = document.getElementById('snipListPane');
+					if (!pane) return;
+					if (pane.dataset.inited === '1') {
+						// 再表示時は最新の状態に追随（カスタム削除等の反映）
+						refreshLangFilter();
+						renderLeft();
+						renderRight();
+						return;
+					}
+					init();
+					pane.dataset.inited = '1';
+				}, 60);
+			}
+		});
+
+		window.gkSnippets = {
+			getAll: getAll,
+			reload: () => { refreshLangFilter(); renderLeft(); renderRight(); }
+		};
+		console.log('機能13完成: コードスニペット集 (' + BUILTIN_SNIPPETS.length + ' built-in)');
+	})();
 
 	</script>
 </body>
