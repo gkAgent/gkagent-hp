@@ -2,208 +2,166 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06080f">
   <title>About — gkAgent</title>
-  <meta name="description" content="17年の業務アプリ開発 × 生成AIエージェント技術。作り続ける人間の話。">
+  <meta name="description" content="社長 1名 + 17 AI スペシャリストエージェント体制。SIer 約20年の業務系開発と AI 分業による品質追求。">
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="About — gkAgent">
+  <meta property="og:description" content="社長 1名 + 17 AI スペシャリストエージェント体制。SIer 約20年の業務系開発と AI 分業による品質追求。">
+  <meta property="og:site_name"   content="gkAgent">
+  <meta property="og:url"         content="https://gkagent.jp/about.html">
+  <link rel="canonical" href="https://gkagent.jp/about.html">
   <link rel="stylesheet" href="css/base.css">
   <style>
-    #hero { min-height:60vh; display:flex; align-items:center; justify-content:center; padding:9rem 2rem 5rem; }
-    .glow-orb { position:absolute; border-radius:50%; pointer-events:none; filter:blur(80px); }
-    .glow-1 { width:400px;height:400px; background:radial-gradient(circle,rgba(212,175,55,.1) 0%,transparent 70%); top:40%;left:50%;transform:translate(-50%,-50%); }
-
-    h1 { font-size:clamp(2.2rem,5vw,3.8rem); font-weight:900; letter-spacing:-.03em; line-height:1.15; margin-bottom:1.5rem; }
-    .h1-gold { background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .hero-sub { font-size:1rem; color:var(--muted2); max-width:500px; line-height:1.85; }
-
-    /* profile */
-    .profile-grid { display:grid; grid-template-columns:280px 1fr; gap:4rem; align-items:start; }
-    .profile-card {
-      padding:2rem;
-      border-radius:var(--radius-lg);
-      background:var(--surface);
-      border:1px solid var(--border);
-      text-align:center;
-      position:sticky;
-      top:7rem;
+    /* Founder card */
+    .founder {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem 1.5rem;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 2.5rem;
     }
-    .avatar {
-      width:100px; height:100px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--gold),var(--gold2));
-      display:flex; align-items:center; justify-content:center;
-      font-size:2.5rem;
-      margin:0 auto 1.25rem;
-      border:2px solid rgba(212,175,55,.3);
+    @media (min-width: 768px) {
+      .founder {
+        grid-template-columns: 200px 1fr;
+        align-items: center;
+        padding: 2.5rem;
+      }
     }
-    .profile-name  { font-size:1.1rem; font-weight:700; margin-bottom:.3rem; }
-    .profile-role  { font-size:.8rem; color:var(--muted2); letter-spacing:.06em; margin-bottom:1.5rem; }
-    .profile-tags  { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-bottom:1.5rem; }
-    .profile-divider { height:1px; background:var(--border); margin:1.25rem 0; }
-    .profile-sns   { display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; }
-    .sns-icon {
-      width:36px; height:36px;
-      border-radius:8px;
-      background:var(--bg);
-      border:1px solid var(--border);
-      display:flex; align-items:center; justify-content:center;
-      font-size:1rem;
-      text-decoration:none;
-      transition:border-color .2s;
+    .founder-avatar {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      border: 2px solid rgba(212,175,55,.4);
+      margin: 0 auto;
+      flex-shrink: 0;
+      box-shadow: 0 10px 40px rgba(212,175,55,.18);
     }
-    .sns-icon:hover { border-color:var(--border-hi); }
-
-    /* story */
-    .story-text p { color:var(--muted2); margin-bottom:1.5rem; font-size:.95rem; line-height:1.9; }
-    .story-text strong { color:var(--text); }
-
-    /* timeline */
-    .timeline { position:relative; padding-left:2rem; }
-    .timeline::before {
-      content:'';
-      position:absolute;
-      left:.5rem; top:0; bottom:0;
-      width:1px;
-      background:linear-gradient(to bottom, var(--gold), var(--blue), transparent);
+    .founder-text h3 { font-size: 1.2rem; margin-bottom: .35rem; }
+    .founder-text .role {
+      font-size: .8rem;
+      color: var(--gold);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
     }
-    .tl-item { position:relative; padding-bottom:2.5rem; }
-    .tl-dot {
-      position:absolute;
-      left:-1.55rem; top:.35rem;
-      width:10px; height:10px;
-      border-radius:50%;
-      background:var(--gold);
-      border:2px solid var(--bg);
-      box-shadow:0 0 0 3px rgba(212,175,55,.2);
+    .founder-text p {
+      font-size: .9rem;
+      color: var(--muted2);
+      line-height: 1.95;
+      margin-bottom: .8rem;
     }
-    .tl-dot.blue { background:var(--blue); box-shadow:0 0 0 3px rgba(59,130,246,.2); }
-    .tl-year  { font-size:.75rem; color:var(--gold); letter-spacing:.1em; margin-bottom:.3rem; }
-    .tl-title { font-size:.95rem; font-weight:700; margin-bottom:.4rem; }
-    .tl-desc  { font-size:.85rem; color:var(--muted2); line-height:1.75; }
+    .founder-text p:last-child { margin-bottom: 0; }
+    .founder-text strong { color: var(--text); font-weight: 700; }
 
-    /* skills */
-    .skill-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.25rem; }
-    .skill-card { padding:1.5rem; border-radius:var(--radius-md); background:var(--surface); border:1px solid var(--border); }
-    .skill-card h4 { font-size:.875rem; font-weight:700; margin-bottom:.75rem; display:flex; align-items:center; gap:.5rem; }
-    .skill-list { list-style:none; }
-    .skill-list li { font-size:.8rem; color:var(--muted2); padding:.2rem 0; display:flex; align-items:center; gap:.5rem; }
-    .skill-list li::before { content:'▸'; color:var(--gold); font-size:.7rem; }
-
-    /* philosophy */
-    .phil-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
-    .phil-item { padding:2rem; border-radius:var(--radius-lg); background:var(--surface); border:1px solid var(--border); }
-    .phil-item blockquote { font-size:1.05rem; font-weight:700; margin-bottom:.75rem; line-height:1.5; }
-    .phil-item blockquote span { background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .phil-item p { font-size:.85rem; color:var(--muted2); line-height:1.8; }
-
-    @media(max-width:900px){
-      .profile-grid { grid-template-columns:1fr; }
-      .profile-card  { position:static; }
-      .phil-grid     { grid-template-columns:1fr; }
+    /* Group label inside member section */
+    .group-label {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin: 2.75rem 0 1.25rem;
     }
+    .group-label::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--gold);
+    }
+    .group-label .gl-name {
+      font-size: .8rem;
+      letter-spacing: .14em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .group-label .gl-count {
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+    .group-label:first-of-type { margin-top: .5rem; }
   </style>
 </head>
 <body>
 <div id="loader"><div class="loader-logo">gkAgent</div></div>
 <canvas id="neural-bg"></canvas>
+<div class="glow-orb glow-gold-lg"></div>
+<div class="glow-orb glow-blue-sm"></div>
+<div class="glow-orb glow-gold-sm"></div>
 
-<nav>
-  <a class="nav-logo" href="index.html">gkAgent</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="products.html">コンテンツ</a></li>
-    <li><a href="apps.html">アプリ</a></li>
-    <li><a href="about.html" class="active">About</a></li>
-    <li><a href="index.html#sns" class="nav-cta">SNS</a></li>
-  </ul>
-</nav>
+<header class="site-nav">
+  <a href="/" class="nav-logo">gkAgent</a>
+  <nav class="nav-links" id="navLinks" aria-label="メインナビゲーション">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/apps.html" class="nav-link">Apps</a>
+    <a href="/content.html" class="nav-link">Content</a>
+    <a href="/about.html" class="nav-link active">About</a>
+    <a href="https://note.com/gkagent" class="nav-link" target="_blank" rel="noopener">Note ↗</a>
+  </nav>
+  <button class="nav-toggle" aria-label="メニューを開閉" aria-expanded="false" id="navToggle">
+    <span></span><span></span><span></span>
+  </button>
+</header>
 
-<section id="hero">
-  <div class="glow-orb glow-1"></div>
-  <div style="position:relative;z-index:1;">
-    <div class="eyebrow"><span class="eyebrow-dot"></span>ABOUT</div>
-    <h1>作り続ける人間の、<br><span class="h1-gold">話をします。</span></h1>
-    <p class="hero-sub">IT企業 × 17年 × 業務アプリ × 生成AI。なぜ gkAgent を始めたのか。</p>
-  </div>
+<!-- ───── HERO ───── -->
+<section class="page-hero">
+  <div class="eyebrow"><span class="eyebrow-dot"></span>ABOUT</div>
+  <h1>Built by <span class="h1-gold">1 + 17</span></h1>
+  <p class="lead">
+    社長 1名 と、17 の AI スペシャリストエージェントによる開発体制。<br>
+    実態は個人開発、ただし AI を分業させて品質と速度を両立させています。
+  </p>
 </section>
 
 <div class="divider"></div>
 
+<!-- ───── 開発者プロフィール ───── -->
 <section>
   <div class="inner">
-    <div class="profile-grid">
+    <div class="s-label reveal">Founder</div>
+    <h2 class="reveal">作り続ける、ひとり。</h2>
 
-      <div class="profile-card reveal">
-        <div class="avatar">👤</div>
-        <div class="profile-name">gkAgent 代表</div>
-        <div class="profile-role">INDIVIDUAL DEVELOPER</div>
-        <div class="profile-tags">
-          <span class="tag">業務アプリ17年+</span>
-          <span class="tag tag-gold">Claude Code</span>
-          <span class="tag">自治体系</span>
-        </div>
-        <div class="profile-divider"></div>
-        <div class="profile-sns">
-          <a class="sns-icon" href="#" title="Note">📝</a>
-          <a class="sns-icon" href="#" title="Zenn">📖</a>
-          <a class="sns-icon" href="#" title="Qiita">💻</a>
-          <a class="sns-icon" href="#" title="X">🐦</a>
-          <a class="sns-icon" href="#" title="GitHub">🐙</a>
-        </div>
+    <div class="founder reveal">
+      <div class="founder-avatar" aria-hidden="true">👤</div>
+      <div class="founder-text">
+        <h3>gkAgent 代表</h3>
+        <div class="role">Individual Developer</div>
+        <p>SIer に入社して約20年。<strong>ずっと業務系の開発を続けてきました。</strong>大きなシステムから小さなツールまで、何百本という画面と帳票。現場で「あったらいいのに」を、自分で作ってきた。</p>
+        <p>生成 AI と出会ったとき、確信に変わりました。<strong>Claude Code を使えば、一人でも「普通には作れないもの」が作れる。</strong>20年の現場知識 × AI 技術 = 誰も作っていないものが生まれる。</p>
+        <p>gkAgent は、その実験場です。<strong>広く、深く。</strong>それが私の生き方です。</p>
       </div>
-
-      <div class="story-text">
-        <div class="s-label reveal">Story</div>
-        <h2 class="reveal">なぜ、始めたのか。</h2>
-
-        <div class="reveal">
-          <p>IT企業に入社して17年。<strong>ずっと自治体向けの業務アプリを作り続けてきました。</strong>大きなシステム、小さなツール、何百本という画面と帳票。現場で「あったらいいのに」と思いながら、自分で作ってきた。</p>
-          <p>そして気づいたことがあります。<strong>大手が高額なライセンス料で売っているソフトウェアの多くは、個人が設計すれば数分の一のコストで同等以上のものが作れる。</strong>それを、今まで証明してきた。</p>
-          <p>生成AIと出会ったとき、確信に変わりました。<strong>Claude Codeを使えば、一人でも「普通には作れないもの」が作れる。</strong>17年の現場知識 × AI技術 = 誰も作っていないものが生まれる。</p>
-          <p>gkAgentは、その実験場です。作ったものを届け、使ってもらい、また作る。<strong>広く、深く。それが、私の生き方です。</strong></p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- ───── 私たちの仕組み ───── -->
 <section style="background:var(--bg2);">
   <div class="inner">
-    <div class="s-label reveal">Timeline</div>
-    <h2 class="reveal">これまでの道のり。</h2>
+    <div class="s-label reveal">How we work</div>
+    <h2 class="reveal">私たちの仕組み</h2>
+    <p class="s-desc reveal">17 の AI を専門ごとに分業させ、品質と速度を両立させる体制です。</p>
 
-    <div class="timeline" style="max-width:600px;margin-top:2.5rem;">
-      <div class="tl-item reveal">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2006〜2010</div>
-        <div class="tl-title">IT企業入社 / 業務アプリ開発スタート</div>
-        <div class="tl-desc">自治体向けシステムの設計・開発に携わる。帳票・申請・集計・連携、あらゆる種類の業務アプリを作り続ける。</div>
+    <div class="howwework">
+      <div class="hww-item reveal">
+        <div class="num">01</div>
+        <h4>17 専門エージェント</h4>
+        <p>COO・CTO・CMO・CRO・監査役・各 ENG・QA・販売担当まで。役割と性格を明確に切り分け、それぞれの「こだわり」で動かしています。</p>
       </div>
-      <div class="tl-item reveal">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2010〜2022</div>
-        <div class="tl-title">大規模システム移行 / 技術領域を広げる</div>
-        <div class="tl-desc">VB.NET・C#・Java・ASP.NET Core など複数言語・フレームワークを横断。30万ステップ規模のレガシー移行も完遂。</div>
+      <div class="hww-item reveal">
+        <div class="num">02</div>
+        <h4>四権の分立</h4>
+        <p>執行（櫂 COO）・監査（律）・収益（蒼 CRO）・補佐（詩織）。独立した監査役が品質と倫理を見張る、堅実な体制です。</p>
       </div>
-      <div class="tl-item reveal">
-        <div class="tl-dot blue"></div>
-        <div class="tl-year">2024</div>
-        <div class="tl-title">生成AI研究を本格開始</div>
-        <div class="tl-desc">Claude・GPT-4 を使った業務改善の実験を開始。自動株売買システムをAIで一から設計・実装（auto-kabushiki）。</div>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-dot blue"></div>
-        <div class="tl-year">2025〜</div>
-        <div class="tl-title">Claude Code 本格習得 / gkAgent 構想</div>
-        <div class="tl-desc">Claude Codeを武器に開発速度が激変。「大手ソフトウェアを個人で超える」というビジョンが固まる。</div>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-dot" style="background:var(--gold2);box-shadow:0 0 0 3px rgba(240,208,96,.25);"></div>
-        <div class="tl-year">2026</div>
-        <div class="tl-title">gkAgent 始動</div>
-        <div class="tl-desc">Note・Zenn・Qiitaで発信開始。AI Agent開発ガイドを公開、フォロワー100人突破。ツール・アプリの開発・配布を開始。</div>
+      <div class="hww-item reveal">
+        <div class="num">03</div>
+        <h4>透明性</h4>
+        <p>実態は 1人開発。AI の分業で品質を上げているだけで、誇張も装飾もしません。等身大で発信することが、信頼の起点だと考えています。</p>
       </div>
     </div>
   </div>
@@ -211,94 +169,189 @@
 
 <div class="divider"></div>
 
+<!-- ───── メンバー紹介（17名） ───── -->
 <section>
   <div class="inner">
-    <div class="s-label reveal">Tech Stack</div>
-    <h2 class="reveal">得意な技術領域。</h2>
-    <p class="s-desc reveal">17年の現場で使い続けてきたものと、今最前線で使っているもの。</p>
-    <div class="skill-grid">
-      <div class="skill-card reveal">
-        <h4>🏢 エンタープライズ</h4>
-        <ul class="skill-list">
-          <li>VB.NET / C# / Java</li>
-          <li>ASP.NET Core / Spring Boot</li>
-          <li>Oracle / SQL Server / PostgreSQL</li>
-          <li>IIS / Windows Server</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal">
-        <h4>🌐 モダンWeb</h4>
-        <ul class="skill-list">
-          <li>TypeScript / React</li>
-          <li>HTML5 / CSS3 / JavaScript</li>
-          <li>Node.js</li>
-          <li>GitHub Actions / CI/CD</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal">
-        <h4>🤖 生成AI / Agent</h4>
-        <ul class="skill-list">
-          <li>Claude Code / Anthropic API</li>
-          <li>MCP（Model Context Protocol）</li>
-          <li>エージェント設計・プロンプト最適化</li>
-          <li>Claude Skills / Hooks / Memory</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal">
-        <h4>🏛️ ドメイン知識</h4>
-        <ul class="skill-list">
-          <li>自治体業務システム</li>
-          <li>申請・帳票・集計・連携</li>
-          <li>レガシーシステム移行</li>
-          <li>現場で育てたUI/UX感覚</li>
-        </ul>
-      </div>
+    <div class="s-label reveal">Members</div>
+    <h2 class="reveal">17名のスペシャリスト</h2>
+    <p class="s-desc reveal">それぞれの「こだわり」が、品質の最後の 1ピクセルを決めています。</p>
+
+    <!-- 社長直属（4名・四権） -->
+    <div class="group-label reveal">
+      <span class="gl-name">Executive</span>
+      <span class="gl-count">／ 社長直属・四権 4名</span>
+    </div>
+    <div class="member-grid">
+      <article class="member reveal" style="--accent:#1B5E20;">
+        <div class="member-name">櫂</div>
+        <span class="member-name-en">Kai</span>
+        <div class="member-role">副社長 / COO</div>
+        <p class="member-quote">櫂は舟を進める道具。社長の船を目的地まで確実に運ぶ</p>
+      </article>
+      <article class="member reveal" style="--accent:#AD1457;">
+        <div class="member-name">詩織</div>
+        <span class="member-name-en">Shiori</span>
+        <div class="member-role">秘書</div>
+        <p class="member-quote">言葉を織り、記憶を綴じ、社長の次の一手を先読みする</p>
+      </article>
+      <article class="member reveal" style="--accent:#C62828;">
+        <div class="member-name">律</div>
+        <span class="member-name-en">Ritsu</span>
+        <div class="member-role">監査役</div>
+        <p class="member-quote">普段は沈黙、異常時にだけ声を上げる</p>
+      </article>
+      <article class="member reveal" style="--accent:#1565C0;">
+        <div class="member-name">蒼</div>
+        <span class="member-name-en">Sou</span>
+        <div class="member-role">CRO / 収益責任者</div>
+        <p class="member-quote">数字は責めるためでなく次の一手を決めるため</p>
+      </article>
+    </div>
+
+    <!-- 経営層（3名） -->
+    <div class="group-label reveal">
+      <span class="gl-name">Management</span>
+      <span class="gl-count">／ 経営層 3名</span>
+    </div>
+    <div class="member-grid">
+      <article class="member reveal" style="--accent:#01579B;">
+        <div class="member-name">海斗</div>
+        <span class="member-name-en">Kaito</span>
+        <div class="member-role">CTO</div>
+        <p class="member-quote">海のように深く、斗のように正確に。5年後もメンテできるか</p>
+      </article>
+      <article class="member reveal" style="--accent:#0288D1;">
+        <div class="member-name">空</div>
+        <span class="member-name-en">Sora</span>
+        <div class="member-role">PM</div>
+        <p class="member-quote">空のように全体を俯瞰し、地上の細部まで見通す</p>
+      </article>
+      <article class="member reveal" style="--accent:#F57C00;">
+        <div class="member-name">陽菜</div>
+        <span class="member-name-en">Hina</span>
+        <div class="member-role">CMO</div>
+        <p class="member-quote">これ、買った人が得する理由を一言で言えますか？</p>
+      </article>
+    </div>
+
+    <!-- 技術チーム（7名） -->
+    <div class="group-label reveal">
+      <span class="gl-name">Engineering</span>
+      <span class="gl-count">／ 技術チーム 7名</span>
+    </div>
+    <div class="member-grid">
+      <article class="member reveal" style="--accent:#4527A0;">
+        <div class="member-name">蓮</div>
+        <span class="member-name-en">Ren</span>
+        <div class="member-role">Lead ENG</div>
+        <p class="member-quote">泥の中から美しく咲く蓮のように、汚いコードも綺麗に整える</p>
+      </article>
+      <article class="member reveal" style="--accent:#6A1B9A;">
+        <div class="member-name">悠希</div>
+        <span class="member-name-en">Yuki</span>
+        <div class="member-role">Quant ENG</div>
+        <p class="member-quote">明日の1円より10年後の1億円</p>
+      </article>
+      <article class="member reveal" style="--accent:#F50057;">
+        <div class="member-name">凛</div>
+        <span class="member-name-en">Rin</span>
+        <div class="member-role">Frontend ENG</div>
+        <p class="member-quote">凛と佇む1ピクセル。ユーザー目線で、美しく、素早く</p>
+      </article>
+      <article class="member reveal" style="--accent:#0277BD;">
+        <div class="member-name">颯</div>
+        <span class="member-name-en">Hayate</span>
+        <div class="member-role">DevOps / SRE</div>
+        <p class="member-quote">2回やるなら自動化する。人間がやる作業は全て機械に任せる</p>
+      </article>
+      <article class="member reveal" style="--accent:#00BCD4;">
+        <div class="member-name">翠</div>
+        <span class="member-name-en">Sui</span>
+        <div class="member-role">AI ENG</div>
+        <p class="member-quote">Agent は設計が9割</p>
+      </article>
+      <article class="member reveal" style="--accent:#512DA8;">
+        <div class="member-name">澪</div>
+        <span class="member-name-en">Mio</span>
+        <div class="member-role">Tech Writer</div>
+        <p class="member-quote">技術を読み物にする。1文字も淀ませない</p>
+      </article>
+      <article class="member reveal" style="--accent:#2E7D32;">
+        <div class="member-name">暁</div>
+        <span class="member-name-en">Akira</span>
+        <div class="member-role">MCP Researcher</div>
+        <p class="member-quote">「たぶん動く」は許さない。実装なしに記事にはしない</p>
+      </article>
+    </div>
+
+    <!-- 現場執行（1名） -->
+    <div class="group-label reveal">
+      <span class="gl-name">Operations</span>
+      <span class="gl-count">／ 現場執行 1名</span>
+    </div>
+    <div class="member-grid">
+      <article class="member reveal" style="--accent:#E65100;">
+        <div class="member-name">朔</div>
+        <span class="member-name-en">Saku</span>
+        <div class="member-role">Trader</div>
+        <p class="member-quote">新月のように毎朝盤面はリセット。昨日の勝敗を引きずらない</p>
+      </article>
+    </div>
+
+    <!-- 販売・コンテンツ（2名） -->
+    <div class="group-label reveal">
+      <span class="gl-name">Sales &amp; Content</span>
+      <span class="gl-count">／ 販売・コンテンツ 2名</span>
+    </div>
+    <div class="member-grid">
+      <article class="member reveal" style="--accent:#00897B;">
+        <div class="member-name">葵</div>
+        <span class="member-name-en">Aoi</span>
+        <div class="member-role">Sales Intel</div>
+        <p class="member-quote">葵の葉のように陽を追い、顧客ニーズを逃さない</p>
+      </article>
+      <article class="member reveal" style="--accent:#D32F2F;">
+        <div class="member-name">楓</div>
+        <span class="member-name-en">Kaede</span>
+        <div class="member-role">QA / Writer</div>
+        <p class="member-quote">楓の葉のように一枚一枚、丁寧に。情報密度が商品価値を決める</p>
+      </article>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- ───── SNS ───── -->
 <section style="background:var(--bg2);">
-  <div class="inner">
-    <div class="s-label reveal">Philosophy</div>
-    <h2 class="reveal">私が大切にしていること。</h2>
-    <div class="phil-grid" style="margin-top:2rem;">
-      <div class="phil-item reveal">
-        <blockquote>「<span>広く、深く。</span>」</blockquote>
-        <p>広く浅くでは何も生まれない。かといって深く狭くては届かない。広い視野で見て、深く潜る。それが私の設計の起点です。</p>
-      </div>
-      <div class="phil-item reveal">
-        <blockquote>「<span>作り続ける。</span>」</blockquote>
-        <p>一つ完成したら次へ。ヒットを狙わず、使えるものを積み上げる。10年続けてわかった、これが唯一の正解。</p>
-      </div>
-      <div class="phil-item reveal">
-        <blockquote>「<span>誠実に届ける。</span>」</blockquote>
-        <p>「モデルのバージョンアップについていけない」と正直に書く。完璧より誠実。使う人に嘘をつかない。</p>
-      </div>
-      <div class="phil-item reveal">
-        <blockquote>「<span>全員が先生。</span>」</blockquote>
-        <p>使ってくれる人が、私の先生でもある。フィードバックから学び、また作る。この循環が全ての動力源です。</p>
-      </div>
+  <div class="inner" style="text-align:center; max-width:680px;">
+    <div class="s-label reveal" style="justify-content:center;">Connect</div>
+    <h2 class="reveal">発信チャネル</h2>
+    <p class="s-desc reveal" style="margin-left:auto; margin-right:auto;">記事・教本・アプリは以下から。</p>
+
+    <div class="cta-group reveal" style="justify-content:center;">
+      <a class="btn btn-gold" href="https://note.com/gkagent" target="_blank" rel="noopener">note ↗</a>
+      <a class="btn btn-ghost" href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn ↗</a>
+      <a class="btn btn-ghost" href="https://github.com/gkAgent" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </div>
 </section>
 
-<footer>
-  <a class="footer-logo" href="index.html">gkAgent</a>
-  <div>© 2026 gkAgent</div>
+<!-- ───── Footer ───── -->
+<footer class="site-footer">
+  <div class="footer-left">
+    <a href="/" class="footer-logo">gkAgent</a>
+    <p class="footer-tag">AIで、仕事を変える。</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://note.com/gkagent" target="_blank" rel="noopener">note</a>
+    <a href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn</a>
+    <a href="https://github.com/gkAgent" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p class="footer-copy">© <span id="year">2026</span> gkAgent</p>
 </footer>
 
 <script src="js/neural.js"></script>
-<script>
-  window.addEventListener('load', () => {
-    const l = document.getElementById('loader');
-    setTimeout(() => l.classList.add('hidden'), 400);
-  });
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: .1 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+<script src="js/nav.js"></script>
 </body>
 </html>

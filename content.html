@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06080f">
+  <title>Content — gkAgent</title>
+  <meta name="description" content="aidev-guide スターターキット 980円 と プレミアム 2,980円。Claude Code を使って業務開発を加速する教本。">
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Content — gkAgent">
+  <meta property="og:description" content="aidev-guide スターターキット 980円 と プレミアム 2,980円。Claude Code を使って業務開発を加速する教本。">
+  <meta property="og:site_name"   content="gkAgent">
+  <meta property="og:url"         content="https://gkagent.jp/content.html">
+  <link rel="canonical" href="https://gkagent.jp/content.html">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .featured-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem 1.5rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(212,175,55,.06), rgba(212,175,55,.015));
+      border: 1px solid var(--border-hi);
+      margin-bottom: 3rem;
+    }
+    @media (min-width: 900px) {
+      .featured-content {
+        grid-template-columns: 1.05fr 1fr;
+        padding: 3rem;
+      }
+    }
+    .featured-content h3 {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: .8rem;
+    }
+    .featured-content .desc {
+      font-size: .92rem;
+      color: var(--muted2);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+    .featured-cta {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo">gkAgent</div></div>
+<canvas id="neural-bg"></canvas>
+<div class="glow-orb glow-gold-lg"></div>
+<div class="glow-orb glow-blue-sm"></div>
+
+<header class="site-nav">
+  <a href="/" class="nav-logo">gkAgent</a>
+  <nav class="nav-links" id="navLinks" aria-label="メインナビゲーション">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/apps.html" class="nav-link">Apps</a>
+    <a href="/content.html" class="nav-link active">Content</a>
+    <a href="/about.html" class="nav-link">About</a>
+    <a href="https://note.com/gkagent" class="nav-link" target="_blank" rel="noopener">Note ↗</a>
+  </nav>
+  <button class="nav-toggle" aria-label="メニューを開閉" aria-expanded="false" id="navToggle">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ───── HERO ───── -->
+<section class="page-hero">
+  <div class="eyebrow"><span class="eyebrow-dot"></span>CONTENT</div>
+  <h1>学んで、<span class="h1-gold">深める。</span></h1>
+  <p class="lead">
+    Claude Code を使って業務開発を加速するための教本。<br>
+    実務で使う言語に対応した、すぐ使えるテンプレートとノウハウが詰まっています。
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───── Featured ───── -->
+<section>
+  <div class="inner">
+    <div class="s-label reveal">Featured</div>
+    <h2 class="reveal">看板コンテンツ：aidev-guide</h2>
+    <p class="s-desc reveal">SIer 約20年で蓄積した実務感覚を、Claude Code 時代の設計に落とし込んだ教本です。</p>
+
+    <div class="featured-content reveal">
+      <div>
+        <div class="soon-badge" style="background:rgba(212,175,55,.12);">✦ 販売中</div>
+        <h3>AI Agent 開発ガイド<br><span class="h2-gold" style="font-size:1.05rem; letter-spacing:.06em;">aidev-guide</span></h3>
+        <p class="desc">
+          Claude Code を使って業務開発を加速する教材。<br>
+          VB.NET・Java・C#・TypeScript など、実務で本当に使う言語に完全対応。<br>
+          スターターキットから 60章教本まで、用途に合わせて選べます。
+        </p>
+        <div class="featured-cta">
+          <a href="#pricing" class="btn btn-gold">価格・詳細を見る</a>
+          <a href="https://note.com/gkagent" class="btn btn-ghost" target="_blank" rel="noopener">note で見る ↗</a>
+        </div>
+      </div>
+      <div class="stat-grid" style="margin-top:0;">
+        <div class="stat-box">
+          <div class="stat-num">587</div>
+          <div class="stat-lbl">スターターキット ファイル数</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">60章</div>
+          <div class="stat-lbl">プレミアム教本</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">4言語</div>
+          <div class="stat-lbl">VB.NET / Java / C# / TS</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">∞</div>
+          <div class="stat-lbl">DM 半永久サポート</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── Pricing ───── -->
+    <div id="pricing">
+      <div class="s-label reveal">Pricing</div>
+      <h2 class="reveal" style="margin-bottom:2.5rem;">価格プラン</h2>
+
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <div class="plan-name">Starter</div>
+          <div class="plan-price gold">¥980</div>
+          <div class="plan-unit">買い切り</div>
+          <ul class="plan-features">
+            <li>スターターキット 587ファイル</li>
+            <li>VB.NET / Java / C# / TS テンプレート</li>
+            <li>すぐに使える CLAUDE.md</li>
+            <li>業務系プロジェクト向け基本構成</li>
+          </ul>
+          <a href="https://note.com/gkagent" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Note で詳細を見る ↗</a>
+        </div>
+
+        <div class="price-card featured reveal">
+          <div class="plan-badge">RECOMMEND</div>
+          <div class="plan-name">Premium</div>
+          <div class="plan-price gold">¥2,980</div>
+          <div class="plan-unit">買い切り</div>
+          <ul class="plan-features">
+            <li>スターターキット全内容</li>
+            <li>60章教本（Part 1〜6 構成）</li>
+            <li>309 テンプレート完全版</li>
+            <li>DM 半永久サポート</li>
+            <li>最新版アップデート無料</li>
+          </ul>
+          <a href="https://note.com/gkagent" target="_blank" rel="noopener" class="btn btn-gold btn-block">Note で詳細を見る ↗</a>
+        </div>
+
+        <div class="price-card reveal">
+          <div class="plan-name">Free</div>
+          <div class="plan-price" style="color:var(--text);">FREE</div>
+          <div class="plan-unit">Zenn / Qiita 記事</div>
+          <ul class="plan-features">
+            <li>技術記事（随時更新）</li>
+            <li>Claude Code 活用 Tips</li>
+            <li>実装サンプル公開</li>
+            <li>有料商材の入口にも最適</li>
+          </ul>
+          <a href="https://zenn.dev/gk3" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Zenn を見る ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───── 記事カテゴリ ───── -->
+<section style="background:var(--bg2);">
+  <div class="inner">
+    <div class="s-label reveal">More</div>
+    <h2 class="reveal">記事・関連コンテンツ</h2>
+    <p class="s-desc reveal">note と Zenn で随時発信しています。</p>
+
+    <div class="features">
+      <div class="feature reveal">
+        <span class="ico" aria-hidden="true">📝</span>
+        <h3>note：販売記事</h3>
+        <p>スターターキット・プレミアム教本の本体は note で販売しています。買い切り・追加課金なし。</p>
+        <div style="margin-top:1rem;"><a class="btn btn-ghost btn-sm" href="https://note.com/gkagent" target="_blank" rel="noopener">note を開く ↗</a></div>
+      </div>
+      <div class="feature reveal">
+        <span class="ico" aria-hidden="true">📖</span>
+        <h3>Zenn：技術記事</h3>
+        <p>Claude Code・MCP・Agent 設計の技術解説を無料公開。教本の入口として読みやすくしています。</p>
+        <div style="margin-top:1rem;"><a class="btn btn-ghost btn-sm" href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn を開く ↗</a></div>
+      </div>
+      <div class="feature reveal">
+        <span class="ico" aria-hidden="true">🐙</span>
+        <h3>GitHub：サンプル</h3>
+        <p>記事と連動するサンプルコード・無料配布アプリを公開しています。スターで応援していただけると嬉しいです。</p>
+        <div style="margin-top:1rem;"><a class="btn btn-ghost btn-sm" href="https://github.com/gkAgent" target="_blank" rel="noopener">GitHub を開く ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Footer ───── -->
+<footer class="site-footer">
+  <div class="footer-left">
+    <a href="/" class="footer-logo">gkAgent</a>
+    <p class="footer-tag">AIで、仕事を変える。</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://note.com/gkagent" target="_blank" rel="noopener">note</a>
+    <a href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn</a>
+    <a href="https://github.com/gkAgent" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p class="footer-copy">© <span id="year">2026</span> gkAgent</p>
+</footer>
+
+<script src="js/neural.js"></script>
+<script src="js/nav.js"></script>
+</body>
+</html>

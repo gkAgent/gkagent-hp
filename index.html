@@ -2,197 +2,237 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06080f">
   <title>gkAgent — AIで、仕事を変える。</title>
-  <meta name="description" content="SIer約20年の業務系開発 × 生成AIエージェント技術。大手の高額ソフトを、手の届く価格で。">
+  <meta name="description" content="SIer 約20年の業務系開発 × 17のAIスペシャリストエージェント。業務直結ツールと教本を、個人開発の枠を超えて。">
   <meta property="og:type"        content="website">
   <meta property="og:title"       content="gkAgent — AIで、仕事を変える。">
-  <meta property="og:description" content="SIer約20年の業務系開発 × 生成AIエージェント技術。大手の高額ソフトを、手の届く価格で。">
+  <meta property="og:description" content="SIer 約20年の業務系開発 × 17のAIスペシャリストエージェント。業務直結ツールと教本を、個人開発の枠を超えて。">
   <meta property="og:site_name"   content="gkAgent">
+  <meta property="og:url"         content="https://gkagent.jp/">
   <meta name="twitter:card"       content="summary_large_image">
+  <link rel="canonical" href="https://gkagent.jp/">
   <link rel="stylesheet" href="css/base.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
-      min-height: 100vh;
+    /* page-specific tweaks */
+    #hero-home {
+      min-height: 92vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      padding-top: calc(7rem + env(safe-area-inset-top));
+      padding-bottom: 4rem;
       position: relative;
       overflow: hidden;
     }
-
-    canvas#neural {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      opacity: .45;
-    }
-
-    .glow-orb {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(90px);
-      z-index: 0;
-    }
-    .glow-1 {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(212,175,55,.09) 0%, transparent 70%);
-      top: 40%; left: 50%; transform: translate(-50%, -50%);
-    }
-    .glow-2 {
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(59,130,246,.05) 0%, transparent 70%);
-      top: 15%; left: 10%;
-    }
-
-    main {
+    #hero-home .hero-inner {
       position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 2rem 1.5rem;
-      max-width: 560px;
+      z-index: 2;
+      max-width: 760px;
+      padding: 0 1.25rem;
     }
-
-    .brand {
-      font-size: .75rem;
-      letter-spacing: .22em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      opacity: .85;
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 8vw, 4.4rem);
+    #hero-home h1 {
+      font-size: clamp(2.4rem, 8vw, 4.6rem);
       font-weight: 900;
-      line-height: 1.08;
+      line-height: 1.05;
       letter-spacing: -.04em;
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.5rem;
     }
-    .h1-plain { color: var(--text); }
-    .h1-gold {
-      background: linear-gradient(135deg, var(--gold) 20%, var(--gold2) 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .sub {
-      font-size: 1rem;
+    #hero-home .sub {
+      font-size: clamp(.95rem, 2.4vw, 1.1rem);
       color: var(--muted2);
       line-height: 1.85;
-      margin-bottom: 2.8rem;
-      word-break: keep-all;
+      max-width: 560px;
+      margin: 0 auto 2.25rem;
     }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      font-size: .7rem;
-      letter-spacing: .1em;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      padding: .45rem 1rem;
-      margin-bottom: 3rem;
-    }
-    .badge-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--gold);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: .4; transform: scale(.75); }
-    }
-
-    .links {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .7rem 1.4rem;
-      border-radius: var(--radius-md);
-      font-size: .82rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      text-decoration: none;
-      transition: opacity .2s, transform .2s;
-    }
-    .btn:hover { opacity: .78; transform: translateY(-1px); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      color: #06080f;
-    }
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--muted2);
-      border: 1px solid var(--border);
-    }
-
-    footer {
-      position: relative;
-      z-index: 1;
-      margin-top: 4rem;
-      font-size: .68rem;
-      color: var(--muted);
-      letter-spacing: .06em;
+    .brand-eyebrow {
+      font-size: .72rem;
+      letter-spacing: .24em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+      opacity: .9;
+      display: inline-block;
     }
   </style>
 </head>
 <body>
-  <canvas id="neural"></canvas>
-  <div class="glow-orb glow-1"></div>
-  <div class="glow-orb glow-2"></div>
+<div id="loader"><div class="loader-logo">gkAgent</div></div>
+<canvas id="neural-bg"></canvas>
+<div class="glow-orb glow-gold-lg"></div>
+<div class="glow-orb glow-blue-sm"></div>
 
-  <main>
-    <p class="brand">gkAgent</p>
+<header class="site-nav">
+  <a href="/" class="nav-logo">gkAgent</a>
+  <nav class="nav-links" id="navLinks" aria-label="メインナビゲーション">
+    <a href="/" class="nav-link active">Home</a>
+    <a href="/apps.html" class="nav-link">Apps</a>
+    <a href="/content.html" class="nav-link">Content</a>
+    <a href="/about.html" class="nav-link">About</a>
+    <a href="https://note.com/gkagent" class="nav-link" target="_blank" rel="noopener">Note ↗</a>
+  </nav>
+  <button class="nav-toggle" aria-label="メニューを開閉" aria-expanded="false" id="navToggle">
+    <span></span><span></span><span></span>
+  </button>
+</header>
 
+<!-- ───── HERO ───── -->
+<section id="hero-home">
+  <div class="hero-inner">
+    <span class="brand-eyebrow">gkAgent</span>
     <h1>
-      <span class="h1-plain">AIで、</span><br>
+      <span>AIで、</span><br>
       <span class="h1-gold">仕事を変える。</span>
     </h1>
-
     <p class="sub">
-      SIer 約20年の業務系開発 × 生成 AI エージェント技術。<br>
-      大手の高額ソフトを、手の届く価格で。
+      SIer 約20年の業務系開発 × 17のAIスペシャリストエージェント。<br>
+      個人開発の枠を超える品質と速度で、業務直結ツールと知識を届けます。
     </p>
+    <div class="cta-group">
+      <a class="btn btn-gold" href="/apps.html">無料アプリを見る →</a>
+      <a class="btn btn-ghost" href="https://note.com/gkagent" target="_blank" rel="noopener">note を見る ↗</a>
+    </div>
+  </div>
+</section>
 
-    <div class="badge">
-      <span class="badge-dot"></span>
-      コンテンツを整理中です — もうしばらくお待ちください
+<div class="divider"></div>
+
+<!-- ───── 特徴 ───── -->
+<section>
+  <div class="inner">
+    <div class="s-label reveal">Why gkAgent</div>
+    <h2 class="reveal">個人開発の、その先へ。</h2>
+    <p class="s-desc reveal">業務の現場で 20年磨いた感覚と、17の専門 AI による分業体制。<br>その掛け算が、品質と速度の両立を可能にします。</p>
+
+    <div class="features">
+      <div class="feature reveal">
+        <span class="ico" aria-hidden="true">🎯</span>
+        <h3>業務直結</h3>
+        <p>「あったらいいのに」を逃さない。SIer 20年で見てきた現場の痛みを、最短でツールに翻訳します。</p>
+      </div>
+      <div class="feature reveal">
+        <span class="ico" aria-hidden="true">🤖</span>
+        <h3>AI協業</h3>
+        <p>17の専門エージェントが、設計・実装・QA・監査・販売を分業。ひとりでは届かない品質を出します。</p>
+      </div>
+      <div class="feature reveal">
+        <span class="ico" aria-hidden="true">💎</span>
+        <h3>高品質</h3>
+        <p>仕様作成・コードレビュー・脆弱性チェックまで自動化。個人開発の枠を超える完成度を目指します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───── 主要プロダクト ───── -->
+<section style="background:var(--bg2);">
+  <div class="inner">
+    <div class="s-label reveal">Products</div>
+    <h2 class="reveal">主要プロダクト</h2>
+    <p class="s-desc reveal">無料で使えるツールと、深く学べる教本。両方そろえています。</p>
+
+    <div class="product-grid">
+      <article class="product-card free reveal">
+        <span class="pc-badge free">FREE</span>
+        <div class="pc-icon" aria-hidden="true">🔗</div>
+        <h3>gkLinks <span style="font-size:.75rem;color:var(--muted2);font-weight:500;letter-spacing:.08em;">v1.7.0</span></h3>
+        <p class="pc-desc">サーバーも DB も不要、HTML 1ファイルで動く高機能リンク管理アプリ。AI プロンプト・スニペット・ダッシュボードまで 24機能を搭載。</p>
+        <div class="pc-actions">
+          <a class="btn btn-gold btn-sm" href="/apps.html">詳細を見る →</a>
+          <a class="btn btn-ghost btn-sm" href="https://github.com/gkAgent/gkLinks/releases/latest/download/gkLinks_v1.7.0.zip">⬇ ダウンロード</a>
+        </div>
+      </article>
+
+      <article class="product-card reveal">
+        <span class="pc-badge paid">PAID</span>
+        <div class="pc-icon" aria-hidden="true">📚</div>
+        <h3>aidev-guide</h3>
+        <p class="pc-desc">Claude Code を使って業務開発を加速する教本。VB.NET・Java・C#・TypeScript 対応。スターターキット 980円から。</p>
+        <div class="pc-actions">
+          <a class="btn btn-gold btn-sm" href="/content.html">詳細を見る →</a>
+          <a class="btn btn-ghost btn-sm" href="https://note.com/gkagent" target="_blank" rel="noopener">note ↗</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───── メンバープレビュー ───── -->
+<section>
+  <div class="inner">
+    <div class="s-label reveal">Team</div>
+    <h2 class="reveal">私たちのこだわり</h2>
+    <p class="s-desc reveal">17名の AI スペシャリストエージェントが、それぞれの哲学で品質を支えています。<br>4人だけ先にご紹介します。</p>
+
+    <div class="member-preview-grid">
+      <article class="member reveal" style="--accent:#1B5E20;">
+        <div class="member-name">櫂</div>
+        <span class="member-name-en">Kai</span>
+        <div class="member-role">副社長 / COO</div>
+        <p class="member-quote">櫂は舟を進める道具。社長の船を目的地まで確実に運ぶ</p>
+      </article>
+      <article class="member reveal" style="--accent:#C62828;">
+        <div class="member-name">律</div>
+        <span class="member-name-en">Ritsu</span>
+        <div class="member-role">監査役</div>
+        <p class="member-quote">普段は沈黙、異常時にだけ声を上げる</p>
+      </article>
+      <article class="member reveal" style="--accent:#00BCD4;">
+        <div class="member-name">翠</div>
+        <span class="member-name-en">Sui</span>
+        <div class="member-role">AI ENG</div>
+        <p class="member-quote">Agent は設計が9割</p>
+      </article>
+      <article class="member reveal" style="--accent:#0277BD;">
+        <div class="member-name">颯</div>
+        <span class="member-name-en">Hayate</span>
+        <div class="member-role">DevOps / SRE</div>
+        <p class="member-quote">2回やるなら自動化する。人間がやる作業は全て機械に任せる</p>
+      </article>
     </div>
 
-    <div class="links">
-      <a class="btn btn-primary" href="https://note.com/gkagent" target="_blank" rel="noopener">
-        note でコンテンツを見る
-      </a>
-      <a class="btn btn-secondary" href="https://zenn.dev/gk3" target="_blank" rel="noopener">
-        Zenn で技術記事を読む
-      </a>
-      <a class="btn btn-secondary" href="downloads.html">
-        アプリをダウンロード →
-      </a>
+    <div style="text-align:center; margin-top:2.5rem;" class="reveal">
+      <a class="btn btn-ghost" href="/about.html">全員を見る →</a>
     </div>
-  </main>
+  </div>
+</section>
 
-  <footer>© 2026 gkAgent</footer>
+<div class="divider"></div>
 
-  <script src="js/neural.js"></script>
+<!-- ───── CTA ───── -->
+<section style="background:var(--bg2);">
+  <div class="inner" style="text-align:center; max-width:680px;">
+    <div class="s-label reveal" style="justify-content:center;">Get Started</div>
+    <h2 class="reveal">まず、触ってみてください。</h2>
+    <p class="s-desc reveal" style="margin-left:auto; margin-right:auto;">無料アプリは 1ファイル、解凍してダブルクリックで動きます。<br>教本は note からどうぞ。</p>
+    <div class="cta-group reveal">
+      <a class="btn btn-gold" href="/apps.html">無料アプリを見る</a>
+      <a class="btn btn-ghost" href="/content.html">有料コンテンツを見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Footer ───── -->
+<footer class="site-footer">
+  <div class="footer-left">
+    <a href="/" class="footer-logo">gkAgent</a>
+    <p class="footer-tag">AIで、仕事を変える。</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://note.com/gkagent" target="_blank" rel="noopener">note</a>
+    <a href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn</a>
+    <a href="https://github.com/gkAgent" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p class="footer-copy">© <span id="year">2026</span> gkAgent</p>
+</footer>
+
+<script src="js/neural.js"></script>
+<script src="js/nav.js"></script>
 </body>
 </html>
