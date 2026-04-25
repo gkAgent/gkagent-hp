@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06080f">
+  <title>News — gkAgent</title>
+  <meta name="description" content="gkAgent の最新情報・アップデート・公開記事。HP・アプリ・記事のリリース履歴を時系列でお知らせします。">
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="News — gkAgent">
+  <meta property="og:description" content="gkAgent の最新情報・アップデート・公開記事。HP・アプリ・記事のリリース履歴。">
+  <meta property="og:site_name"   content="gkAgent">
+  <meta property="og:url"         content="https://gkagent.jp/news.html">
+  <link rel="canonical" href="https://gkagent.jp/news.html">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .timeline {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 .5rem;
+    }
+    .news-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background .25s;
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-item:hover { background: rgba(212,175,55,.025); }
+
+    .news-meta {
+      text-align: right;
+      padding-top: .15rem;
+    }
+    .news-date {
+      font-size: .78rem;
+      letter-spacing: .04em;
+      color: var(--gold);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .news-tag {
+      display: inline-block;
+      margin-top: .5rem;
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: .15rem .65rem;
+    }
+    .news-tag.tag-app { color: #6ee7b7; border-color: rgba(110,231,183,.25); }
+    .news-tag.tag-hp  { color: var(--gold); border-color: rgba(212,175,55,.3); }
+    .news-tag.tag-article { color: #93c5fd; border-color: rgba(147,197,253,.25); }
+    .news-tag.tag-skill { color: #c4b5fd; border-color: rgba(196,181,253,.25); }
+    .news-tag.tag-milestone { color: #fbcfe8; border-color: rgba(251,207,232,.25); }
+
+    .news-body h3 {
+      font-size: 1.08rem;
+      letter-spacing: -.02em;
+      margin-bottom: .55rem;
+      line-height: 1.5;
+    }
+    .news-body p {
+      color: var(--muted2);
+      font-size: .88rem;
+      line-height: 1.85;
+      margin-bottom: .75rem;
+    }
+    .news-body a.news-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .8rem;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+    .news-body a.news-link:hover { border-bottom-color: var(--gold); }
+    .news-body a.news-link::after { content: '↗'; font-size: .85em; opacity: .7; }
+
+    .news-empty-future {
+      text-align: center;
+      color: var(--muted);
+      padding: 4rem 0 1rem;
+      font-size: .85rem;
+      letter-spacing: .04em;
+    }
+
+    @media (max-width: 600px) {
+      .news-item {
+        grid-template-columns: 1fr;
+        gap: .8rem;
+        padding: 1.5rem 0;
+      }
+      .news-meta {
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: .8rem;
+      }
+      .news-tag { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo">gkAgent</div></div>
+<canvas id="neural-bg"></canvas>
+<div class="glow-orb glow-gold-lg"></div>
+<div class="glow-orb glow-gold-sm"></div>
+
+<header class="site-nav">
+  <a href="/" class="nav-logo">gkAgent</a>
+  <nav class="nav-links" id="navLinks" aria-label="メインナビゲーション">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/news.html" class="nav-link active">News</a>
+    <a href="/apps.html" class="nav-link">Apps</a>
+    <a href="/content.html" class="nav-link">Content</a>
+    <a href="/about.html" class="nav-link">About</a>
+    <a href="https://note.com/gkagent" class="nav-link" target="_blank" rel="noopener">Note ↗</a>
+  </nav>
+  <button class="nav-toggle" aria-label="メニューを開閉" aria-expanded="false" id="navToggle">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ───── HERO ───── -->
+<section class="page-hero">
+  <div class="eyebrow"><span class="eyebrow-dot"></span>NEWS &amp; UPDATES</div>
+  <h1>最新<span class="h1-gold">情報</span></h1>
+  <p class="lead">
+    gkAgent の HP・アプリ・記事のリリース履歴。<br>
+    新しい情報は上から順番に追加していきます。
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───── TIMELINE ───── -->
+<section>
+  <div class="timeline">
+
+    <article class="news-item reveal">
+      <div class="news-meta">
+        <div class="news-date">2026.04.26</div>
+        <span class="news-tag tag-hp">HP</span>
+      </div>
+      <div class="news-body">
+        <h3>gkagent.jp 公式サイトオープン</h3>
+        <p>独自ドメインで HP を公開しました。Home / News / Apps / Content / About の 5 ページ構成、PC・iPad・iPhone 完全対応。17 メンバーのこだわりを About ページで全員紹介。</p>
+        <a class="news-link" href="/about.html">About を見る</a>
+      </div>
+    </article>
+
+    <article class="news-item reveal">
+      <div class="news-meta">
+        <div class="news-date">2026.04.25</div>
+        <span class="news-tag tag-app">APP</span>
+      </div>
+      <div class="news-body">
+        <h3>gkLinks v2.0.0 正式版リリース</h3>
+        <p>サーバー無し・DB 無し・HTML ファイル1つで動く高機能リンク管理アプリ。AI プロンプトライブラリ・コードスニペット集・PR レビュータイマー・工数記録・ノートブックなど 24 機能を搭載。GitHub Releases から無料ダウンロード。</p>
+        <a class="news-link" href="/apps.html">アプリ詳細を見る</a>
+      </div>
+    </article>
+
+    <article class="news-item reveal">
+      <div class="news-meta">
+        <div class="news-date">2026.04.23</div>
+        <span class="news-tag tag-article">ZENN</span>
+      </div>
+      <div class="news-body">
+        <h3>Zenn 第④弾「Claude Code 100 tips」公開</h3>
+        <p>Claude Code を使い倒す現場知見を 100 項目に整理。エディタ統合・スラッシュコマンド・MCP 活用・大型コードベースでの注意点まで。</p>
+        <a class="news-link" href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn で読む</a>
+      </div>
+    </article>
+
+    <article class="news-item reveal">
+      <div class="news-meta">
+        <div class="news-date">2026.04.21</div>
+        <span class="news-tag tag-article">ZENN</span>
+      </div>
+      <div class="news-body">
+        <h3>Zenn 第③弾 公開</h3>
+        <p>業務開発に Claude Code を導入する際の現場知見を体系化。Java / TypeScript / C# / VB.NET / COBOL を扱う現場での実践パターン。</p>
+        <a class="news-link" href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn で読む</a>
+      </div>
+    </article>
+
+    <article class="news-item reveal">
+      <div class="news-meta">
+        <div class="news-date">2026.04.19</div>
+        <span class="news-tag tag-skill">SKILLS</span>
+      </div>
+      <div class="news-body">
+        <h3>gk-skills 42 スキル GitHub 公開</h3>
+        <p>spec-gen / code-review / migration / todo-resolution など、日本 SI のエンタープライズ現場向け Claude Code スキル 42 本を公開。Java / TypeScript / C# / VB.NET / COBOL 対応。</p>
+        <a class="news-link" href="https://github.com/gkAgent/gk-skills" target="_blank" rel="noopener">GitHub で見る</a>
+      </div>
+    </article>
+
+    <article class="news-item reveal">
+      <div class="news-meta">
+        <div class="news-date">2026.04.17</div>
+        <span class="news-tag tag-article">ZENN</span>
+      </div>
+      <div class="news-body">
+        <h3>Zenn 第②弾 公開</h3>
+        <p>Claude Code を使った業務開発のベストプラクティス。プランモード活用・Plan→Implement の 2 フェーズ運用ノウハウなど。</p>
+        <a class="news-link" href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn で読む</a>
+      </div>
+    </article>
+
+    <article class="news-item reveal">
+      <div class="news-meta">
+        <div class="news-date">2026.04.15</div>
+        <span class="news-tag tag-article">ZENN</span>
+      </div>
+      <div class="news-body">
+        <h3>Zenn 第①弾 公開（gkAgent 初記事）</h3>
+        <p>「AGENTS.md 10 パターン」— Claude Code の AGENTS.md 設計パターンを 10 種類整理。記念すべき第 1 弾。</p>
+        <a class="news-link" href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn で読む</a>
+      </div>
+    </article>
+
+    <article class="news-item reveal">
+      <div class="news-meta">
+        <div class="news-date">2026.03.30</div>
+        <span class="news-tag tag-milestone">START</span>
+      </div>
+      <div class="news-body">
+        <h3>gkAgent 始動</h3>
+        <p>「AIで、仕事を変える。」— SIer 約 20 年の業務系開発経験を、生成 AI と組み合わせて発信していくプロジェクト発足。1 人の開発者と 17 の AI スペシャリストエージェントで運営。</p>
+        <a class="news-link" href="/about.html">About を見る</a>
+      </div>
+    </article>
+
+    <p class="news-empty-future">— つづく —</p>
+
+  </div>
+</section>
+
+<!-- ───── FOOTER ───── -->
+<footer class="site-footer">
+  <div class="footer-left">
+    <div class="footer-logo">gkAgent</div>
+    <p class="footer-tag">AIで、仕事を変える。</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://note.com/gkagent" target="_blank" rel="noopener">note</a>
+    <a href="https://zenn.dev/gk3" target="_blank" rel="noopener">Zenn</a>
+    <a href="https://github.com/gkAgent" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p class="footer-copy">© <span id="year">2026</span> gkAgent</p>
+</footer>
+
+<script src="js/neural.js"></script>
+<script src="js/nav.js"></script>
+</body>
+</html>
