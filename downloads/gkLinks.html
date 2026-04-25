@@ -1429,6 +1429,110 @@
   			border-color: var(--modal-input-border);
 		}
 
+		body.dark .modal textarea {
+			color: #fffbe6 !important;
+			background: var(--modal-input-bg);
+			border-color: var(--modal-input-border);
+		}
+
+		/* パネル説明文 */
+		.panel-description {
+			font-size: 0.72rem;
+			color: #5a7a9a;
+			line-height: 1.3;
+			padding: 0 6px;
+			margin-top: 2px;
+			z-index: 2;
+			pointer-events: none;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			text-align: center;
+			word-break: break-all;
+		}
+
+		body.dark .panel-description {
+			color: #8bb2cc;
+		}
+
+		/* description があるパネルは少し高くする */
+		.panel.has-description {
+			height: auto;
+			min-height: 90px;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			flex-direction: column;
+			justify-content: center;
+			gap: 2px;
+		}
+
+		/* コンテキストメニュー */
+		#panelContextMenu {
+			position: fixed;
+			z-index: 9999;
+			background: var(--modal-bg);
+			border: 1.5px solid var(--modal-border);
+			border-radius: 10px;
+			box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12);
+			padding: 6px 0;
+			min-width: 170px;
+			display: none;
+			animation: slideDown 0.15s ease;
+		}
+
+		#panelContextMenu .ctx-item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 9px 18px;
+			font-size: 0.93em;
+			font-weight: 500;
+			color: var(--dropdown-fg);
+			cursor: pointer;
+			transition: background 0.15s;
+			user-select: none;
+			border: none;
+			background: none;
+			width: 100%;
+			text-align: left;
+			font-family: inherit;
+		}
+
+		#panelContextMenu .ctx-item:hover {
+			background: var(--dropdown-hover-bg);
+			color: var(--dropdown-hover-fg);
+		}
+
+		#panelContextMenu .ctx-item.danger {
+			color: #c53030;
+		}
+
+		#panelContextMenu .ctx-item.danger:hover {
+			background: #fff0f0;
+			color: #9b2c2c;
+		}
+
+		body.dark #panelContextMenu .ctx-item.danger:hover {
+			background: #3d1515;
+		}
+
+		#panelContextMenu .ctx-sep {
+			height: 1px;
+			background: var(--modal-border);
+			margin: 4px 0;
+		}
+
+		/* 検索ヒント */
+		.search-hint {
+			font-size: 0.75em;
+			color: rgba(255,255,255,0.65);
+			text-align: right;
+			padding: 3px 6px 0 0;
+			letter-spacing: 0.02em;
+			white-space: nowrap;
+		}
+
 	</style>
 </head>
 
@@ -1440,8 +1544,11 @@
 		
 		<!-- 検索フィルターエリア -->
 		<div class="header-search-area">
-			<div class="search-input-wrapper">
-				<input type="text" id="headerSearchInput" placeholder="パネルを検索...">
+			<div style="display:flex;flex-direction:column;gap:2px;">
+				<div class="search-input-wrapper">
+					<input type="text" id="headerSearchInput" placeholder="パネルを検索...">
+				</div>
+				<div style="font-size:0.72em;color:rgba(255,255,255,0.55);padding:0 4px;white-space:nowrap;letter-spacing:0.01em;">スペース=AND / |=OR / -=除外</div>
 			</div>
 			<div class="search-input-wrapper">
 				<input type="text" id="headerUrlSearchInput" placeholder="URLで検索...">
@@ -1649,7 +1756,20 @@
 			<button id="tagFilterCloseBtn" class="dropbtn" style="padding:6px 12px;font-size:0.9em;">✕</button>
 		</div>
 		<div class="accordion-list" id="accordionList"></div>
-	</main><!-- モーダル：カテゴリ・パネル編集用 -->
+	</main>
+
+	<!-- パネル右クリックコンテキストメニュー -->
+	<div id="panelContextMenu">
+		<button class="ctx-item" id="ctxOpen">🔗 リンクを開く（新しいタブ）</button>
+		<button class="ctx-item" id="ctxCopy">📋 URLをコピー</button>
+		<div class="ctx-sep"></div>
+		<button class="ctx-item" id="ctxEdit">✏️ 編集</button>
+		<button class="ctx-item" id="ctxFav">⭐ お気に入りに追加/解除</button>
+		<div class="ctx-sep"></div>
+		<button class="ctx-item danger" id="ctxDel">🗑️ 削除</button>
+	</div>
+
+	<!-- モーダル：カテゴリ・パネル編集用 -->
 	<div class="modal-bg" style="display:none;" id="modalBg">
 		<div class="modal">
 			<form id="panelForm" name="panelForm">
@@ -1670,6 +1790,8 @@
 					<div id="tagSuggestions" class="tag-suggestions"></div>
 					<div id="currentTags" class="tag-container"></div>
 				</div>
+				<label for="panelDescription">説明文（任意）</label>
+				<textarea id="panelDescription" rows="3" style="width:94%;box-sizing:border-box;margin-bottom:14px;font-size:1em;border:1.3px solid var(--modal-input-border);border-radius:6px;padding:8px;background:var(--modal-input-bg);resize:vertical;font-family:inherit;color:inherit;" placeholder="このリンクの説明を入力（省略可）"></textarea>
 				<button type="submit"
 					id="panelSaveBtn">保存</button> <button type="button" class="close-btn"
 					id="panelCancelBtn">キャンセル</button>
@@ -1910,6 +2032,18 @@
 </div>
 	<script>
 		// グローバル関数を先に定義
+		// panelMatchesQuery: パネルデータと検索関数でマッチ判定（早期定義）
+		window.panelMatchesQuery = function(panel, matchFn) {
+			if (!matchFn) return true;
+			const combined = [
+				panel.text || '',
+				panel.url || '',
+				(panel.tags || []).join(' '),
+				panel.description || ''
+			].join(' ');
+			return matchFn(combined);
+		};
+
 		window.openAllFilteredPanels = function() {
 			console.log('検索結果一括オープンボタンがクリックされました');
 			const urls = [];
@@ -1930,19 +2064,22 @@
 					}
 					
 					if (match && window.filterText) {
-						const text = panel.text || '';
-						if (!text.toLowerCase().includes(window.filterText.toLowerCase())) {
-							match = false;
+						const matchFn = window.parseSearchQuery ? window.parseSearchQuery(window.filterText) : null;
+						if (matchFn) {
+							if (!window.panelMatchesQuery(panel, matchFn)) match = false;
+						} else {
+							const text = panel.text || '';
+							if (!text.toLowerCase().includes(window.filterText.toLowerCase())) match = false;
 						}
 					}
-					
+
 					if (match && window.filterUrlText) {
 						const url = panel.url || '';
 						if (!url.toLowerCase().includes(window.filterUrlText.toLowerCase())) {
 							match = false;
 						}
 					}
-					
+
 					if (match && panel.url) {
 						urls.push(panel.url);
 					}
@@ -2577,9 +2714,11 @@
 						return { ...panel, __originalIdx: panelIdx };
 					});
 					
-					// テキストフィルター適用
+					// テキストフィルター適用（AND/OR/除外対応）
 					if (filterText) {
-						panelsToRender = panelsToRender.filter(p => (p.text || "").toLowerCase().includes(filterText));
+						const _pSQ = window.parseSearchQuery || function(q){ return function(t){ return t.toLowerCase().includes(q.toLowerCase()); }; };
+						const matchFn = _pSQ(filterText);
+						panelsToRender = panelsToRender.filter(p => window.panelMatchesQuery(p, matchFn));
 					}
 					
 					// URLフィルター適用
@@ -2790,6 +2929,13 @@
 					tagsHtml += '</div>';
 				}
 
+				// --- description 表示
+				let descHtml = '';
+				if (p.description && p.description.trim() && mode === "normal") {
+					descHtml = `<span class="panel-description">${p.description.replace(/</g,"&lt;")}</span>`;
+					a.classList.add('has-description');
+				}
+
 				// --- パネルHTML
 				a.innerHTML = `
 			<span class="fav-btn-wrapper">${favHtml}</span>
@@ -2801,6 +2947,7 @@
 			</span>
 			${imgTag}
 			<span class="panel-title">${rankBadge}${p.text.replace(/</g, "&lt;")} ${countHtml} ${dateHtml}</span>
+			${descHtml}
 			${tagsHtml}
 		`;
 
@@ -2951,6 +3098,7 @@
 			document.getElementById('panelTitle').value = item ? item.text : "";
 			document.getElementById('panelUrl').value = item ? item.url : "";
 			document.getElementById('panelImg').value = item ? item.img : "";
+			document.getElementById('panelDescription').value = item ? (item.description || "") : "";
 			
 			// タグの読み込み
 			currentPanelTags = (item && item.tags && Array.isArray(item.tags)) ? [...item.tags] : [];
@@ -2991,12 +3139,16 @@
 			const url = document.getElementById('panelUrl').value;
 			const img = document.getElementById('panelImg').value.replace(/\\/g, "/");
 			const tags = [...currentPanelTags];
-			
+			const description = document.getElementById('panelDescription').value.trim();
+
 			let list = catList[catIdx].panels;
 			if (idx === "") {
-				list.push({ text, img, url, tags });
+				list.push({ text, img, url, tags, description });
 			} else {
-				list[idx] = { text, img, url, tags };
+				// 既存パネルのお気に入りフラグを保持
+				const existingFav = list[idx] ? list[idx].favorite : undefined;
+				list[idx] = { text, img, url, tags, description };
+				if (typeof existingFav !== 'undefined') list[idx].favorite = existingFav;
 			}
 			saveCats(catList);
 			collectAllTags();
@@ -3932,14 +4084,12 @@
 					}
 				}
 				
-				// テキスト検索チェック
+				// テキスト検索チェック（AND/OR/除外対応）
 				if (match && filterText) {
-					const text = panel.text || '';
-					if (!text.toLowerCase().includes(filterText.toLowerCase())) {
-						match = false;
-					}
+					const matchFn = parseSearchQuery(filterText);
+					if (!window.panelMatchesQuery(panel, matchFn)) match = false;
 				}
-				
+
 				// URL検索チェック
 				if (match && filterUrlText) {
 					const url = panel.url || '';
@@ -3947,7 +4097,7 @@
 						match = false;
 					}
 				}
-				
+
 			if (match && panel.url) {
 				urls.push(panel.url);
 			}
@@ -4076,6 +4226,172 @@ panelTagsInput.oninput = function() {
 		renderCats();
 		enableCatSortable();
 		collectAllTags();
+
+	// ============= 右クリックコンテキストメニュー =============
+	(function() {
+		const ctxMenu = document.getElementById('panelContextMenu');
+		let ctxTarget = null; // { catIdx, panelIdx, url, panel }
+
+		function showCtxMenu(x, y, data) {
+			ctxTarget = data;
+
+			// お気に入り状態でラベル更新
+			const favLabel = data.panel && data.panel.favorite ? '⭐ お気に入りを解除' : '⭐ お気に入りに追加';
+			document.getElementById('ctxFav').textContent = favLabel;
+
+			ctxMenu.style.display = 'block';
+
+			// 画面端を超えないよう位置調整
+			const menuW = ctxMenu.offsetWidth || 180;
+			const menuH = ctxMenu.offsetHeight || 200;
+			const winW = window.innerWidth;
+			const winH = window.innerHeight;
+			let left = x;
+			let top = y;
+			if (left + menuW > winW) left = winW - menuW - 8;
+			if (top + menuH > winH) top = winH - menuH - 8;
+			ctxMenu.style.left = left + 'px';
+			ctxMenu.style.top = top + 'px';
+		}
+
+		function hideCtxMenu() {
+			ctxMenu.style.display = 'none';
+			ctxTarget = null;
+		}
+
+		// クリック以外で閉じる
+		document.addEventListener('click', function(e) {
+			if (!ctxMenu.contains(e.target)) hideCtxMenu();
+		});
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') hideCtxMenu();
+		});
+
+		// パネルの右クリックをキャッチ（イベント委譲）
+		document.getElementById('accordionList').addEventListener('contextmenu', function(e) {
+			const panelEl = e.target.closest('.panel');
+			if (!panelEl) return;
+
+			e.preventDefault();
+
+			// panelEl からデータ取得（editbarのdata-idxを使う）
+			const editBtn = panelEl.querySelector('.edbtn[data-action="edit"]');
+			const delBtn = panelEl.querySelector('.edbtn[data-action="del"]');
+			if (!editBtn) return;
+
+			const panelIdx = parseInt(editBtn.dataset.idx, 10);
+			// catIdx は panelGridXX から取得
+			const grid = panelEl.closest('[id^="panelGrid"]');
+			if (!grid) return;
+			const catIdx = parseInt(grid.id.replace('panelGrid', ''), 10);
+			if (isNaN(catIdx) || isNaN(panelIdx)) return;
+
+			const panel = catList[catIdx] && catList[catIdx].panels[panelIdx];
+			if (!panel) return;
+
+			showCtxMenu(e.clientX, e.clientY, { catIdx, panelIdx, url: panel.url, panel });
+		});
+
+		// メニュー項目のアクション
+		document.getElementById('ctxOpen').addEventListener('click', function() {
+			if (ctxTarget && ctxTarget.url) window.open(ctxTarget.url, '_blank');
+			hideCtxMenu();
+		});
+
+		document.getElementById('ctxCopy').addEventListener('click', function() {
+			if (ctxTarget && ctxTarget.url) {
+				navigator.clipboard.writeText(ctxTarget.url).then(() => {
+					// 一瞬フィードバック
+					const orig = this.textContent;
+					this.textContent = '✅ コピーしました';
+					setTimeout(() => { this.textContent = orig; }, 1200);
+				}).catch(() => {
+					// fallback
+					const ta = document.createElement('textarea');
+					ta.value = ctxTarget.url;
+					document.body.appendChild(ta);
+					ta.select();
+					document.execCommand('copy');
+					document.body.removeChild(ta);
+				});
+			}
+			hideCtxMenu();
+		});
+
+		document.getElementById('ctxEdit').addEventListener('click', function() {
+			if (ctxTarget) {
+				openPanelModal(catList[ctxTarget.catIdx].panels[ctxTarget.panelIdx], ctxTarget.catIdx, ctxTarget.panelIdx);
+			}
+			hideCtxMenu();
+		});
+
+		document.getElementById('ctxFav').addEventListener('click', function() {
+			if (ctxTarget) {
+				const { catIdx, panelIdx } = ctxTarget;
+				const p = catList[catIdx] && catList[catIdx].panels[panelIdx];
+				if (p) {
+					p.favorite = !p.favorite;
+					saveCats(catList);
+					renderCats();
+					enableCatSortable();
+				}
+			}
+			hideCtxMenu();
+		});
+
+		document.getElementById('ctxDel').addEventListener('click', function() {
+			if (ctxTarget) {
+				const { catIdx, panelIdx } = ctxTarget;
+				const p = catList[catIdx] && catList[catIdx].panels[panelIdx];
+				const name = p ? p.text : 'このパネル';
+				if (confirm(`「${name}」を削除しますか？`)) {
+					catList[catIdx].panels.splice(panelIdx, 1);
+					saveCats(catList);
+					renderCats();
+					enableCatSortable();
+				}
+			}
+			hideCtxMenu();
+		});
+	})();
+
+	// ============= AND/OR 検索演算子 =============
+	// parseSearchQuery: クエリ文字列を解析してマッチ判定関数を返す
+	window.parseSearchQuery = function parseSearchQuery(query) {
+		if (!query || !query.trim()) return null;
+		const raw = query.trim();
+
+		// OR 演算子（|）が含まれるか
+		if (raw.includes('|')) {
+			const orParts = raw.split('|').map(s => s.trim()).filter(s => s);
+			return function(text) {
+				return orParts.some(part => matchPart(part, text));
+			};
+		}
+
+		// スペース区切り AND + 先頭 - 除外
+		const tokens = raw.split(/\s+/).filter(s => s);
+		const includes = tokens.filter(t => !t.startsWith('-')).map(t => t.toLowerCase());
+		const excludes = tokens.filter(t => t.startsWith('-') && t.length > 1).map(t => t.slice(1).toLowerCase());
+
+		return function(text) {
+			const lc = text.toLowerCase();
+			if (excludes.some(ex => lc.includes(ex))) return false;
+			return includes.every(inc => lc.includes(inc));
+		};
+	}
+
+	function matchPart(part, text) {
+		// パーツ内は AND + 除外扱い
+		const tokens = part.split(/\s+/).filter(s => s);
+		const includes = tokens.filter(t => !t.startsWith('-')).map(t => t.toLowerCase());
+		const excludes = tokens.filter(t => t.startsWith('-') && t.length > 1).map(t => t.slice(1).toLowerCase());
+		const lc = text.toLowerCase();
+		if (excludes.some(ex => lc.includes(ex))) return false;
+		return includes.every(inc => lc.includes(inc));
+	}
+
+
 	</script>
 </body>
 
