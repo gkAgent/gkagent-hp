@@ -6329,20 +6329,32 @@
 		}
 
 		// タグフィルターボタンクリック
-		document.getElementById('tagFilterBtn').onclick = function() {
-			const bar = document.getElementById('tagFilterBar');
-			bar.classList.toggle('active');
-			if (bar.classList.contains('active')) {
-				updateTagFilterList();
+		(function(){
+			const btn = document.getElementById('tagFilterBtn');
+			if (btn) {
+				btn.onclick = function() {
+					const bar = document.getElementById('tagFilterBar');
+					if (!bar) return;
+					bar.classList.toggle('active');
+					if (bar.classList.contains('active')) {
+						updateTagFilterList();
+					}
+				};
 			}
-		};
+		})();
 
 		// タグフィルターバーを閉じる
-		document.getElementById('tagFilterCloseBtn').onclick = function() {
-			document.getElementById('tagFilterBar').classList.remove('active');
-			selectedTags = [];
-			renderCats();
-		};
+		(function(){
+			const closeBtn = document.getElementById('tagFilterCloseBtn');
+			if (closeBtn) {
+				closeBtn.onclick = function() {
+					const bar = document.getElementById('tagFilterBar');
+					if (bar) bar.classList.remove('active');
+					selectedTags = [];
+					renderCats();
+				};
+			}
+		})();
 
 		// タグフィルターリストを更新
 		function updateTagFilterList() {
