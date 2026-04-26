@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://gkagent.jp/content.html</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://gkagent.jp/news.html</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -16,13 +22,7 @@
     <loc>https://gkagent.jp/apps.html</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://gkagent.jp/content.html</loc>
-    <lastmod>2026-04-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://gkagent.jp/about.html</loc>
