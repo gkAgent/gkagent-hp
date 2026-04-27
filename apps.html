@@ -25,10 +25,28 @@
     "description": "サーバー無し・DB 無し、HTML 1ファイルで動く高機能リンク管理アプリ。AI プロンプトライブラリ・コードスニペット集・PR レビュータイマー・工数記録・ノートブックなど 24 機能を搭載。",
     "url": "https://github.com/gkAgent/gkLinks",
     "downloadUrl": "https://github.com/gkAgent/gkLinks/releases/latest",
+    "image": "https://gkagent.jp/images/product-gklinks.png",
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "JPY"
+      "priceCurrency": "JPY",
+      "availability": "https://schema.org/InStock",
+      "url": "https://github.com/gkAgent/gkLinks/releases/latest",
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "JPY" },
+        "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "JP" },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+          "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+        }
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "JP",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+      }
     },
     "license": "https://opensource.org/licenses/MIT",
     "author": { "@type": "Organization", "name": "gkAgent", "url": "https://gkagent.jp/" }
