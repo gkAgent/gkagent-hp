@@ -182,21 +182,25 @@ canvas#neural-bg, canvas#neural {
     padding: calc(var(--nav-h) + 2rem) 2rem 2rem;
     padding-top: calc(var(--nav-h) + 2rem + env(safe-area-inset-top));
     padding-right: max(2rem, env(safe-area-inset-right));
-    background: rgba(6,8,15,.96);
+    /* 完全不透明背景 + ゴールドアクセント枠で読みやすさ確保 (2026-04-29 修正) */
+    background: #06080f;
     backdrop-filter: blur(22px);
     -webkit-backdrop-filter: blur(22px);
-    border-left: 1px solid var(--border);
+    border-left: 1px solid rgba(212,175,55,.25);
     transform: translateX(105%);
     transition: transform .35s cubic-bezier(.2,.7,.2,1);
-    box-shadow: -20px 0 60px rgba(0,0,0,.5);
+    box-shadow: -20px 0 60px rgba(0,0,0,.7);
   }
   .nav-links.open { transform: translateX(0); }
   .nav-link {
     width: 100%;
     padding: 1rem 0;
     font-size: 1rem;
-    border-bottom: 1px solid var(--border);
+    /* ハンバーガーメニュー展開時は読みやすい白系に (2026-04-29 修正) */
+    color: var(--text);
+    border-bottom: 1px solid rgba(255,255,255,.15);
   }
+  .nav-link:hover, .nav-link.active { color: var(--gold); }
   .nav-link.active::after { display: none; }
   .nav-link.active { border-bottom-color: var(--border-hi); }
 }
